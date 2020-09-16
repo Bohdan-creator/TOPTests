@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj": {}
+    "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj": {
+    "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
         "projectName": "TopTests.DAL",
-        "projectPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
+        "projectPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
         "packagesPath": "C:\\Users\\kuche\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\obj\\",
+        "outputPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -81,14 +81,14 @@
         }
       }
     },
-    "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj": {
+    "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj",
+        "projectUniqueName": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj",
         "projectName": "TopTests.Services",
-        "projectPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj",
+        "projectPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.Services\\TopTests.Services.csproj",
         "packagesPath": "C:\\Users\\kuche\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.Services\\obj\\",
+        "outputPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -107,8 +107,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj": {
-                "projectPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj"
+              "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj": {
+                "projectPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj"
               }
             }
           }

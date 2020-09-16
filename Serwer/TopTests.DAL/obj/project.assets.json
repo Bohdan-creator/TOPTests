@@ -5683,11 +5683,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
       "projectName": "TopTests.DAL",
-      "projectPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
+      "projectPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj",
       "packagesPath": "C:\\Users\\kuche\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kuche\\source\\repos\\TopTests\\Serwer\\TopTests.DAL\\obj\\",
+      "outputPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
