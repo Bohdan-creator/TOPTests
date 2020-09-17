@@ -14,7 +14,7 @@ namespace TopTests.DAL.Repositories
         }
         public void SetValueIsDelete(int id)
         {
-            context.Set<Topics>()
+                 context.Set<Topics>()
                 .Where(e => e.SubjectId == id)
                 .ToList()
                 .ForEach(c => c.isDelete = true);

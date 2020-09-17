@@ -12,13 +12,19 @@ namespace TopTests.Services.Services
     {
         private readonly ISubjectRepository subjectRepository;
         private readonly ITopicsRepository topicsRepository;
+        private readonly ITestQuestionRepository testQuestionRepository;
+        private readonly IAnswersRepository answersRepository;
         private readonly IMapper mapper;
         public SubjectService(ISubjectRepository subjectRepository, IMapper mapper,
-                              ITopicsRepository topicsRepository)
+                              ITopicsRepository topicsRepository,
+                              ITestQuestionRepository testQuestionRepository,
+                              IAnswersRepository answersRepository)
         {
             this.subjectRepository = subjectRepository;
             this.mapper = mapper;
             this.topicsRepository = topicsRepository;
+            this.testQuestionRepository = testQuestionRepository;
+            this.answersRepository = answersRepository;
         }
 
         public async Task<EditSubjectDto> EditSubject(int id, EditSubjectDto editSubjectDto)
@@ -59,6 +65,7 @@ namespace TopTests.Services.Services
                 return false;
             }
             topicsRepository.SetValueIsDelete(subject.Id);
+        //    testQuestionRepository.SetValueIsDelete()
             subjectRepository.Update(subject);
             await subjectRepository.SaveChangesAsync();
             await topicsRepository.SaveChangesAsync();

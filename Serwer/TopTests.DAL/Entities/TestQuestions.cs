@@ -8,9 +8,10 @@ namespace TopTests.DAL.Entities
     {
         public int Id { get; set; }
         public int TopicId { get; set; }
-        public string Answer { get; set; }
-        public string Description { get; set; }
+        public int SubjectId { get; set; }
+        public string Question { get; set; }
         public Topics Topics { get; set; }
+        public Subjects Subjects { get; set; }
         public bool isDelete { get; set; }
     }
 }

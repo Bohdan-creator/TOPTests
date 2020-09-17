@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopTests.DAL;
 
 namespace TopTests.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200917082525_addTableAnswers")]
+    partial class addTableAnswers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,12 +31,6 @@ namespace TopTests.DAL.Migrations
                     b.Property<string>("Answer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TestQuestionsId")
                         .HasColumnType("int");
 
@@ -45,8 +41,6 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectsId");
 
                     b.HasIndex("TestQuestionsId");
 
@@ -229,12 +223,6 @@ namespace TopTests.DAL.Migrations
                     b.Property<string>("Question")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
 
@@ -245,8 +233,6 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectsId");
 
                     b.HasIndex("TopicsId");
 
@@ -329,10 +315,6 @@ namespace TopTests.DAL.Migrations
 
             modelBuilder.Entity("TopTests.DAL.Entities.Answers", b =>
                 {
-                    b.HasOne("TopTests.DAL.Entities.Subjects", "Subjects")
-                        .WithMany()
-                        .HasForeignKey("SubjectsId");
-
                     b.HasOne("TopTests.DAL.Entities.TestQuestions", "TestQuestions")
                         .WithMany()
                         .HasForeignKey("TestQuestionsId")
@@ -373,10 +355,6 @@ namespace TopTests.DAL.Migrations
 
             modelBuilder.Entity("TopTests.DAL.Entities.TestQuestions", b =>
                 {
-                    b.HasOne("TopTests.DAL.Entities.Subjects", "Subjects")
-                        .WithMany()
-                        .HasForeignKey("SubjectsId");
-
                     b.HasOne("TopTests.DAL.Entities.Topics", "Topics")
                         .WithMany()
                         .HasForeignKey("TopicsId");

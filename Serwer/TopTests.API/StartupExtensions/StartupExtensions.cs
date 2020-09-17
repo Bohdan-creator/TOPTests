@@ -49,6 +49,8 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<IRefreshRepository, RefreshRepository>();
             services.AddScoped<ITopicsRepository, TopicsRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<ITestQuestionRepository, TestQuestionsRepository>();
+            services.AddScoped<IAnswersRepository, AnswersRepository>();
             return services;
         }
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
