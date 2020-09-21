@@ -126,6 +126,9 @@
   <data name="EmailPassword" xml:space="preserve">
     <value>Email, password or your account not active</value>
   </data>
+  <data name="File" xml:space="preserve">
+    <value>Please check your file, some fields are empty</value>
+  </data>
   <data name="Id" xml:space="preserve">
     <value>Id is not exist</value>
   </data>

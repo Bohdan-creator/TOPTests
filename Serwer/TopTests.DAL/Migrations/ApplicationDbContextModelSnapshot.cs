@@ -26,16 +26,13 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Answer")
+                    b.Property<string>("NumberOfIdentificationQuestion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestQuestionsId")
                         .HasColumnType("int");
 
                     b.Property<bool>("isCorrect")
@@ -45,10 +42,6 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.HasIndex("TestQuestionsId");
 
                     b.ToTable("Answers");
                 });
@@ -226,6 +219,9 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("NumberOfIdentification")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Question")
                         .HasColumnType("nvarchar(max)");
 
@@ -239,6 +235,9 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("TopicsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfcomplexity")
                         .HasColumnType("int");
 
                     b.Property<bool>("isDelete")
@@ -325,19 +324,6 @@ namespace TopTests.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("TopTests.DAL.Entities.Answers", b =>
-                {
-                    b.HasOne("TopTests.DAL.Entities.Subjects", "Subjects")
-                        .WithMany()
-                        .HasForeignKey("SubjectsId");
-
-                    b.HasOne("TopTests.DAL.Entities.TestQuestions", "TestQuestions")
-                        .WithMany()
-                        .HasForeignKey("TestQuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TopTests.DAL.Entities.FeedBacks", b =>

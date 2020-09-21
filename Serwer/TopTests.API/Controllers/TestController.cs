@@ -1,13 +1,13 @@
 ﻿using CsvHelper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using TopTests.API.Resources;
+using TopTests.Services.Interfaces;
 using TopTests.Services.Models.Testy;
 
 namespace TopTests.API.Controllers
@@ -16,23 +16,22 @@ namespace TopTests.API.Controllers
     [ApiController]
     public class TestController : Controller
     {
-        public class Upload
+        private readonly ITestService testService;
+        private readonly ResourceManager resourceManager;
+        public TestController(ITestService testService)
         {
-            public IFormFile files { get; set; }
+            this.testService = testService;
+            resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
         [HttpPost]
-        public IActionResult ReadFile([FromForm]Upload file)
+        public async Task<IActionResult> ReadFile([FromForm]UploadFile file)
         {
-            var result = new StringBuilder();
-            var files = file.files;
-            CultureInfo culture1 = CultureInfo.CurrentCulture;
-            using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.Default))
-            using (var csv = new CsvReader(reader, culture1))
+            var response = await testService.ReadTest(file);
+            if (response == false)
             {
-                var records = csv.GetRecords<ReadTestDto>();
-                return Ok(records.ToList());
+                return BadRequest(resourceManager.GetString("File"));
             }
-
+            return Ok();
         }
     }
 }

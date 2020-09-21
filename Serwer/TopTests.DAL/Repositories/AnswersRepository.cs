@@ -12,6 +12,13 @@ namespace TopTests.DAL.Repositories
         public AnswersRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
+
+        public void SaveAnswers(List<Answers> answers)
+        {
+            context.Set<Answers>().AddRange(answers);
+            context.SaveChanges();
+        }
+
         public void SetValueIsDelete(int id)
         {
             context.Set<Answers>()

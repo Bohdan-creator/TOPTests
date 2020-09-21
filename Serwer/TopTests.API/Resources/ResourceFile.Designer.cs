@@ -88,6 +88,15 @@ namespace TopTests.API.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please check your file, some fields are empty.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id is not exist.
         /// </summary>
         public static string Id {

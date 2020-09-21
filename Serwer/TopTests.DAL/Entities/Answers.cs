@@ -7,12 +7,18 @@ namespace TopTests.DAL.Entities
     public class Answers
     {
         public int Id { get; set; }
-        public int TestQuestionsId{get;set ;}
         public int SubjectId { get; set; }
-        public string Answer { get; set; }
+        public string NumberOfIdentificationQuestion { get; set; }
+        public string Option { get; set; }
         public bool isCorrect { get; set; }
         public bool isDelete { get; set; }
-        public TestQuestions TestQuestions { get; set; }
-        public Subjects Subjects { get; set; }
+        public Answers() { }
+        public Answers(int subjectId,string numberOfidentification,string option,bool iscorrect)
+        {
+            SubjectId = subjectId;
+            NumberOfIdentificationQuestion = numberOfidentification;
+            Option = option;
+            isCorrect = iscorrect;
+        }
     }
 }

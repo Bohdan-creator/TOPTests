@@ -10,8 +10,8 @@ using TopTests.DAL;
 namespace TopTests.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200917082525_addTableAnswers")]
-    partial class addTableAnswers
+    [Migration("20200921150805_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,10 +28,13 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Answer")
+                    b.Property<string>("NumberOfIdentificationQuestion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TestQuestionsId")
+                    b.Property<string>("Option")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.Property<bool>("isCorrect")
@@ -41,8 +44,6 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TestQuestionsId");
 
                     b.ToTable("Answers");
                 });
@@ -220,8 +221,17 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("NumberOfIdentification")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Question")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectsId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
@@ -233,6 +243,8 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubjectsId");
 
                     b.HasIndex("TopicsId");
 
@@ -313,15 +325,6 @@ namespace TopTests.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TopTests.DAL.Entities.Answers", b =>
-                {
-                    b.HasOne("TopTests.DAL.Entities.TestQuestions", "TestQuestions")
-                        .WithMany()
-                        .HasForeignKey("TestQuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TopTests.DAL.Entities.FeedBacks", b =>
                 {
                     b.HasOne("TopTests.DAL.Entities.Users", "Users")
@@ -355,6 +358,10 @@ namespace TopTests.DAL.Migrations
 
             modelBuilder.Entity("TopTests.DAL.Entities.TestQuestions", b =>
                 {
+                    b.HasOne("TopTests.DAL.Entities.Subjects", "Subjects")
+                        .WithMany()
+                        .HasForeignKey("SubjectsId");
+
                     b.HasOne("TopTests.DAL.Entities.Topics", "Topics")
                         .WithMany()
                         .HasForeignKey("TopicsId");

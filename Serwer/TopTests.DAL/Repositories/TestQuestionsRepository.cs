@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TopTests.DAL.Entities;
 using TopTests.DAL.Interfaces;
 
@@ -13,10 +10,21 @@ namespace TopTests.DAL.Repositories
         public TestQuestionsRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
+
+        public  IEnumerable<TestQuestions> GetLastRow()
+        {
+           // var order = context.TestQuestions.OrderByDescending(o => o.Id).Take(1);
+            return null;
+        }
+        public void addTestsQuestions(List<TestQuestions> testQuestions)
+        {
+            context.Set<TestQuestions>().AddRange(testQuestions);
+            context.SaveChanges();
+        }
         public void SetValueIsDelete(int id)
         {
             context.Set<TestQuestions>()
-                .Where(e => e.TopicId == id)
+                .Where(e => e.SubjectId == id)
                 .ToList()
                 .ForEach(c => c.isDelete = true);
         }
