@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TopTests.DAL.Entities;
 using TopTests.DAL.Interfaces;
 
@@ -16,7 +18,7 @@ namespace TopTests.DAL.Repositories
            // var order = context.TestQuestions.OrderByDescending(o => o.Id).Take(1);
             return null;
         }
-        public void addTestsQuestions(List<TestQuestions> testQuestions)
+        public void AddTestsQuestions(List<TestQuestions> testQuestions)
         {
             context.Set<TestQuestions>().AddRange(testQuestions);
             context.SaveChanges();
@@ -27,6 +29,12 @@ namespace TopTests.DAL.Repositories
                 .Where(e => e.SubjectId == id)
                 .ToList()
                 .ForEach(c => c.isDelete = true);
+        }
+
+        public async Task<TestQuestions> CheckIfQuestionExist(TestQuestions testQuestions)
+        {
+            return await context.Set<TestQuestions>()
+                .FirstOrDefaultAsync(e => e.Question == testQuestions.Question);
         }
     }
 }

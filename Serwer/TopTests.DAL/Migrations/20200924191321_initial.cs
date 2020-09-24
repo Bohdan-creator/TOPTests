@@ -14,6 +14,8 @@ namespace TopTests.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubjectId = table.Column<int>(nullable: false),
+                    TestId = table.Column<int>(nullable: false),
+                    TopicId = table.Column<int>(nullable: false),
                     NumberOfIdentificationQuestion = table.Column<string>(nullable: true),
                     Option = table.Column<string>(nullable: true),
                     isCorrect = table.Column<bool>(nullable: false),
@@ -87,8 +89,8 @@ namespace TopTests.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubjectId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    SubjectsId = table.Column<int>(nullable: true),
-                    isDelete = table.Column<bool>(nullable: false)
+                    isDelete = table.Column<bool>(nullable: false),
+                    SubjectsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,11 +195,35 @@ namespace TopTests.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TopicId = table.Column<int>(nullable: false),
+                    SubjectId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    isDelete = table.Column<bool>(nullable: false),
+                    TopicsId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tests_Topics_TopicsId",
+                        column: x => x.TopicsId,
+                        principalTable: "Topics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TestQuestions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TestId = table.Column<int>(nullable: false),
                     TopicId = table.Column<int>(nullable: false),
                     SubjectId = table.Column<int>(nullable: false),
                     Question = table.Column<string>(nullable: true),
@@ -215,6 +241,12 @@ namespace TopTests.DAL.Migrations
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TestQuestions_Tests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Tests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TestQuestions_Topics_TopicsId",
                         column: x => x.TopicsId,
@@ -254,8 +286,18 @@ namespace TopTests.DAL.Migrations
                 column: "SubjectsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TestQuestions_TestId",
+                table: "TestQuestions",
+                column: "TestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TestQuestions_TopicsId",
                 table: "TestQuestions",
+                column: "TopicsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tests_TopicsId",
+                table: "Tests",
                 column: "TopicsId");
 
             migrationBuilder.CreateIndex(
@@ -286,6 +328,9 @@ namespace TopTests.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Tests");
 
             migrationBuilder.DropTable(
                 name: "Topics");

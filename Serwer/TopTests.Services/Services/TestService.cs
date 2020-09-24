@@ -16,20 +16,21 @@ namespace TopTests.Services.Services
     {
         private readonly ITopicsRepository topicsRepository;
         private readonly IAnswersRepository answersRepository;
+        private readonly ITestRepository testRepository;
         private readonly ITestQuestionRepository testQuestionRepository;
         public TestService(ITopicsRepository topicsRepository, IAnswersRepository answersRepository,
-                           ITestQuestionRepository testQuestionRepository)
+                           ITestQuestionRepository testQuestionRepository, ITestRepository testRepository)
         {
             this.topicsRepository = topicsRepository;
             this.answersRepository = answersRepository;
             this.testQuestionRepository = testQuestionRepository;
+            this.testRepository = testRepository;
         }
-        public async Task<bool> ReadTest(UploadFile uploadFile)
+        public async Task<ErrorTestDto> ReadTestQuestions(UploadFile uploadFile)
         {
+            ErrorTestDto errorTestDto = new ErrorTestDto();
             var files = uploadFile.formFile;
-            var testQuestion = new TestQuestions();
             var list_testQuestion = new List<TestQuestions>();
-            var answer = new Answers();
             var list_answer = new List<Answers>();
             var options = new List<string>();
             CultureInfo culture1 = CultureInfo.CurrentCulture;
@@ -42,9 +43,17 @@ namespace TopTests.Services.Services
                         i.OptionB == "" || i.OptionC == ""||
                         i.Answer==""||i.Complexity=="")
                     {
-                        return false;
-                    }                 
-                    testQuestion = new TestQuestions(1, 1, i.Question,Convert.ToInt32(i.Complexity));
+                        errorTestDto.FieldEmpty = 400;
+                        return errorTestDto ;
+                    }
+                    var test = await testRepository.GetTest(1);
+                    var testQuestion = new TestQuestions(test.Id,test.TopicId,test.SubjectId,i.Question);
+                    var check_question = await testQuestionRepository.CheckIfQuestionExist(testQuestion);
+                    if (check_question != null)
+                    {
+                        errorTestDto.QuestionExist = 400;
+                        return errorTestDto;
+                    }
                     list_testQuestion.Add(testQuestion);
                     options.Add(i.OptionA);
                     options.Add(i.OptionB);
@@ -53,21 +62,22 @@ namespace TopTests.Services.Services
                     {
                         if (answers == i.Answer)
                         {
-                            answer = new Answers(1, testQuestion.NumberOfIdentification, answers, true);
+                            var answer = new Answers(test.SubjectId,test.TopicId,test.Id,testQuestion.NumberOfIdentification, answers, true);
                             list_answer.Add(answer);
                         }
                         else
                         {
-                            answer = new Answers(1, testQuestion.NumberOfIdentification, answers, false);
+                           var answer = new Answers(test.SubjectId, test.TopicId, test.Id, testQuestion.NumberOfIdentification, answers, false);
                             list_answer.Add(answer);
                         }
                     }
                     options = new List<string>();
 
                 }
-                testQuestionRepository.addTestsQuestions(list_testQuestion);
+                
+                testQuestionRepository.AddTestsQuestions(list_testQuestion);
                 answersRepository.SaveAnswers(list_answer);
-                    return true;
+                    return errorTestDto;
             }
         }
     }

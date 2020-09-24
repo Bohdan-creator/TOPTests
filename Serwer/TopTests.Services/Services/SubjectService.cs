@@ -70,6 +70,8 @@ namespace TopTests.Services.Services
             subjectRepository.Update(subject);
             await subjectRepository.SaveChangesAsync();
             await topicsRepository.SaveChangesAsync();
+            await testQuestionRepository.SaveChangesAsync();
+            await answersRepository.SaveChangesAsync();
             return true;
         }
 

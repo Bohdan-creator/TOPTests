@@ -6,9 +6,8 @@ using TopTests.DAL.Entities;
 
 namespace TopTests.DAL.Interfaces
 {
-    public interface IAnswersRepository : IRepositoryBase<Answers>
+    public interface ITestRepository : IRepositoryBase<Test>
     {
-        void SetValueIsDelete(int id);
-        void SaveAnswers(List<Answers> answers);
+        Task<Test> GetTest(int id);
     }
 }

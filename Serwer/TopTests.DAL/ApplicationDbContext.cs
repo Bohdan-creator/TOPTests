@@ -12,6 +12,7 @@ namespace TopTests.DAL
         {
         }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Test> Tests { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Results> Results { get; set; }
         public DbSet<Subjects> Subjects { get; set; }

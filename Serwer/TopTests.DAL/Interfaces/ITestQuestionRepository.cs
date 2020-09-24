@@ -10,6 +10,7 @@ namespace TopTests.DAL.Interfaces
     {
         void SetValueIsDelete(int id);
         IEnumerable<TestQuestions> GetLastRow();
-        void addTestsQuestions(List<TestQuestions> testQuestions);
+        void AddTestsQuestions(List<TestQuestions> testQuestions);
+        Task<TestQuestions> CheckIfQuestionExist(TestQuestions TestQuestions);
     }
 }

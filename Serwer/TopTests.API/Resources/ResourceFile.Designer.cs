@@ -90,9 +90,9 @@ namespace TopTests.API.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Please check your file, some fields are empty.
         /// </summary>
-        public static string File {
+        public static string FieldEmpty {
             get {
-                return ResourceManager.GetString("File", resourceCulture);
+                return ResourceManager.GetString("FieldEmpty", resourceCulture);
             }
         }
         
@@ -111,6 +111,15 @@ namespace TopTests.API.Resources {
         public static string Null {
             get {
                 return ResourceManager.GetString("Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question exist in database.
+        /// </summary>
+        public static string QuestionExist {
+            get {
+                return ResourceManager.GetString("QuestionExist", resourceCulture);
             }
         }
     }

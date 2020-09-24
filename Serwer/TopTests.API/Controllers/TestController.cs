@@ -26,10 +26,14 @@ namespace TopTests.API.Controllers
         [HttpPost]
         public async Task<IActionResult> ReadFile([FromForm]UploadFile file)
         {
-            var response = await testService.ReadTest(file);
-            if (response == false)
+            var response = await testService.ReadTestQuestions(file);
+            if (response.FieldEmpty == 400)
             {
-                return BadRequest(resourceManager.GetString("File"));
+                return BadRequest(resourceManager.GetString("FieldEmpty"));
+            }
+            else if(response.QuestionExist==400)
+            {
+                return BadRequest(resourceManager.GetString("QuestionExist"));
             }
             return Ok();
         }
