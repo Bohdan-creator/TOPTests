@@ -12,7 +12,7 @@ using TopTests.Services.Models.Testy;
 
 namespace TopTests.API.Controllers
 {
-    [Route("api/readFile")]
+    [Route("api/test")]
     [ApiController]
     public class TestController : Controller
     {
@@ -24,18 +24,42 @@ namespace TopTests.API.Controllers
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
         [HttpPost]
-        public async Task<IActionResult> ReadFile([FromForm]UploadFile file)
+        public async Task<IActionResult> Register(RegisterTestDto registerTestDto)
         {
-            var response = await testService.ReadTestQuestions(file);
-            if (response.FieldEmpty == 400)
+            var test = await testService.RegisterTest(registerTestDto);
+            if (test == null)
             {
-                return BadRequest(resourceManager.GetString("FieldEmpty"));
+                return BadRequest(resourceManager.GetString("Null"));
             }
-            else if(response.QuestionExist==400)
+            return Ok(test);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTest(int id)
+        {
+            if (!await testService.DeleteTest(id))
             {
-                return BadRequest(resourceManager.GetString("QuestionExist"));
+                return BadRequest(resourceManager.GetString("Null"));
             }
             return Ok();
+        }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> EditTest(int id,EditTestDto editTestDto)
+        {
+            if(!await testService.EditTest(id, editTestDto))
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok();
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTests(int id)
+        {
+            var tests = await testService.GetTests(id);
+            if (tests == null)
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok(tests);
         }
     }
 }

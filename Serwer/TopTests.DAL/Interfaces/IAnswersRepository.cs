@@ -8,7 +8,9 @@ namespace TopTests.DAL.Interfaces
 {
     public interface IAnswersRepository : IRepositoryBase<Answers>
     {
-        void SetValueIsDelete(int id);
+        void SetValueIsDeleteOnSubject(int id);
+        void SetValueIsDeleteOnTest(int id);
+        void SetValueIsDeleteOnQuestion(string id);
         void SaveAnswers(List<Answers> answers);
     }
 }

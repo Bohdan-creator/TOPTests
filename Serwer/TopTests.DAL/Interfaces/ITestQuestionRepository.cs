@@ -8,8 +8,9 @@ namespace TopTests.DAL.Interfaces
 {
    public interface ITestQuestionRepository : IRepositoryBase<TestQuestions>
     {
-        void SetValueIsDelete(int id);
-        IEnumerable<TestQuestions> GetLastRow();
+        void SetValueIsDeleteOnSubject(int id);
+        void SetValueIsDeleteOnTest(int id);
+        Task<TestQuestions> GetQuestion(int id);
         void AddTestsQuestions(List<TestQuestions> testQuestions);
         Task<TestQuestions> CheckIfQuestionExist(TestQuestions TestQuestions);
     }

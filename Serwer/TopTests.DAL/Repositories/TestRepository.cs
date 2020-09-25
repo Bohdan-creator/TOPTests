@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TopTests.DAL.Entities;
@@ -18,6 +19,13 @@ namespace TopTests.DAL.Repositories
         {
             return await context.Set<Test>()
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<Test>> GetTests(int id)
+        {
+            return await context.Set<Test>()
+                .Where(e => e.isDelete == false&&e.TopicId==id)
+                .ToListAsync();
         }
     }
 }

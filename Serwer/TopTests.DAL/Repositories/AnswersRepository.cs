@@ -20,10 +20,26 @@ namespace TopTests.DAL.Repositories
             context.SaveChanges();
         }
 
-        public void SetValueIsDelete(int id)
+        public void SetValueIsDeleteOnQuestion(string id)
+        {
+            context.Set<Answers>()
+                 .Where(e => e.NumberOfIdentificationQuestion == id)
+                 .ToList()
+                 .ForEach(c => c.isDelete = true);
+        }
+
+        public void SetValueIsDeleteOnSubject(int id)
         {
             context.Set<Answers>()
                 .Where(e => e.SubjectId == id)
+                .ToList()
+                .ForEach(c => c.isDelete = true);
+        }
+
+        public void SetValueIsDeleteOnTest(int id)
+        {
+            context.Set<Answers>()
+                .Where(e => e.TestId == id)
                 .ToList()
                 .ForEach(c => c.isDelete = true);
         }

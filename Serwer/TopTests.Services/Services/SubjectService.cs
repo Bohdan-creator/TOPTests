@@ -65,8 +65,8 @@ namespace TopTests.Services.Services
                 return false;
             }
             topicsRepository.SetValueIsDelete(subject.Id);
-            testQuestionRepository.SetValueIsDelete(subject.Id);
-            answersRepository.SetValueIsDelete(subject.Id);
+            testQuestionRepository.SetValueIsDeleteOnSubject(subject.Id);
+            answersRepository.SetValueIsDeleteOnSubject(subject.Id);
             subjectRepository.Update(subject);
             await subjectRepository.SaveChangesAsync();
             await topicsRepository.SaveChangesAsync();

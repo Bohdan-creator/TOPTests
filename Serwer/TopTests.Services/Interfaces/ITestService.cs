@@ -9,7 +9,9 @@ namespace TopTests.Services.Interfaces
 {
     public interface ITestService
     {
-        Task<ErrorTestDto> ReadTestQuestions(UploadFile uploadFile);
-        //Task<bool>DeleteTest()
+        Task<Test> RegisterTest(RegisterTestDto registerTestDto);
+        Task<bool> DeleteTest(int id);
+        Task<bool> EditTest(int id, EditTestDto editTestDto);
+        Task<IEnumerable<Test>> GetTests(int id);
     }
 }

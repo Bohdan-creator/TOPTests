@@ -9,5 +9,6 @@ namespace TopTests.DAL.Interfaces
     public interface ITestRepository : IRepositoryBase<Test>
     {
         Task<Test> GetTest(int id);
+        Task<IEnumerable<Test>> GetTests(int id);
     }
 }

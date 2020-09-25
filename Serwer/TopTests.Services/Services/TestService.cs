@@ -14,71 +14,64 @@ namespace TopTests.Services.Services
 {
     public class TestService : ITestService
     {
-        private readonly ITopicsRepository topicsRepository;
         private readonly IAnswersRepository answersRepository;
         private readonly ITestRepository testRepository;
         private readonly ITestQuestionRepository testQuestionRepository;
-        public TestService(ITopicsRepository topicsRepository, IAnswersRepository answersRepository,
-                           ITestQuestionRepository testQuestionRepository, ITestRepository testRepository)
+        public TestService(IAnswersRepository answersRepository, ITestQuestionRepository testQuestionRepository,
+                          ITestRepository testRepository)
         {
-            this.topicsRepository = topicsRepository;
             this.answersRepository = answersRepository;
             this.testQuestionRepository = testQuestionRepository;
             this.testRepository = testRepository;
         }
-        public async Task<ErrorTestDto> ReadTestQuestions(UploadFile uploadFile)
+        public async Task<bool> DeleteTest(int id)
         {
-            ErrorTestDto errorTestDto = new ErrorTestDto();
-            var files = uploadFile.formFile;
-            var list_testQuestion = new List<TestQuestions>();
-            var list_answer = new List<Answers>();
-            var options = new List<string>();
-            CultureInfo culture1 = CultureInfo.CurrentCulture;
-            using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.Default))
-            using (var csv = new CsvReader(reader,culture1))
+            var test = await testRepository.GetTest(id);
+            if (test == null)
             {
-                foreach (var i in csv.GetRecords<ReadTestDto>())
-                {
-                    if (i.Question == ""|| i.OptionA == "" || 
-                        i.OptionB == "" || i.OptionC == ""||
-                        i.Answer==""||i.Complexity=="")
-                    {
-                        errorTestDto.FieldEmpty = 400;
-                        return errorTestDto ;
-                    }
-                    var test = await testRepository.GetTest(1);
-                    var testQuestion = new TestQuestions(test.Id,test.TopicId,test.SubjectId,i.Question);
-                    var check_question = await testQuestionRepository.CheckIfQuestionExist(testQuestion);
-                    if (check_question != null)
-                    {
-                        errorTestDto.QuestionExist = 400;
-                        return errorTestDto;
-                    }
-                    list_testQuestion.Add(testQuestion);
-                    options.Add(i.OptionA);
-                    options.Add(i.OptionB);
-                    options.Add(i.OptionC);
-                    foreach(var answers in options)
-                    {
-                        if (answers == i.Answer)
-                        {
-                            var answer = new Answers(test.SubjectId,test.TopicId,test.Id,testQuestion.NumberOfIdentification, answers, true);
-                            list_answer.Add(answer);
-                        }
-                        else
-                        {
-                           var answer = new Answers(test.SubjectId, test.TopicId, test.Id, testQuestion.NumberOfIdentification, answers, false);
-                            list_answer.Add(answer);
-                        }
-                    }
-                    options = new List<string>();
-
-                }
-                
-                testQuestionRepository.AddTestsQuestions(list_testQuestion);
-                answersRepository.SaveAnswers(list_answer);
-                    return errorTestDto;
+                return false;
             }
+            test.isDelete = true;
+            testQuestionRepository.SetValueIsDeleteOnTest(id);
+            answersRepository.SetValueIsDeleteOnTest(id);
+            testRepository.Update(test);
+            await testRepository.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> EditTest(int id, EditTestDto editTestDto)
+        {
+            var test = await testRepository.GetTest(id);
+            if (test == null)
+            {
+                return false;
+            }
+            test.Name = editTestDto.Name;
+            testRepository.Update(test);
+            await testRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<IEnumerable<Test>> GetTests(int id)
+        {
+            var tests = testRepository.GetTests(id);
+            if (tests == null)
+            {
+                return null;
+            }
+            return tests;
+        }
+
+        public async Task<Test> RegisterTest(RegisterTestDto registerTestDto)
+        {
+            if (registerTestDto.Name == "")
+            {
+                return null;
+            }
+            var test = new Test(registerTestDto.TopicId, registerTestDto.SubjectId, registerTestDto.Name);
+            testRepository.Create(test);
+            await testRepository.SaveChangesAsync();
+            return test;
         }
     }
 }
+
