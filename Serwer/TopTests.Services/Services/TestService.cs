@@ -72,6 +72,31 @@ namespace TopTests.Services.Services
             await testRepository.SaveChangesAsync();
             return test;
         }
+
+        public async Task<bool> RestoreTest(int id)
+        {
+            var test = await testRepository.RestoreTest(id);
+            if (test == null)
+            {
+                return false;
+            }
+            testQuestionRepository.SetValueIsNotDeleteOnTest(id);
+            answersRepository.SetValueIsNotDeleteOnTest(id);
+            test.isDelete = false;
+            testRepository.Update(test);
+            await testRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<IEnumerable<Test>> ShowAllDeletedTests()
+        {
+            var tests = testRepository.GetAllDeletedTests();
+            if (tests == null)
+            {
+                return null;
+            }
+            return tests;
+        }
     }
 }
 

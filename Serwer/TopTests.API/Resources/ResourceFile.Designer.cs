@@ -122,5 +122,14 @@ namespace TopTests.API.Resources {
                 return ResourceManager.GetString("QuestionExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong or test not exist.
+        /// </summary>
+        public static string Wrong {
+            get {
+                return ResourceManager.GetString("Wrong", resourceCulture);
+            }
+        }
     }
 }

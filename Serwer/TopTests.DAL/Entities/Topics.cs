@@ -12,5 +12,14 @@ namespace TopTests.DAL.Entities
         public bool isDelete { get; set; }
         public Subjects Subjects { get; set; }
         public List<Test> Tests { get; set; }
+        public Topics(int subjectId , string name)
+        {
+            SubjectId = subjectId;
+            Name = name;
+        }
+        public Topics(string name)
+        {
+            Name = name;
+        }
     }
 }

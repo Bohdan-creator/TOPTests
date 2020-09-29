@@ -13,11 +13,6 @@ namespace TopTests.DAL.Repositories
         {
         }
 
-        public  IEnumerable<TestQuestions> GetLastRow()
-        {
-           // var order = context.TestQuestions.OrderByDescending(o => o.Id).Take(1);
-            return null;
-        }
         public void AddTestsQuestions(List<TestQuestions> testQuestions)
         {
             context.Set<TestQuestions>().AddRange(testQuestions);
@@ -37,6 +32,27 @@ namespace TopTests.DAL.Repositories
                 .ToList()
                 .ForEach(c => c.isDelete = true);
         }
+        public void SetValueIsDeleteOnTopic(int id)
+        {
+            context.Set<TestQuestions>()
+                .Where(e => e.TopicId == id)
+                .ToList()
+                .ForEach(c => c.isDelete = true);
+        }
+        public void SetValueIsNotDeleteOnTopic(int id)
+        {
+            context.Set<Answers>()
+                .Where(e => e.TopicId == id)
+                .ToList()
+                .ForEach(c => c.isDelete = false);
+        }
+        public void SetValueIsNotDeleteOnTest(int id)
+        {
+            context.Set<TestQuestions>()
+                .Where(e => e.TestId == id)
+                .ToList()
+                .ForEach(c => c.isDelete = false);
+        }
         public async Task<TestQuestions> CheckIfQuestionExist(TestQuestions testQuestions)
         {
             return await context.Set<TestQuestions>()
@@ -49,6 +65,28 @@ namespace TopTests.DAL.Repositories
                 .Where(e => e.isDelete == false)
                 .FirstOrDefaultAsync(e => e.Id == id);
                 
+        }
+        public async Task<IEnumerable<TestQuestions>>GetAllTestQuestions(int TestId)
+        {
+            return await context.Set<TestQuestions>()
+                   .Where(e => e.isDelete == false&&e.TestId==TestId)
+                   .ToListAsync();
+                   
+        }
+
+        public async Task<TestQuestions> RestoreQuestion(int id)
+        {
+            return await context.Set<TestQuestions>()
+                .Where(e => e.isDelete == true)
+                .FirstOrDefaultAsync(e => e.Id == id);
+                
+        }
+
+        public async Task<IEnumerable<TestQuestions>> GetAllDeletedTestQuestions()
+        {
+            return await context.Set<TestQuestions>()
+               .Where(e => e.isDelete == true)
+               .ToListAsync();           
         }
     }
 }

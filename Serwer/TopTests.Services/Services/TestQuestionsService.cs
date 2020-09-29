@@ -42,10 +42,10 @@ namespace TopTests.Services.Services
             return true;
         }
 
-        public async Task<bool> EditTestQuestion(int id,EditQuestionDto editQuestionDto)
+        public async Task<bool> EditTestQuestion(int id, EditQuestionDto editQuestionDto)
         {
             var question = await testQuestionRepository.GetQuestion(id);
-            if (question == null||editQuestionDto.Question=="")
+            if (question == null || editQuestionDto.Question == "")
             {
                 return false;
             }
@@ -55,7 +55,7 @@ namespace TopTests.Services.Services
             return true;
         }
 
-        public async Task<ErrorTestDto> ReadTestQuestions(int id,UploadFile uploadFile)
+        public async Task<ErrorTestDto> ReadTestQuestions(int id, UploadFile uploadFile)
         {
             ErrorTestDto errorTestDto = new ErrorTestDto();
             var files = uploadFile.formFile;
@@ -63,7 +63,7 @@ namespace TopTests.Services.Services
             var list_answer = new List<Answers>();
             var options = new List<string>();
             CultureInfo culture1 = CultureInfo.CurrentCulture;
-            using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.Default))
+            using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.UTF8))
             using (var csv = new CsvReader(reader, culture1))
             {
                 foreach (var i in csv.GetRecords<ReadTestDto>())
@@ -107,6 +107,65 @@ namespace TopTests.Services.Services
                 answersRepository.SaveAnswers(list_answer);
                 return errorTestDto;
             }
+
+        }
+
+        public async Task<bool> RestoreTestQuestion(int id)
+        {
+            var question = await testQuestionRepository.RestoreQuestion(id);
+            if (question == null)
+            {
+                return false;
+            }
+            question.isDelete = false;
+            testQuestionRepository.Update(question);
+            await testQuestionRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<IEnumerable<TestQuestions>> ShowAllDeletedTestQuestions()
+        {
+            var questions = testQuestionRepository.GetAllDeletedTestQuestions();
+            if (questions == null)
+            {
+                return null;
+            }
+            return questions;
+        }
+
+        public async Task<IEnumerable<ShowTestQuestionAnswers>> ShowTestQuestion(int TestId)
+        {
+            var test = await testRepository.GetTest(TestId);
+            if (test == null)
+            {
+                return null;
+            }
+            var list = new List<ShowTestQuestionAnswers>();
+            if (test == null)
+            {
+                return null;
+            }
+            var questions = await testQuestionRepository.GetAllTestQuestions(TestId);
+            if (questions == null)
+            {
+                return null;
+            }
+            foreach (var testQuestion in questions)
+            {
+                ShowTestQuestionAnswers show = new ShowTestQuestionAnswers();
+                show.Question = testQuestion.Question;
+                var answers = await answersRepository.GetAnswersForQuestion(testQuestion.NumberOfIdentification);
+                if (answers == null)
+                {
+                    return null;
+                }
+                foreach (var listAnswers in answers)
+                {
+                    show.Option.Add(listAnswers.Option);
+                }
+                list.Add(show);
+            }
+            return list;
         }
     }
 }

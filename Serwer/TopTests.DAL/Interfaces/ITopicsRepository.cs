@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TopTests.DAL.Entities;
 
 namespace TopTests.DAL.Interfaces
@@ -9,6 +10,8 @@ namespace TopTests.DAL.Interfaces
     {
         void SetValueIsDelete(int id);
         void RestoreTopics(int id);
-
+        Task<Topics> GetTopic(int id);
+        Task<Topics> RestoreTopic(int id);
+        Task<IEnumerable<Topics>> GetAllDeletedTopics();
     }
 }

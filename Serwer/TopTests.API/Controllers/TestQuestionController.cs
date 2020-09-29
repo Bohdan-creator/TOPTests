@@ -23,7 +23,7 @@ namespace TopTests.API.Controllers
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
         [HttpPost("{id}")]
-        public async Task<IActionResult> ReadTestQuestions(int id,UploadFile uploadFile)
+        public async Task<IActionResult> ReadTestQuestions(int id,[FromForm]UploadFile uploadFile)
         {
             var testQuestions = await testQuestionService.ReadTestQuestions(id, uploadFile);
             if (testQuestions.FieldEmpty != 200)
@@ -47,10 +47,39 @@ namespace TopTests.API.Controllers
             return Ok();
         }
         [HttpPatch("{id}")]
-        public async Task<IActionResult> EditQuestion(int id.,EditQuestionDto editQuestionDto)
+        public async Task<IActionResult> EditQuestion(int id,EditQuestionDto editQuestionDto)
         {
             var question = await testQuestionService.EditTestQuestion(id,editQuestionDto);
             if (question == false)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok();
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ShowTest(int id)
+        {
+            var test = await testQuestionService.ShowTestQuestion(id);
+            if (test == null)
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok(test);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllDeletedQuestions()
+        {
+            var questions = await testQuestionService.ShowAllDeletedTestQuestions();
+            if (questions == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(questions);
+        }
+        [HttpGet("restore/{id}")]
+        public async Task<IActionResult> RestoreQuestion(int id)
+        {
+            if(!await testQuestionService.RestoreTestQuestion(id))
             {
                 return NotFound(resourceManager.GetString("Null"));
             }

@@ -61,5 +61,24 @@ namespace TopTests.API.Controllers
             }
             return Ok(tests);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllDeletedQuestions()
+        {
+            var questions = await testService.ShowAllDeletedTests();
+            if (questions == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(questions);
+        }
+        [HttpGet("restore/{id}")]
+        public async Task<IActionResult> RestoreQuestion(int id)
+        {
+            if (!await testService.RestoreTest(id))
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok();
+        }
     }
 }

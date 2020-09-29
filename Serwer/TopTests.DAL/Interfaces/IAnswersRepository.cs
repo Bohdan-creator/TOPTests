@@ -11,6 +11,10 @@ namespace TopTests.DAL.Interfaces
         void SetValueIsDeleteOnSubject(int id);
         void SetValueIsDeleteOnTest(int id);
         void SetValueIsDeleteOnQuestion(string id);
+        void SetValueIsDeleteOnTopic(int id);
+        void SetValueIsNotDeleteOnTopic(int id);
+        void SetValueIsNotDeleteOnTest(int id);
         void SaveAnswers(List<Answers> answers);
+        Task<IEnumerable<Answers>> GetAnswersForQuestion(string questionId);
     }
 }
