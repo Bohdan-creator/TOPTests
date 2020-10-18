@@ -1,0 +1,19 @@
+#main-name{
+        font-size: 400px;
+}
+.logo{
+        width:30px;
+        height: 30px;
+        margin-right: 40px;
+        transition:200ms;
+}
+.logo:hover{
+        width:35px;
+        height: 35px;
+}
+.nav-link{
+        font-size: 20px !important;
+}
+.mr-auto{
+        margin-left: 40px !important;
+}

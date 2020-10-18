@@ -1,0 +1,37 @@
+.upsertforms{
+        position: absolute;
+        z-index: 3;
+        text-align: center;
+        background-color: aliceblue;
+        height: 450px;
+        width:350px;
+        margin-left: 35%;
+        border-radius: 5px;
+        margin-top: -536px;;
+        animation-name: top;
+        animation-duration: 500ms ;
+}
+@keyframes top {
+        from {bottom: 86px;}
+        to {bottom: 750px;}
+      }
+.upsertformsShow{
+        position: absolute;
+        z-index: 3;
+        text-align: center;
+        background-color: aliceblue;
+        height: 450px;
+        width:350px;
+        margin-top:30px;
+        margin-left: 35%;
+        border-radius: 5px;
+        animation-name: bottom;
+        animation-duration: 2s ;
+}
+@keyframes bottom {
+        from {top: -600px;}
+        to {top: 86px;}
+      }
+label{
+        font-size: 20px;
+}
