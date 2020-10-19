@@ -1,14 +1,11 @@
 import Swal from "sweetalert2"
-import Axios from "axios";
 import Api from "./Api";
 
 export default class AuthorizationApi extends Api{
 
   constructor(){
           super();
-    this.baseAxios = Axios.create({
-      baseURL: process.env.REACT_APP_BASE_URL
-    })
+   
   }
   async signIn(params) {
         try {
@@ -25,4 +22,15 @@ export default class AuthorizationApi extends Api{
           }
         }
       }
+     async  confirmRegistration(id) {
+      try {
+        console.log("code");
+        const response = await this.baseAxios.patch(
+          "https://localhost:44323/api/authorize/"+id);
+          return response.data;
+    }catch(error){
+      console.log(error);
+    }
+     
+  }
 }

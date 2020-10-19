@@ -27,7 +27,7 @@ namespace TopTests.Services.Services
                            <h2>Dear " + registerUserDto.Name + @",</h2> <p style='font-family: Arial,sans-serif'>You have been registered in the online test service.
                              <br>
                              Please confirm registration and follow this link </p>                         
-                              <div style='text-align:center'><a href='http://localhost:3000/set-password/" + registerUserDto.CodeOfVerification + @"' style='font-size:30px'>Change Password</a></div>
+                              <div style='text-align:center'><a href='http://localhost:3000/confirm/" + registerUserDto.CodeOfVerification + @"' style='font-size:30px'>Change Password</a></div>
                               <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Car Rental Service</p>
                             <img src=""cid:WinLogo"" />
                                     </body>

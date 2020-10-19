@@ -28,7 +28,7 @@ export default function RegisterFormUser() {
               
   function onSubmit(fields, { setSubmitting }) {
     Swal.fire("Please check email","Confirm registration");
-    setTimeout(()=>window.location.assign("/login"),2000);  
+    setTimeout(()=>window.location.assign("/home"),2000);  
     console.log(fields);
        createUser(fields, setSubmitting);  
   }

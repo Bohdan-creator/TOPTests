@@ -5,6 +5,7 @@ import UserHeader from './Components/UserHeader/UserHeader';
 import Home from './Components/Home/Home';
 import RegisterForm from './Components/RegisterForm/RegisterForm'
 import LoginForm from './Components/LoginForm/LoginForm'
+import ConfirmRegistration from './Components/ConfirmRegistration/ConfirmRegistration'
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,6 +31,10 @@ function App() {
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        </Route>
+        <Route path="/confirm/:code">
+        <UserHeader></UserHeader>
+        <ConfirmRegistration></ConfirmRegistration>
         </Route>
         </Switch>
       </header>
