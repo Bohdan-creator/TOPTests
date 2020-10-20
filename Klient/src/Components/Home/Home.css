@@ -12,7 +12,7 @@
 .text{
         z-index: 1;
         padding-top: 200px;
-        padding-left: 200px;
+        padding-right: 300px;
 }
 .slider-image{
         width: 130px;
@@ -28,9 +28,23 @@
         grid-template-columns: auto auto auto;
         padding: 30px;
       }
-h2{
+.title{
         font-family: 'Roboto';
     color: #ffffff;
+    font-size: 225%;
+    text-shadow: none;
+    line-height: 1.5;
+    font-weight: 300;
+    font-style: normal;
+    text-decoration: none;
+    text-align: inherit;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+}
+h2{
+        font-family: 'Roboto';
+    color: #1a1818;
     font-size: 225%;
     text-shadow: none;
     line-height: 1.5;

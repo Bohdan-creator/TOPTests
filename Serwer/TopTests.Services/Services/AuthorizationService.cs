@@ -92,15 +92,14 @@ namespace TopTests.Services.Services
             await refreshRepository.SaveChangesAsync();
             return tokenDto;
         }
-        public async Task<bool> SendLinkToResetPassword(SendEmailToResetPasswordDto sendEmailTo)
+        public async Task<bool> SendLinkToResetPassword(SendEmailToReset email)
         {
-            var user = await userRepository.FindByLoginAsync(sendEmailTo.Email);
+            var user = await userRepository.FindByLoginAsync(email.Email);
             if (user == null)
             {
                 return false;
             }
-            sendEmailTo.CodeOfVerification = user.CodeOfVerification;
-            emailService.ResetPassword(sendEmailTo);
+            emailService.ResetPassword(user.CodeOfVerification,email.Email);
             return true;
         }
 

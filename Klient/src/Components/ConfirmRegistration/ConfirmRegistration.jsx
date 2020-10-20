@@ -18,7 +18,9 @@ export default function ConfirmRegistration() {
         function onSubmit(fields){
                 try{
                 confirm(fields);
-                Swal.fire("Account Active");
+                Swal.fire({icon: 'success',
+    title: 'Account active',
+   });
                 setTimeout(()=>window.location.assign("/login"),2000);  
                 }
                 catch(error){

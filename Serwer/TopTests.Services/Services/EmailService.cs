@@ -53,7 +53,7 @@ namespace TopTests.Services.Services
             return true;
         }
         [Obsolete]
-        public bool ResetPassword(SendEmailToResetPasswordDto sendEmail)
+        public bool ResetPassword(string code,string email)
         {
             string subject = "Top Tests Services. Re";
             string data="hey";
@@ -63,14 +63,14 @@ namespace TopTests.Services.Services
                            <p style='font-family: Arial,sans-serif'>We heard that you lost your Account password. Sorry about that!
                                =But don’t worry! You can use the following link to reset your password.
                              <br></p>                         
-                              <div style='text-align:center'><a href='http://localhost:3000/set-password/" + sendEmail.CodeOfVerification + @"' style='font-size:30px'>Change Password</a></div>
+                              <div style='text-align:center'><a href='http://localhost:3000/set-password/" + code + @"' style='font-size:30px'>Change Password</a></div>
                               <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Car Rental Service</p>
                             <img src=""cid:WinLogo"" />
                                     </body>
                                          </html>";
             string messageBody = string.Format(htmlBody, data);
             AlternateView alternateViewHtml = AlternateView.CreateAlternateViewFromString(htmlBody, Encoding.UTF8, MediaTypeNames.Text.Html);
-            MailMessage mailMessage = new MailMessage("kucherbogdan2000@gmail.com", sendEmail.Email, subject, messageBody);
+            MailMessage mailMessage = new MailMessage("kucherbogdan2000@gmail.com", email, subject, messageBody);
             mailMessage.AlternateViews.Add(alternateViewHtml);
             using (SmtpClient smpt = new SmtpClient("smtp.gmail.com", 587))
             {
@@ -79,7 +79,7 @@ namespace TopTests.Services.Services
                 smpt.UseDefaultCredentials = false;
                 smpt.Credentials = new NetworkCredential("kucherbogdan2000@gmail.com", "basket2009");
                 MailMessage message = new MailMessage();
-                message.To.Add(sendEmail.Email);
+                message.To.Add(email);
                 message.From = new MailAddress("kucherbogdan2000@gmail.com");
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                 message.Subject = "Top Tests";

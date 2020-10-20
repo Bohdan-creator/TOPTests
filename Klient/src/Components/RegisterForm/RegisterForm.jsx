@@ -29,10 +29,7 @@ render(){
     >
       {({ errors, touched }) => {
         return (
-          <Form className={this.styles} style={{padding: touched.Name||touched.Surname||touched.Email||touched.Password
-            ? '2%' : '0%',height:touched.Name||touched.Surname||touched.Email||touched.Password?'570px':'450px',
-        }}
-           >
+          <Form className={this.styles}>
             <h1>Register</h1>
 
             <label>First Name</label>
@@ -102,14 +99,19 @@ render(){
               >
                 Save
               </button>
-
-              <a href="http://localhost:3000/home">
-                Cancel
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a role="button " class="btn btn-danger" href="http://localhost:3000/home">     
+              Cancel
               </a>
               <br></br>
-              <Link to={"."} className="btn btn-link">
+              <br></br>
+              <a style={{color:"green"}}href="http://localhost:3000/login">
                 If you already have an account
-              </Link>
+              </a>
+              <br></br>
+              <a style={{color:"red"}}href="http://localhost:3000/reset">
+                 Forgot password
+              </a>
             </div>
           </Form>
         );

@@ -4,9 +4,8 @@ using System.Text;
 
 namespace TopTests.Services.Models.Users
 {
-    public class SendEmailToResetPasswordDto
+    public class SendEmailToReset
     {
         public string Email { get; set; }
-        public string CodeOfVerification { get; set; }
     }
 }

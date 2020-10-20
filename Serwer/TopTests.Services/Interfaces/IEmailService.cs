@@ -8,7 +8,7 @@ namespace TopTests.Services.Interfaces
    public interface IEmailService 
     { 
         bool EmailAfterRegistration(RegisterUserDto registerUserDto);
-        bool ResetPassword(SendEmailToResetPasswordDto sendEmail);
+        bool ResetPassword(string code,string email);
 
     }
 }

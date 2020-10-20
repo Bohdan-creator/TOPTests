@@ -56,9 +56,9 @@ namespace TopTests.API.Controllers
             return Ok(signInResult);
         }
         [HttpPost]
-        public async Task<IActionResult> SendEmailToReset(SendEmailToResetPasswordDto sendEmailTo)
+        public async Task<IActionResult> SendEmailToReset(SendEmailToReset email)
         {
-            if (!await authorizationService.SendLinkToResetPassword(sendEmailTo))
+            if (!await authorizationService.SendLinkToResetPassword(email))
             {
                 return NotFound(resourceManager.GetString("Null"));
             }

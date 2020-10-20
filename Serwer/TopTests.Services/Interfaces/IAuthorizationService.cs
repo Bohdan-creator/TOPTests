@@ -12,7 +12,7 @@ namespace TopTests.Services.Interfaces
         Task<RegisterUserDto> RegisterUser(RegisterUserDto registerUserDto);
         Task<TokenDto> SignIn(SignInDto signInDto);
         Task<bool> ConfirmRegistration(string code);
-        Task<bool> SendLinkToResetPassword(SendEmailToResetPasswordDto sendEmailTo);
+        Task<bool> SendLinkToResetPassword(SendEmailToReset email);
         Task<bool> ResetPassword(string code, ResetPasswordDto resetPassword);
 
     }

@@ -70,14 +70,11 @@ export default class LoginUser extends Component{
                   >
                     Save
                   </button>
-    
-                  <a href="http://localhost:3000/home">
-                    Cancel
-                  </a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a role="button " class="btn btn-danger" href="http://localhost:3000/home">     
+              Cancel
+              </a>
                   <br></br>
-                  <Link to={"."} className="btn btn-link">
-                    If you already have an account
-                  </Link>
                 </div>
               </Form>
             );
