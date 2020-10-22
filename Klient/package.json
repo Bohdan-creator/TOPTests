@@ -9,6 +9,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "formik": "^2.2.0",
+    "jwt-decode": "^3.0.0",
     "mdbreact": "^4.27.0",
     "pro": "^0.3.0",
     "react": "^16.13.1",
@@ -17,7 +18,7 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.9.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.4",
     "sweetalert2": "^10.6.1",
     "yup": "^0.29.3"
   },

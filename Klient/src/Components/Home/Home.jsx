@@ -42,7 +42,6 @@ export default class Home extends Component{
                                  <div class="text">      
                                 <h2 class="title">Best tests from <br></br> professional programmers</h2>
                                 <h4>Over 100 different tests to check your skills</h4>
-                                <h4>Start your trip</h4>
                                 <a class="button-text"style={{color:'#1867eb'}}><button type="button" class="slide-button">Start your trip</button></a>
                               </div>    
                         </Carousel.Caption>
@@ -58,6 +57,7 @@ export default class Home extends Component{
                          </Carousel.Caption>
                     </Carousel.Item>
         </Carousel>
+        
         )
         }
       }

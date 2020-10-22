@@ -30,7 +30,6 @@ export default function RegisterFormUser() {
     Swal.fire({icon: 'success',
     title: 'Please check your email.',
     text: 'Confirm registration'});
-    setTimeout(()=>window.location.assign("/home"),2000);  
     console.log(fields);
        createUser(fields, setSubmitting);  
   }

@@ -40,7 +40,8 @@ namespace TopTests.API.StartupExtensions
         {
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
-             services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ITestService, TestService>();

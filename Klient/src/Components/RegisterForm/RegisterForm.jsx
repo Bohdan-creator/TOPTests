@@ -103,15 +103,6 @@ render(){
               <a role="button " class="btn btn-danger" href="http://localhost:3000/home">     
               Cancel
               </a>
-              <br></br>
-              <br></br>
-              <a style={{color:"green"}}href="http://localhost:3000/login">
-                If you already have an account
-              </a>
-              <br></br>
-              <a style={{color:"red"}}href="http://localhost:3000/reset">
-                 Forgot password
-              </a>
             </div>
           </Form>
         );

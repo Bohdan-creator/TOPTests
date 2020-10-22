@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Resources;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TopTests.API.Resources;
 using TopTests.Services.Interfaces;
@@ -15,9 +16,9 @@ namespace TopTests.API.Controllers
     [ApiController]
     public class AuthorizationController : Controller
     {
-        private readonly IAuthorizationService authorizationService;
+        private readonly Services.Interfaces.IAuthorizationService authorizationService;
         private readonly ResourceManager resourceManager;
-        public AuthorizationController(IAuthorizationService authorizationService)
+        public AuthorizationController(Services.Interfaces.IAuthorizationService authorizationService)
         {
             this.authorizationService = authorizationService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);

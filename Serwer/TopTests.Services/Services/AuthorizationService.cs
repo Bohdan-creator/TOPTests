@@ -43,7 +43,6 @@ namespace TopTests.Services.Services
             await userRepository.SaveChangesAsync();
             return true;
         }
-
         public async Task<RegisterUserDto> RegisterUser(RegisterUserDto registerUserDto)
         {
             PasswordHasher passwordHasher = new PasswordHasher();

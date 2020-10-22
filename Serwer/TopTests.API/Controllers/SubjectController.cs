@@ -1,5 +1,6 @@
 ﻿using System.Resources;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TopTests.API.Resources;
 using TopTests.Services.Interfaces;
@@ -18,6 +19,7 @@ namespace TopTests.API.Controllers
             this.subjectService = subjectService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
+        [Authorize(Roles ="User")]
         [HttpPost("registerSubject")]
         public async Task<IActionResult> RegisterSubject(RegisterSubjectDto registerSubjectDto)
         {

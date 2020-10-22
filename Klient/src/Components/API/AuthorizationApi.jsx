@@ -1,19 +1,18 @@
 import Swal from "sweetalert2"
 import Api from "./Api";
-
-export default class AuthorizationApi extends Api{
+import axios from 'axios'
+export default class AuthorizationApi {
 
   constructor()
   {
-      super(); 
   }
   async signIn(params) {
         try {
-          const response = await this.baseAxios.post(
+          const response = await axios.post(
             "https://localhost:44323/api/authorize/signIn",
              params
           );
-          //sessionStorage.setItem("isLoggedIn", true)
+          sessionStorage.setItem("isLoggedIn", true)
           return response.data;
         } catch (error) {
           if (error.response) {
@@ -25,7 +24,7 @@ export default class AuthorizationApi extends Api{
   async  confirmRegistration(id) {
       try {
         console.log("code");
-        const response = await this.baseAxios.patch(
+        const response = await axios.patch(
           "https://localhost:44323/api/authorize/"+id);
           return response.data;
     }catch(error){
@@ -35,7 +34,7 @@ export default class AuthorizationApi extends Api{
   async  EmailToResetPassword(fields) {
     try {
       console.log(fields.Email);
-      const response = await this.baseAxios.post(
+      const response = await axios.post(
         "https://localhost:44323/api/authorize",fields);
         return response.data;
       }catch(error){
@@ -44,7 +43,7 @@ export default class AuthorizationApi extends Api{
   }
   async sendPassword(fields) {
     try {
-      const response = await this.baseAxios.patch(
+      const response = await axios.patch(
         "https://localhost:44323/api/authorize/forgotPassword/"+fields.code,fields);
         return response.data;
       }catch(error){

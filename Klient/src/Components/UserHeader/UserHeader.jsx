@@ -25,7 +25,7 @@ class UserHeader extends Component{
       </NavDropdown>
     </Nav>
     <Nav>
-      <a class="link-logo" href="http://localhost:3000/register"><img class="logo" src={logIn}></img></a>
+      <a class="link-logo" href="http://localhost:3000/login"><img class="logo" src={logIn}></img></a>
     </Nav>
   </Navbar.Collapse>
 </Navbar>

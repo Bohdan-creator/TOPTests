@@ -75,6 +75,13 @@ export default class LoginUser extends Component{
               Cancel
               </a>
                   <br></br>
+                  <a style={{color:"green"}}href="http://localhost:3000/register">
+                If dont't have an account
+              </a>
+              <br></br>
+              <a style={{color:"red"}}href="http://localhost:3000/reset">
+                 Forgot password
+              </a>
                 </div>
               </Form>
             );

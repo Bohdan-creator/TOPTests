@@ -8,49 +8,56 @@ import LoginForm from './Components/LoginForm/LoginForm'
 import ConfirmRegistration from './Components/ConfirmRegistration/ConfirmRegistration'
 import EmailToReset from './Components/EmailToResetPassword/EmailToResetPassword'
 import ForgetPassword from './Components/ForgetPassword/ForgetPassword'
+import Subject from './Components/SubjectManager/SubjectForm'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+let userRole=sessionStorage.getItem('userRole');
+  let isLoggedIn=sessionStorage.getItem("isLoggedIn");
 function App() {
   return (
     <Router>
-    <div className="App">
-      <header className="App-header">
-      <Switch>
+       {
+       isLoggedIn,
+         ( userRole==="user"&&
+           <div>
+             <Switch>
+        <Route path="/registerSubject">
+        <UserHeader></UserHeader>
+            <Subject style="upsertformsShow"></Subject>
+        </Route>
+             </Switch>
+           </div>
+         )||
+            <Switch>
         <Route path="/home">
         <UserHeader></UserHeader>
+        <Home style="backSlide"></Home>
+        </Route>
+        <Route path="/login">
+        <UserHeader></UserHeader>
+        <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="backSlide"></Home>
         </Route>
         <Route path="/register">
         <UserHeader></UserHeader>
         <RegisterForm style="upsertformShow"></RegisterForm>
-        <Home style="blur"></Home>
-        </Route>
-        <Route path="/login">
-        <UserHeader></UserHeader>
-        <LoginForm style="upsertformsShow"></LoginForm>
-        <Home style="blur"></Home>
+        <Home style="backSlide"></Home>
         </Route>
         <Route path="/confirm/:code">
         <UserHeader></UserHeader>
-        <ConfirmRegistration></ConfirmRegistration>
-        </Route>
-        <Route path="/reset">
-        <UserHeader></UserHeader>
-        <EmailToReset style="upsertformsShow"></EmailToReset>
-        </Route>
-        <Route path="/forgot/:id">
-        <UserHeader></UserHeader>
-        <ForgetPassword></ForgetPassword>
+        <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
+        <Home style="backSlide"></Home>
         </Route>
         </Switch>
-      </header>
-    </div>
+}
     </Router>
+       
   );
 }
+
 
 export default App;

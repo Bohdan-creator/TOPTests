@@ -54,6 +54,7 @@ namespace TopTests.API
               .AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader());
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
