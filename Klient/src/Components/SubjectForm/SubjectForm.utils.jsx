@@ -1,10 +1,8 @@
 import * as Yup from 'yup';
 import API from "../API/SubjectApi"
-import Swal from 'sweetalert2';
-import React, { Component } from 'react';
 
 
-export default function RegisterFormUser() {
+export default function SubjectManager() {
         let initialValues = {
           Name: "",
         };

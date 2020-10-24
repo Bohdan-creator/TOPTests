@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import SubjectForm from '../SubjectManager/SubjectForm.utils'
+import SubjectForm from '../SubjectForm/SubjectForm.utils'
  
 
 const {

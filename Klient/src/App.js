@@ -8,7 +8,9 @@ import LoginForm from './Components/LoginForm/LoginForm'
 import ConfirmRegistration from './Components/ConfirmRegistration/ConfirmRegistration'
 import EmailToReset from './Components/EmailToResetPassword/EmailToResetPassword'
 import ForgetPassword from './Components/ForgetPassword/ForgetPassword'
-import Subject from './Components/SubjectManager/SubjectForm'
+import Subject from './Components/SubjectForm/SubjectForm'
+import AllSubjects from './Components/SubjectManager/AllSubjects'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -51,6 +53,10 @@ function App() {
         <UserHeader></UserHeader>
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="backSlide"></Home>
+        </Route>
+        <Route path="/subjects">
+        <UserHeader></UserHeader>
+        <AllSubjects></AllSubjects>
         </Route>
         </Switch>
 }

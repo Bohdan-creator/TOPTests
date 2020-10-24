@@ -1,11 +1,10 @@
 import Swal from "sweetalert2"
 import Api from "./Api";
 import axios from 'axios'
-export default class SubjectApi extends Api {
+export default class SubjectApi{
 
   constructor()
   {
-          super();
   }
   async createSubject(params) {
         try {
@@ -16,6 +15,14 @@ export default class SubjectApi extends Api {
               } catch (error) {
                 Swal.fire("Oops...","Something wrong")
               }
-            //  setTimeout(()=>window.location.assign("/home"),2000);  
+  }
+  
+  async fetchSubjects() {
+    try {
+      const res = await axios.get('https://localhost:44323/api/subject/getAll');
+      return res.data;
+    } catch (error) {
+      Swal.fire("Oops...", "Something went wrong!", "error");
+    }
   }
 }
