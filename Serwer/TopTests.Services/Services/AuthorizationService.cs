@@ -82,6 +82,7 @@ namespace TopTests.Services.Services
                 return tokenDto;
             }
             //Return two tokens Access, Refresh
+            tokenDto.Name = user.FirstName;
             tokenDto.Code = 200;
             tokenDto.AccessToken = token.GenerateToken(user);
             tokenDto.RefreshToken = token.RefreshGenerateToken();

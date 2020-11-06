@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using System;
+using System.Resources;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace TopTests.API.Controllers
             this.subjectService = subjectService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
-        [Authorize(Roles ="User")]
+        [Authorize(Roles ="Admin")]
         [HttpPost("registerSubject")]
         public async Task<IActionResult> RegisterSubject(RegisterSubjectDto registerSubjectDto)
         {
@@ -30,19 +31,19 @@ namespace TopTests.API.Controllers
             var subject = await subjectService.RegisterSubject(registerSubjectDto);
             return Ok(subject);
         }
-        [HttpPatch("editSubject/{id}")]
-        public async Task<IActionResult> EditSubject(int id, EditSubjectDto editSubjectDto)
+        [HttpPatch,Route("editSubject/{Code}")]
+        public async Task<IActionResult> EditSubject(string Code,EditSubjectDto editSubjectDto)
         {
             if (editSubjectDto == null)
             {
                 return BadRequest(resourceManager.GetString("Null"));
             }
-            var edit_subject = await subjectService.EditSubject(id, editSubjectDto);
+            var edit_subject = await subjectService.EditSubject(Int32.Parse(Code), editSubjectDto);
             if (edit_subject == null)
             {
                 return NotFound(resourceManager.GetString("Id"));
             }
-            return Ok(edit_subject);
+            return Ok();
         }
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteSubject(int id)

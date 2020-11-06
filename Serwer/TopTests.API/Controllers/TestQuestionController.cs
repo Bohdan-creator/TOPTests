@@ -23,16 +23,26 @@ namespace TopTests.API.Controllers
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
         [HttpPost("{id}")]
-        public async Task<IActionResult> ReadTestQuestions(int id,[FromForm]UploadFile uploadFile)
+        public async Task<IActionResult> ReadTestQuestions(string id,[FromForm]UploadFile uploadFile)
         {
-            var testQuestions = await testQuestionService.ReadTestQuestions(id, uploadFile);
-            if (testQuestions.FieldEmpty != 200)
+            var testQuestions = await testQuestionService.ReadTestQuestions(Int32.Parse(id) , uploadFile);
+            if (testQuestions.FieldEmpty == 400)
             {
                 return BadRequest(resourceManager.GetString("FieldEmpty"));
             }
-            if (testQuestions.QuestionExist != 200)
+            if (testQuestions.QuestionExist == 400)
             {
                 return BadRequest(resourceManager.GetString("QuestionExist"));
+            }
+            return Ok();
+        }
+        [HttpPost("addTestQuestion")]
+        public async Task<IActionResult> AddTestQuestion(RegisterTestQuestionDto registerTestQuestionDto)
+        {
+            var testQuestions = await testQuestionService.RegisterTestQuestion(registerTestQuestionDto);
+            if (testQuestions == null)
+            {
+                return BadRequest(resourceManager.GetString("Null"));
             }
             return Ok();
         }
@@ -47,15 +57,16 @@ namespace TopTests.API.Controllers
             return Ok();
         }
         [HttpPatch("{id}")]
-        public async Task<IActionResult> EditQuestion(int id,EditQuestionDto editQuestionDto)
+        public async Task<IActionResult> EditQuestion(string id,EditQuestionDto editQuestionDto)
         {
-            var question = await testQuestionService.EditTestQuestion(id,editQuestionDto);
+            var question = await testQuestionService.EditTestQuestion(Int32.Parse(id),editQuestionDto);
             if (question == false)
             {
                 return NotFound(resourceManager.GetString("Null"));
             }
             return Ok();
         }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> ShowTest(int id)
         {
@@ -66,10 +77,10 @@ namespace TopTests.API.Controllers
             }
             return Ok(test);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAllDeletedQuestions()
+        [HttpGet("deletedQuestions/{id}")]
+        public async Task<IActionResult> GetAllDeletedQuestions(int id)
         {
-            var questions = await testQuestionService.ShowAllDeletedTestQuestions();
+            var questions = await testQuestionService.ShowAllDeletedTestQuestions(id);
             if (questions == null)
             {
                 return NotFound(resourceManager.GetString("Null"));

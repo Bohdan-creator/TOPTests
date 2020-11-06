@@ -1,0 +1,88 @@
+import React, { useMemo, useState } from "react";
+import{useParams} from "react-router-dom"
+import Api from '../API/TestQuestionsApi'
+
+export default function TestManager() {
+
+ async function SendFile(filePath){
+         let api = new Api();
+         api.SendTestQuestions(filePath);
+ }
+ const[data,setdata] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [userRole,setRole] = useState();
+ async function fetchTestQuestions() {
+        try
+        {
+      let api = new Api();
+      setIsLoading(true);
+      setRole(sessionStorage.getItem('userRole'));
+      console.log(sessionStorage.getItem('userRole'));
+      const res = await api.fetchTestQuestions();
+      console.log(res);
+      setdata(res);
+      setIsLoading(false);
+      console.log(data);
+
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+    }
+    async function redirectToEditTestQuestionsAnswer(id,subjectName,option){
+      console.log(subjectName);
+      var arr = ['Test','OptionA','OptionB','OptionC']; 
+      sessionStorage.setItem("QuestionId",id);
+      var index=0;  
+      sessionStorage.setItem("SubjectName",subjectName);
+         option.map((item,index)=>(
+          sessionStorage.setItem(arr[index+1],item)
+         ))
+         window.location.assign("/editTestQuestions/"+id);
+    }
+    async function redirectToTests(){
+      window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
+    }
+    async function redirectToDeletedQuestions(){
+      window.location.assign("/showDeletedQuestions/"+sessionStorage.getItem("TestId"));
+    }
+    async function redirectToTestModify(id){
+      sessionStorage.setItem("TestId",id);
+      window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"));
+    }
+    async function redirectToAddQuestion(){
+      window.location.assign("/addTestQuestion");
+    }
+    async function deleteTestQuestion(id){
+      let api = new Api();
+      api.DeleteTestQuestion(id);
+    }
+    async function restoreTestQuestion(id){
+      let api = new Api();
+      api.restoreTestQuestion(id);
+      window.location.reload(false);
+        }
+    async function fetchDeletedQuestions(){
+      try
+      {
+    let api = new Api();
+    setIsLoading(true);
+    setRole(sessionStorage.getItem('userRole'));
+    console.log(sessionStorage.getItem('userRole'));
+    const res = await api.showDeletedQuestions (sessionStorage.getItem("TestId"));
+    console.log(res);
+    setdata(res);
+    setIsLoading(false);
+    console.log(data);
+
+      }
+      catch(error)
+      {
+          console.log(error);
+      }
+    }
+ return {SendFile,fetchTestQuestions,restoreTestQuestion,redirectToTestModify,redirectToEditTestQuestionsAnswer,
+  redirectToDeletedQuestions, deleteTestQuestion,redirectToTests,fetchDeletedQuestions,data,isLoading,userRole,
+  redirectToAddQuestion};
+}

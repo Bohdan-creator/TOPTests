@@ -8,6 +8,7 @@ export default class UserApi{
 
         async createUser(params) {
             try {
+             
               await axios.post('https://localhost:44323/api/authorize/register',params)
               Swal.fire("Success", "Email has been sent. Please confirm your registration", "success");
             } catch (error) {

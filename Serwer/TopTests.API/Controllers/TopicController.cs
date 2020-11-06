@@ -60,6 +60,16 @@ namespace TopTests.API.Controllers
             }
             return Ok(topics);
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllTopics(string id)
+        {
+            var topics = await topicService.ShowAllTopics(Int32.Parse(id));
+            if (topics == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(topics);
+        }
         [HttpGet("restore/{id}")]
         public async Task<IActionResult> RestoreTopic(int id)
         {

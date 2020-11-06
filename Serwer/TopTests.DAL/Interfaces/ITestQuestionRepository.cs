@@ -18,6 +18,6 @@ namespace TopTests.DAL.Interfaces
         Task<TestQuestions> CheckIfQuestionExist(TestQuestions TestQuestions);
         Task<IEnumerable<TestQuestions>> GetAllTestQuestions(int TestId);
         Task<TestQuestions> RestoreQuestion(int id);
-        Task<IEnumerable<TestQuestions>> GetAllDeletedTestQuestions();
+        Task<IEnumerable<TestQuestions>> GetAllDeletedTestQuestions(int id);
     }
 }

@@ -14,5 +14,7 @@ namespace TopTests.Services.Interfaces
         Task<bool> DeleteTopic(int id);
         Task<bool> RestoreTopic(int id);
         Task<IEnumerable<Topics>> ShowAllDeletedTopics();
+        Task<IEnumerable<Topics>> ShowAllTopics(int subjectId);
+
     }
 }

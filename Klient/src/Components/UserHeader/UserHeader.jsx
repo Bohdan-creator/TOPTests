@@ -8,6 +8,8 @@ import style from "../UserHeader/UserHeader.css"
 import RegisterUser from '../RegisterForm/RegisterForm'
 
 class UserHeader extends Component{
+   isLogged =sessionStorage.getItem("isLoggedIn");
+
   render(){
     return(   
          <Navbar collapseOnSelect expand="lg" style={{background:"RGBA(12,29,44,1)"}} variant="dark">
@@ -16,7 +18,7 @@ class UserHeader extends Component{
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="mr-auto">
       <Nav.Link href="/home" class="links">Home</Nav.Link>
-      <Nav.Link href="#pricing" class="links">Tests</Nav.Link>
+      <Nav.Link href="/subjects" class="links">Subjects</Nav.Link>
       <NavDropdown class="links" title="" id="collasible-nav-dropdown">
         <NavDropdown.Item href="/3.1">Contacts</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.2">Problems</NavDropdown.Item>
@@ -24,6 +26,10 @@ class UserHeader extends Component{
         <NavDropdown.Item href="#action/3.4">FeedBack</NavDropdown.Item>
       </NavDropdown>
     </Nav>
+    <Nav>     
+    <p style={{color:"white",fontSize:20+'px',marginRight:40+'px',marginTop:10+'px'}}>{sessionStorage.getItem("name")}</p>
+    </Nav>
+  
     <Nav>
       <a class="link-logo" href="http://localhost:3000/login"><img class="logo" src={logIn}></img></a>
     </Nav>

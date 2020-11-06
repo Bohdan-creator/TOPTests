@@ -12,8 +12,9 @@ export default class AuthorizationApi {
             "https://localhost:44323/api/authorize/signIn",
              params
           );
-          sessionStorage.setItem("isLoggedIn", true)
-          return response.data;
+          Swal.fire("Success", "Success", "success");
+          sessionStorage.setItem("isLoggedIn", true);
+                    return response.data;
         } catch (error) {
           if (error.response) {
             console.log(error.response)

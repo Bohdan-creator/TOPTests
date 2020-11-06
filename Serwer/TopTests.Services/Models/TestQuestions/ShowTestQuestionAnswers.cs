@@ -6,6 +6,7 @@ namespace TopTests.Services.Models.TestQuestions
 {
    public class ShowTestQuestionAnswers
     {
+        public string QuestionId { get; set; }
         public string Question { get; set; }
         public List<string> Option { get; set; } = new List<string>();
     }

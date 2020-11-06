@@ -7,6 +7,6 @@ namespace TopTests.Services.Models.Topics
     public class RegisterTopicDto
     {
         public string Name { get; set; }
-        public int SubjectId { get; set; }
+        public string SubjectId { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace TopTests.Services.Models.Testy
 {
     public class EditTestDto
     {
+        public string Id { get; set; }
         public string Name { get; set; }
     }
 }

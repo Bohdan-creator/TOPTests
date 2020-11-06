@@ -22,7 +22,8 @@ namespace TopTests.Services.Services
                      new Claim(ClaimTypes.Email,_user.Email),
                      new Claim(ClaimTypes.Hash , _user.HashPassword),
                      new Claim(ClaimTypes.Role,_user.RoleOfUser.ToString()),
-                     new Claim(JwtRegisteredClaimNames.Sub,_user.Id.ToString())
+                     new Claim(JwtRegisteredClaimNames.Sub,_user.Id.ToString()),
+                     new Claim(ClaimTypes.Name,_user.FirstName)
             };
             var jwt = new JwtSecurityToken(
                   issuer: TokenOptions.ISSUER,

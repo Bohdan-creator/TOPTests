@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TopTests.DAL.Entities;
@@ -45,11 +46,20 @@ namespace TopTests.Services.Services
         public async Task<bool> EditTestQuestion(int id, EditQuestionDto editQuestionDto)
         {
             var question = await testQuestionRepository.GetQuestion(id);
+            question.Question = editQuestionDto.Question;
+            var answers = await answersRepository.GetAnswersForQuestion(question.NumberOfIdentification);
+            List<string> editAnswers = new List<string>();
+            editAnswers.Add(editQuestionDto.OptionA);
+            editAnswers.Add(editQuestionDto.OptionB);
+            editAnswers.Add(editQuestionDto.OptionC);
+            for (int i = 0; i< editAnswers.Count; i++)
+            {
+                answers[i].Option = editAnswers[i]; 
+            }
             if (question == null || editQuestionDto.Question == "")
             {
                 return false;
             }
-            question.Question = editQuestionDto.Question;
             testQuestionRepository.Update(question);
             await testQuestionRepository.SaveChangesAsync();
             return true;
@@ -110,6 +120,34 @@ namespace TopTests.Services.Services
 
         }
 
+        public async Task<RegisterTestQuestionDto> RegisterTestQuestion(RegisterTestQuestionDto registerTestQuestionDto)
+        {
+            if (registerTestQuestionDto == null)
+            {
+                return null;
+            }
+            var testQuestion = new TestQuestions(Int32.Parse(registerTestQuestionDto.TestId), Int32.Parse(registerTestQuestionDto.TopicId),
+                                                 Int32.Parse(registerTestQuestionDto.SubjectId), registerTestQuestionDto.Question);
+            List<bool> isCorrect = new List<bool>();
+            isCorrect.Add(registerTestQuestionDto.isCorrectOptionA);
+            isCorrect.Add(registerTestQuestionDto.isCorrectOptionB);
+            isCorrect.Add(registerTestQuestionDto.isCorrectOptionC);
+            List<string> option = new List<string>();
+            option.Add(registerTestQuestionDto.OptionA);
+            option.Add(registerTestQuestionDto.OptionB);
+            option.Add(registerTestQuestionDto.OptionC);
+            List<Answers> answers = new List<Answers>();
+            for (int i = 0; i < 3; i++) {
+                answers.Add(new Answers(Int32.Parse(registerTestQuestionDto.SubjectId), Int32.Parse(registerTestQuestionDto.SubjectId),
+                                            Int32.Parse(registerTestQuestionDto.SubjectId), testQuestion.NumberOfIdentification,
+                                             option[i],isCorrect[i]));
+            }
+            testQuestionRepository.Create(testQuestion);
+            answersRepository.SaveAnswers(answers);
+            await testQuestionRepository.SaveChangesAsync();
+            return registerTestQuestionDto;
+        }
+
         public async Task<bool> RestoreTestQuestion(int id)
         {
             var question = await testQuestionRepository.RestoreQuestion(id);
@@ -118,19 +156,46 @@ namespace TopTests.Services.Services
                 return false;
             }
             question.isDelete = false;
+            answersRepository.SetValueIsNotDeleteOnQuestion(question.NumberOfIdentification);
             testQuestionRepository.Update(question);
             await testQuestionRepository.SaveChangesAsync();
             return true;
         }
 
-        public Task<IEnumerable<TestQuestions>> ShowAllDeletedTestQuestions()
+        public async Task<IEnumerable<ShowTestQuestionAnswers>> ShowAllDeletedTestQuestions(int TestId)
         {
-            var questions = testQuestionRepository.GetAllDeletedTestQuestions();
+            var test = await testRepository.GetTest(TestId);
+            if (test == null)
+            {
+                return null;
+            }
+            var list = new List<ShowTestQuestionAnswers>();
+            if (test == null)
+            {
+                return null;
+            }
+            var questions = await testQuestionRepository.GetAllDeletedTestQuestions(TestId);
             if (questions == null)
             {
                 return null;
             }
-            return questions;
+            foreach (var testQuestion in questions)
+            {
+                ShowTestQuestionAnswers show = new ShowTestQuestionAnswers();
+                show.QuestionId = testQuestion.Id.ToString();
+                show.Question = testQuestion.Question;
+                var answers = await answersRepository.GetDeletedAnswersForQuestion(testQuestion.NumberOfIdentification);
+                if (answers == null)
+                {
+                    return null;
+                }
+                foreach (var listAnswers in answers)
+                {
+                    show.Option.Add(listAnswers.Option);
+                }
+                list.Add(show);
+            }
+            return list;
         }
 
         public async Task<IEnumerable<ShowTestQuestionAnswers>> ShowTestQuestion(int TestId)
@@ -153,6 +218,7 @@ namespace TopTests.Services.Services
             foreach (var testQuestion in questions)
             {
                 ShowTestQuestionAnswers show = new ShowTestQuestionAnswers();
+                show.QuestionId = testQuestion.Id.ToString();
                 show.Question = testQuestion.Question;
                 var answers = await answersRepository.GetAnswersForQuestion(testQuestion.NumberOfIdentification);
                 if (answers == null)

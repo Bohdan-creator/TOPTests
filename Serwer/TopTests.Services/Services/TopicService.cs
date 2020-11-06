@@ -32,7 +32,7 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
-            var topic = new Topics(registerTopicDto.SubjectId, registerTopicDto.Name);
+            var topic = new Topics(Int32.Parse(registerTopicDto.SubjectId), registerTopicDto.Name);
             topicsRepository.Create(topic);
             await topicsRepository.SaveChangesAsync();
             return mapper.Map<RegisterTopicDto>(topic);
@@ -43,7 +43,7 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
-            var topic = await topicsRepository.GetTopic(editTopicDto.Id);
+            var topic = await topicsRepository.GetTopic(Int32.Parse(editTopicDto.Id));
             topic.Name = editTopicDto.Name;
             topicsRepository.Update(topic);
             await topicsRepository.SaveChangesAsync();
@@ -84,6 +84,15 @@ namespace TopTests.Services.Services
         public Task<IEnumerable<Topics>> ShowAllDeletedTopics()
         {
             var topics = topicsRepository.GetAllDeletedTopics();
+            if (topics == null)
+            {
+                return null;
+            }
+            return topics;
+        }
+        public Task<IEnumerable<Topics>> ShowAllTopics(int subjectId)
+        {
+            var topics = topicsRepository.GetAllTopics(subjectId);
             if (topics == null)
             {
                 return null;

@@ -16,10 +16,7 @@ export default function Login() {
                   Email: Yup.string().email("Invalid email").required("Required"),
               });
               
-              function onSubmit(fields, { setSubmitting }) {
-                // window.location.assign("/home")  
-                // console.log(fields);
-                //    createUser(fields, setSubmitting);  
+              function onSubmit(fields, { setSubmitting }) {  
                 signIn(fields)
               }
               async function signIn(params) {
@@ -35,16 +32,16 @@ export default function Login() {
                         ]
                       );
                       sessionStorage.setItem("userID", decodedToken.sub);
+                      sessionStorage.setItem("name","Hi, "+response.name);
                       sessionStorage.setItem("accessToken", response.accessToken);
                       sessionStorage.setItem("refreshToken", response.refreshToken);
                       switch (sessionStorage.getItem("userRole")) {
                         case "User":
                           sessionStorage.setItem("userRole", "user");
-                          window.location.reload()
                           break;
                         case "Admin":
                           sessionStorage.setItem("userRole", "admin");
-                          window.location.reload()
+                          setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
                           break;
                         default:
                           throw new Error("Bad response from server");

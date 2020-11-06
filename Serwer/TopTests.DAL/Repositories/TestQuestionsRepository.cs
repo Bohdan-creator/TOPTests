@@ -56,7 +56,7 @@ namespace TopTests.DAL.Repositories
         public async Task<TestQuestions> CheckIfQuestionExist(TestQuestions testQuestions)
         {
             return await context.Set<TestQuestions>()
-                .FirstOrDefaultAsync(e => e.Question == testQuestions.Question);
+                .FirstOrDefaultAsync(e => e.Question == testQuestions.Question&&e.isDelete==false);
         }
 
         public async Task<TestQuestions> GetQuestion(int id)
@@ -82,10 +82,10 @@ namespace TopTests.DAL.Repositories
                 
         }
 
-        public async Task<IEnumerable<TestQuestions>> GetAllDeletedTestQuestions()
+        public async Task<IEnumerable<TestQuestions>> GetAllDeletedTestQuestions(int id)
         {
             return await context.Set<TestQuestions>()
-               .Where(e => e.isDelete == true)
+               .Where(e => e.isDelete == true&&e.TestId==id)
                .ToListAsync();           
         }
     }

@@ -13,5 +13,6 @@ namespace TopTests.DAL.Interfaces
         Task<Topics> GetTopic(int id);
         Task<Topics> RestoreTopic(int id);
         Task<IEnumerable<Topics>> GetAllDeletedTopics();
+        Task<IEnumerable<Topics>> GetAllTopics(int subjectId);
     }
 }

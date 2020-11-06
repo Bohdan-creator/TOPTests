@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace TopTests.API.Controllers
             this.testService = testService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterTestDto registerTestDto)
         {
             var test = await testService.RegisterTest(registerTestDto);
@@ -42,17 +43,17 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> EditTest(int id,EditTestDto editTestDto)
+        [HttpPatch("editTest")]
+        public async Task<IActionResult> EditTest(EditTestDto editTestDto)
         {
-            if(!await testService.EditTest(id, editTestDto))
+            if(!await testService.EditTest(Int32.Parse(editTestDto.Id), editTestDto))
             {
                 return BadRequest(resourceManager.GetString("Null"));
             }
             return Ok();
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTests(int id)
+        public async Task<IActionResult> GetTests(string id)
         {
             var tests = await testService.GetTests(id);
             if (tests == null)

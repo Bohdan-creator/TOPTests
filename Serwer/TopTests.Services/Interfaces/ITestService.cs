@@ -12,7 +12,7 @@ namespace TopTests.Services.Interfaces
         Task<Test> RegisterTest(RegisterTestDto registerTestDto);
         Task<bool> DeleteTest(int id);
         Task<bool> EditTest(int id, EditTestDto editTestDto);
-        Task<IEnumerable<Test>> GetTests(int id);
+        Task<IEnumerable<Test>> GetTests(string id);
         Task<bool> RestoreTest(int id);
         Task<IEnumerable<Test>> ShowAllDeletedTests();
     }
