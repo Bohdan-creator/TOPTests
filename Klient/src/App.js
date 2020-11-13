@@ -22,6 +22,8 @@ import ShowTestToModify from './Components/TestQuestionManager/ShowTestModify'
 import EditTestQuestionAnswer from './Components/TestQuestionManager/EditTestQuestionAnswer'
 import DeletedQuestions from './Components/TestQuestionManager/DeletedQuestions'
 import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
+import StartTest from './Components/TestQuestionManager/StartTest'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -43,6 +45,14 @@ function App() {
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
         </Route>
+        <Route path="/topics/:id">
+        <UserHeader></UserHeader>
+        <AllTopics></AllTopics>
+        </Route>
+        <Route path="/test/:id">
+        <UserHeader></UserHeader>
+       <StartTest ></StartTest>
+        </Route>
         <Route path="/home">
         <UserHeader></UserHeader>
         <Home style="backSlide"></Home>
@@ -51,6 +61,10 @@ function App() {
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        </Route>
+        <Route path="/tests/:id">
+        <UserHeader></UserHeader>
+        <AllTests ></AllTests>
         </Route>
         <Route path="/register">
         <UserHeader></UserHeader>

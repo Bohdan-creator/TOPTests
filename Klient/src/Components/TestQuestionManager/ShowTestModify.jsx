@@ -24,7 +24,7 @@ export default function ShowTestQuestion(){
          width={100}
        ></Loader>
       </div>
-    ) :
+    ):
        (data&&userRole==="admin" ?
        <div class="grid-container-test">
          <h1 style={{margin:20+'px'}}>Please rewiew the test and confirm</h1>
@@ -69,8 +69,10 @@ export default function ShowTestQuestion(){
        ))}
        <a type="button" class="btn btn-info" id="confirm" onClick={()=>redirectToTests()} >Confirm</a>
      </div>
-      :<div></div>
-    )}
+        :<div>       
+        </div>
+    )
+    }
   </div>
     );
 

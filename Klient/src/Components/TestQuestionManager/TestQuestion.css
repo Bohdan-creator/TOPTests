@@ -6,9 +6,50 @@
         width: 90%;
         margin-left: 70px;
 }
+.timer_start{
+        float: right;
+        margin-top: 10px;
+        font-size: 35px;
+        color:green;
+        font-family: 'Times New Roman', Times, serif;
+}
+.timer_middle{
+        float: right;
+        margin-top: 10px;;
+        font-size: 35px;
+        color:rgb(255,216,0);
+        font-family: 'Times New Roman', Times, serif;
+        animation-name: size;
+    animation-duration: 500ms ;
+}
+@keyframes size{
+        0%{font-size: 35px;}
+        100%{font-size: 40px;}
+}
+.timer_end{
+        float: right;
+        margin-top: 10px;;
+        font-size: 35px;
+        color:red;
+        font-family: 'Times New Roman', Times, serif;
+}
+.grid-container-Starttest{
+        display: grid;
+        grid-template-columns: 90%;
+        background-color: white;
+        margin:0px 30px 30px 30px;
+        border-radius: 35px;
+        width: 75%;
+        margin-left: 200px;
+        margin-top: 100px;;
+}
 .question{
         font-size: 45px;
         margin-right: 35%;
+}
+.question-test{
+        font-size: 45px;
+        margin-right: 45%;      
 }
 .answers{
         border:1px solid #9e9e9e;
@@ -21,11 +62,51 @@
         width:150px;
         font-size: 29px;
 }
+.answers-test{
+        border:1px solid #9e9e9e;
+        border-radius: 20px;
+        margin-top: 10px;
+        width:900px;
+        padding-right: 70%;
+        padding-top: 20px;
+        margin-left: 100px;;
+}
+.answer-test{
+        font-size: 25px;
+        width:200px
+}
+.info{
+        width: 100%;
+        height: calc(1.5em + 0.75rem + 2px);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+}
+.info-test{
+        float: left;
+        position: relative;
+        width: 40%;
+        height: calc(1.5em + 0.75rem + 2px);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+}
 .item-test{
     margin: 10px;
     width:50%;
-
+    animation-name: bottom;
+    animation-duration: 2s ;
 }
+@keyframes bottom {
+    from {top: -600px;}
+    to {top: 86px;}
+  }
+
+.item-Starttest{
+        margin: 10px;
+        width:70%;
+    
+    }
 .number{
         float: left;
         margin-top: 15px;
@@ -100,12 +181,37 @@
               border-radius: 8px;
               border:1px solid rgb(158, 154, 154)
       }
-      #confirm{
-              margin-left: 50%;
-              margin-bottom: 40px;
-              padding: 20px;
-              font-size: 20px;
+      #buttonPrevious{
+              width: 110px;
+              height:70px;
+              background-color: #4CAF50;
+              border-radius: 10px;
+              padding-top: 10px;
+              color: whitesmoke;
+              font-size: 25px;
+              margin-right: 20px;
+              margin-left: 400px;
+              text-decoration: none;
+              transition: 300ms;
       }
+      #buttonNext{
+        width: 110px;
+        height:70px;
+        background-color: #4CAF50;
+        color: whitesmoke;
+        border-radius: 10px;
+        padding-top: 10px;
+        text-decoration: none;
+        font-size: 25px;
+        margin-right: 20px;
+        transition: 300ms;
+}
+#buttonNext:hover{
+        background-color: #3d8c3d;
+}
+#buttonPrevious:hover{
+        background-color: #3d8c3d;
+}
       #right-side{
               float: right;
               color:white;
@@ -145,14 +251,6 @@
                 position: absolute;
                 margin-left: 50px;;
                 margin-top:30px;
-          }
-          .info{
-                  display: block;
-                  width: 100%;
-                  height: calc(1.5em + 0.75rem + 2px);
-                  font-size: 1rem;
-                  font-weight: 400;
-                  line-height: 1.5;
           }
           .form-control:focus{
                   border-color:1px white solid !important;

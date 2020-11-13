@@ -45,12 +45,19 @@ return(
      <a href="http://localhost:3000/topics/register">
        <img class="plus" src={plus}></img>
        </a>
-  </div>:
+  </div>:data&&sessionStorage.getItem("userRole")==="user"?
   <div class="grid-container-subjects">
   {data.map( item => (
     <div class="item">
     <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-    <a  role="button " class="btn btn-info" >Go ahead</a>
+    <a  role="button " class="btn btn-info" onClick={()=>redirectToTests(item.id)}>Go ahead</a>
+    </div>
+  ))}
+</div>: <div class="grid-container-subjects">
+  {data.map( item => (
+    <div class="item">
+    <p class="SubjectTitle" key={item.id}>  {item.name}</p>
+    <a  role="button " class="btn btn-info" onClick={()=>redirectToTests(item.id)}>Go ahead</a>
     </div>
   ))}
 </div>

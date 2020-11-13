@@ -1,15 +1,17 @@
 import React from "react"
 import * as Yup from 'yup';
+import ReactDOM from 'react-dom'
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Api from '../API/TestQuestionsApi'
 import TestManager from '../TestQuestionManager/TestQuestionManager.utils';
+import Swal from "sweetalert2"
 
 export default function AddTestQuestion(){
 let initialValues = {
-        Question: "",
-        OptionA: "",
-        OptionB: "",
-        OptionC: "",
+        Question: "dfgdfg",
+        OptionA: "dfg",
+        OptionB: "dfg",
+        OptionC: "dfg",
         isCorrectOptionA: false,
         isCorrectOptionB: false,
         isCorrectOptionC: false,
@@ -23,21 +25,40 @@ let initialValues = {
                 .min(1, "Too short!")
                 .max(20, "Too long!")
                 .required("Required"),
+                OptionA: Yup.string()
+                .required("Required"),
+                OptionB: Yup.string()
+                .required("Required"),
+                OptionC: Yup.string()
+                .required("Required"),
+
+
             });
             
             function onSubmit(fields) {
               try{
-                console.log(fields);
-                createTest(fields);   
-              }
+                    createTest(fields); 
+                }  
               catch(error){
                   console.log("error");
           } 
               }
+              async function alert(){
+                Swal.fire({icon: 'warning',
+                title:'Warning',
+                 text:'Please set a true answer'});
+                  
+              }
               async function createTest(fields) {
                 try {
+                  if(fields.isCorrectOptionA==false&&fields.isCorrectOptionB==false
+                    &&fields.isCorrectOptionC==false){
+                  alert()
+                  }
+                  else{
                   let api = new Api();
                   api.registerQuestion(fields);
+                  }
                 } catch (error) {
                   console.log(error);
                  }
@@ -45,9 +66,12 @@ let initialValues = {
               return (
                
                 <Formik 
-                  onSubmit={onSubmit}
+                  validationSchema={validationSchema}
                   initialValues={initialValues}
+                  onSubmit={onSubmit}
                 >
+                   {({ errors, touched }) => {
+            return (
                       <Form className="upsertformTestQuestion">
                       <h1>Add Test Question</h1>
                       
@@ -55,8 +79,8 @@ let initialValues = {
                       <Field
                         name="Question"
                         className={
-                          "form-control"// +
-                        //  (errors.Name && touched.Name ? " is-invalid" : "")
+                          "form-control" +
+                          (errors.Question && touched.Question ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -69,8 +93,8 @@ let initialValues = {
                       <Field
                         name="OptionA"
                         className={
-                          "form-control"// +
-                          //(errors.Name && touched.Name ? " is-invalid" : "")
+                          "form-control" +
+                          (errors.OptionA && touched.OptionA ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -83,8 +107,8 @@ let initialValues = {
                       type="checkbox"
                         name="isCorrectOptionA"
                         className={
-                          "info" //+
-                          //(errors.Name && touched.Name ? " is-invalid" : "")
+                          "info" +
+                          (errors.isCorrectOptionA && touched.isCorrectOptionA ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -98,8 +122,8 @@ let initialValues = {
                       <Field
                         name="OptionB"
                         className={
-                          "form-control"// +
-                         // (errors.Name && touched.Name ? " is-invalid" : "")
+                          "form-control" +
+                          (errors.OptionB && touched.OptionB ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -112,8 +136,8 @@ let initialValues = {
                         name="isCorrectOptionB"
                         type="checkbox"
                         className={
-                          "info"// +
-                          //(errors.Name && touched.Name ? " is-invalid" : "")
+                          "info" +
+                          (errors.isCorrectOptionB && touched.isCorrectOptionB ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -126,8 +150,8 @@ let initialValues = {
                       <Field
                         name="OptionC"
                         className={
-                          "form-control" //+
-                         // (errors.Name && touched.Name ? " is-invalid" : "")
+                          "form-control" +
+                          (errors.OptionC && touched.OptionC ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -140,8 +164,8 @@ let initialValues = {
                         name="isCorrectOptionC"
                         type="checkbox"
                         className={
-                          "info" //+
-                         // (errors.Name && touched.Name ? " is-invalid" : "")
+                          "info" +
+                          (errors.isCorrectOptionC && touched.isCorrectOptionC ? " is-invalid" : "")
                         }
                       />
                       <ErrorMessage
@@ -160,7 +184,11 @@ let initialValues = {
                         Cancel
                         </a> 
                     </Form>
-                </Formik>
+            );
+          }
+        }
+              </Formik>
               );
+              
 }
               

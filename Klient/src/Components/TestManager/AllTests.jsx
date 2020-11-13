@@ -7,8 +7,8 @@ import plus from "../img/plus.png"
 import edit from "../img/edit.png"
 
 export default function AllTopics(){
-const {data,isLoading,redirectToEditTest,redirectToAddQuestions,AllTests,deleteTest} = TestManager();
-const{redirectToTestModify}=TestQuestionManager();
+const {data,isLoading,redirectToEditTest,AllTests,deleteTest} = TestManager();
+const{redirectToTestModify,redirectToStartTest}=TestQuestionManager();
 useEffect(() => {AllTests()},[]);  
 
 console.log(data);
@@ -47,15 +47,15 @@ return(
      <a href="http://localhost:3000/registerTest">
        <img class="plus" src={plus}></img>
        </a>
-  </div>:
+  </div>:data&&sessionStorage.getItem("userRole")==="user"?
   <div class="grid-container-subjects">
   {data.map( item => (
     <div class="item">
     <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-    <a  role="button " class="btn btn-info">Go ahead</a>
+    <a  role="button " class="btn btn-info" onClick={()=>redirectToStartTest(item.id)}>Go ahead</a>
     </div>
   ))}
-</div>
+</div>:<div></div>
     )}
   </div>
       );

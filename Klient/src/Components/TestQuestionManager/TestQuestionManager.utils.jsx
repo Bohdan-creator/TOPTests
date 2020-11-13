@@ -9,8 +9,8 @@ export default function TestManager() {
          api.SendTestQuestions(filePath);
  }
  const[data,setdata] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [userRole,setRole] = useState();
+ const [isLoading, setIsLoading] = useState(false);
+ const [userRole,setRole] = useState();
  async function fetchTestQuestions() {
         try
         {
@@ -44,12 +44,29 @@ export default function TestManager() {
     async function redirectToTests(){
       window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
     }
+    async function NextQuestion(item){
+      let number = sessionStorage.getItem("NumberOfQuestion");
+      ++number;
+      sessionStorage.setItem("NumberOfQuestion",number);
+      window.location.assign("/test/"+sessionStorage.getItem("TestId"));
+    }
+    async function PreviousQuestion(){
+      let number = sessionStorage.getItem("NumberOfQuestion");
+      --number;
+      sessionStorage.setItem("NumberOfQuestion",number);
+      window.location.assign("/test/"+sessionStorage.getItem("TestId"));
+    }
     async function redirectToDeletedQuestions(){
       window.location.assign("/showDeletedQuestions/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToTestModify(id){
       sessionStorage.setItem("TestId",id);
       window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"));
+    }
+    async function redirectToStartTest(id){
+      sessionStorage.setItem("TestId",id);
+      sessionStorage.setItem("NumberOfQuestion",0);
+      window.location.assign("/test/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToAddQuestion(){
       window.location.assign("/addTestQuestion");
@@ -82,7 +99,8 @@ export default function TestManager() {
           console.log(error);
       }
     }
- return {SendFile,fetchTestQuestions,restoreTestQuestion,redirectToTestModify,redirectToEditTestQuestionsAnswer,
+ return {
+   SendFile,fetchTestQuestions,restoreTestQuestion,redirectToTestModify,redirectToEditTestQuestionsAnswer,
   redirectToDeletedQuestions, deleteTestQuestion,redirectToTests,fetchDeletedQuestions,data,isLoading,userRole,
-  redirectToAddQuestion};
+  redirectToAddQuestion,redirectToStartTest,NextQuestion,PreviousQuestion};
 }

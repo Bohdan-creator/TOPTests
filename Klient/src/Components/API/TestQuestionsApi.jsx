@@ -24,7 +24,8 @@ export default class TestQuestionApi extends Api{
   async fetchTestQuestions() {
     try {
        const res = await this.baseAxios.get('https://localhost:44323/api/testQuestion/'+sessionStorage.getItem("TestId"));     
-      return res.data;
+       console.log(res);
+       return res.data;
     } catch (error) {
       Swal.fire("Oops...", "You don't have anyone subject", "error");
     }

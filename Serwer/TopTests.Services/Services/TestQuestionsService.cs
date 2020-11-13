@@ -191,7 +191,7 @@ namespace TopTests.Services.Services
                 }
                 foreach (var listAnswers in answers)
                 {
-                    show.Option.Add(listAnswers.Option);
+                  //  show.Option.Add(listAnswers.Option);
                 }
                 list.Add(show);
             }
