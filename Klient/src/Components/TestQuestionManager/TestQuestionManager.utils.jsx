@@ -11,6 +11,8 @@ export default function TestManager() {
  const[data,setdata] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
  const [userRole,setRole] = useState();
+
+ 
  async function fetchTestQuestions() {
         try
         {
@@ -44,13 +46,17 @@ export default function TestManager() {
     async function redirectToTests(){
       window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
     }
-    async function NextQuestion(item){
+    async function NextQuestion(minutes,seconds){
+      localStorage.setItem("Minutes",minutes);
+      localStorage.setItem("Seconds",seconds);
       let number = sessionStorage.getItem("NumberOfQuestion");
       ++number;
       sessionStorage.setItem("NumberOfQuestion",number);
       window.location.assign("/test/"+sessionStorage.getItem("TestId"));
     }
-    async function PreviousQuestion(){
+    async function PreviousQuestion(minutes,seconds){
+      localStorage.setItem("Minutes",minutes);
+      localStorage.setItem("Seconds",seconds);
       let number = sessionStorage.getItem("NumberOfQuestion");
       --number;
       sessionStorage.setItem("NumberOfQuestion",number);
@@ -66,6 +72,8 @@ export default function TestManager() {
     async function redirectToStartTest(id){
       sessionStorage.setItem("TestId",id);
       sessionStorage.setItem("NumberOfQuestion",0);
+      localStorage.setItem("Minutes",1);
+      localStorage.setItem("Seconds",10);
       window.location.assign("/test/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToAddQuestion(){

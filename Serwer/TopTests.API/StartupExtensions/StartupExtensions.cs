@@ -45,6 +45,7 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ICheckTestService, CheckTestService>();
             services.AddScoped<ITestQuestionsService, TestQuestionsService>();
             return services;
         }
@@ -57,6 +58,7 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<ITestQuestionRepository, TestQuestionsRepository>();
             services.AddScoped<IAnswersRepository, AnswersRepository>();
+            services.AddScoped<IResultsRepository, ResultsRepository>();
             return services;
         }
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)

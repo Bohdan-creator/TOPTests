@@ -32,7 +32,6 @@ return(
            <img class="edit"src={edit}  ></img>
            </a>
       <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-      
       <a  role="button " class="btn btn-info" onClick={()=>redirectToTestModify(item.id)} >Go ahead</a>
       <br></br>
       <br></br>

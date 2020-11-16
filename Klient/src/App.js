@@ -23,7 +23,8 @@ import EditTestQuestionAnswer from './Components/TestQuestionManager/EditTestQue
 import DeletedQuestions from './Components/TestQuestionManager/DeletedQuestions'
 import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
 import StartTest from './Components/TestQuestionManager/StartTest'
-
+import RewiewTest from './Components/TestQuestionManager/RewiewTest'
+import Result from './Components/Results/ResultOfTest'
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,6 +45,14 @@ function App() {
         <Route path="/registerSubject">
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
+        </Route>
+        <Route path="/result">
+        <UserHeader></UserHeader>
+        <Result style="upsertResultShow"></Result>
+        </Route>
+        <Route path="/rewiewTest">
+        <UserHeader></UserHeader>
+        <RewiewTest style="upsertResultShow"></RewiewTest>
         </Route>
         <Route path="/topics/:id">
         <UserHeader></UserHeader>
