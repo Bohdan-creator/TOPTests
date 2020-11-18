@@ -5,9 +5,10 @@ import style from "../TopicsManager/TopicsStyle.css"
 import Loader from "react-loader-spinner";
 import plus from "../img/plus.png"
 import edit from "../img/edit.png"
+import jwt_decode from "jwt-decode";
 
-export default function AllTopics(){
-const {data,isLoading,redirectToEditTest,AllTests,deleteTest} = TestManager();
+export default function AllTests(){
+const {data,isLoading,userRole,redirectToEditTest,AllTests,deleteTest} = TestManager();
 const{redirectToTestModify,redirectToStartTest}=TestQuestionManager();
 useEffect(() => {AllTests()},[]);  
 
@@ -24,7 +25,7 @@ return(
          width={100}
        ></Loader>
       </div>
-    ):(data&&sessionStorage.getItem("userRole")==="admin"?
+    ):(data&&userRole==="Admin"?
     <div class="grid-container-subjects">
     {data.map( item => (
       <div class="item">
@@ -46,14 +47,17 @@ return(
      <a href="http://localhost:3000/registerTest">
        <img class="plus" src={plus}></img>
        </a>
-  </div>:data&&sessionStorage.getItem("userRole")==="user"?
+  </div>:data&&userRole==="User"?
+  <div>
+    <h1 style={{marginTop:20+'px',color:"whitesmoke",textDecoration:"underline"}}>Tests</h1>
   <div class="grid-container-subjects">
   {data.map( item => (
     <div class="item">
     <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-    <a  role="button " class="btn btn-info" onClick={()=>redirectToStartTest(item.id)}>Go ahead</a>
+    <a  role="button " class="btn btn-info" onClick={()=>redirectToStartTest(item.id)}>Let's start test</a>
     </div>
   ))}
+</div>
 </div>:<div></div>
     )}
   </div>

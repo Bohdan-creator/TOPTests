@@ -21,16 +21,19 @@ export default function SubjectManager(){
          width={100}
        ></Loader>
       </div>
-    ) : ( data&&userRole==="user" ?
+    ) : ( data&&userRole==="User" ?
+    <div>
+        <h1 style={{marginTop:20+'px',color:"whitesmoke",textDecoration:"underline"}}>Subjects</h1>
       <div class="grid-container-subjects">
       {data.map( item => (
         <div class="item">
         <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-        <a  role="button " class="btn btn-info"  onClick={()=>redirectToTopics(item.id)}>Go to test</a>
+        <a  role="button " class="btn btn-info"  onClick={()=>redirectToTopics(item.id)}>Go to topics</a>
         </div>
       ))}
+    </div>
     </div>:
-       data&&userRole==="admin" ?
+       data&&userRole==="Admin" ?
 
        <div class="grid-container-subjects">
        {data.map( item => (

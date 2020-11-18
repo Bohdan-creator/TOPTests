@@ -22,7 +22,7 @@ export default function ShowDeletedQuestion(){
                    ></Loader>
                   </div>
                 ) :
-                   data&&userRole==="admin"?
+                   data&&userRole==="Admin"?
                    <div class="grid-container-test">
                      <h1 style={{margin:20+'px'}}>Deleted Questions</h1>
                    {data.map( (item,index) => (
@@ -31,8 +31,7 @@ export default function ShowDeletedQuestion(){
                    <p class="question" >{item.question}</p>
                       {item.option.map(items=>(
                      <div class="answers">
-                     <input type="radio" id ={items}/>
-                      <label class="answer" for={items}>{items}</label>
+                      <label class="answer" for={items}>{items.option}</label>
                      </div>
                       ))} 
                      <br></br>

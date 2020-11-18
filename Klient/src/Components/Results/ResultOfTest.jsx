@@ -21,6 +21,10 @@ export default class ResultOfTest extends React.Component {
         redirectToRewiew(){
           window.location.assign("/rewiewTest");
         }
+        Finished(){
+          window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
+          localStorage.clear();
+        }
                          //alert("sdf");
                 GetScoreOfTest = async () => {
                 let api = new Api();
@@ -50,7 +54,8 @@ export default class ResultOfTest extends React.Component {
               <a type="button"class="btn btn-info" onClick={()=>this.redirectToRewiew()}>Review</a>
               <br></br>
               <br></br>
-              <button class="btn btn-danger">Finished</button>
+              <button class="btn btn-danger" onClick={()=>this.Finished()}
+              >Finished</button>
             </div>
           );
         }

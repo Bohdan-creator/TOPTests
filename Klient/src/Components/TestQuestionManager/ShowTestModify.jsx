@@ -25,7 +25,7 @@ export default function ShowTestQuestion(){
        ></Loader>
       </div>
     ):
-       (data&&userRole==="admin" ?
+       (data&&userRole==="Admin" ?
        <div class="grid-container-test">
          <h1 style={{margin:20+'px'}}>Please rewiew the test and confirm</h1>
          <div class="modify-test">
@@ -54,8 +54,7 @@ export default function ShowTestQuestion(){
        <p class="question" >{item.question}</p>
           {item.option.map(items=>(
          <div class="answers">
-         <input type="radio" id ={items}/>
-          <label class="answer" for={items}>{items}</label>
+          <label class="answer" for={items.option}>{items.option}</label>
          </div>
           ))} 
          <br></br>

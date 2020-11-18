@@ -7,7 +7,7 @@ import plus from "../img/plus.png"
 import edit from "../img/edit.png"
 
 export default function AllTopics(){
-const {data,isLoading,AllTopics,redirectToEditTopics,deleteTopic} = TopicsManager();
+const {data,userRole,isLoading,AllTopics,redirectToEditTopics,deleteTopic} = TopicsManager();
 const {redirectToTests} = TestManager();
 useEffect(() => {AllTopics()},[]);  
 console.log(data);
@@ -22,7 +22,7 @@ return(
          width={100}
        ></Loader>
       </div>
-    ):(data&&sessionStorage.getItem("userRole")==="admin"?
+    ):(data&&userRole==="Admin"?
     <div class="grid-container-subjects">
     {data.map( item => (
       <div class="item">
@@ -45,14 +45,17 @@ return(
      <a href="http://localhost:3000/topics/register">
        <img class="plus" src={plus}></img>
        </a>
-  </div>:data&&sessionStorage.getItem("userRole")==="user"?
+  </div>:data&&userRole==="User"?
+  <div>
+    <h1 style={{marginTop:20+'px',color:"whitesmoke",textDecoration:"underline"}}>Topics</h1>
   <div class="grid-container-subjects">
   {data.map( item => (
     <div class="item">
     <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-    <a  role="button " class="btn btn-info" onClick={()=>redirectToTests(item.id)}>Go ahead</a>
+    <a  role="button " class="btn btn-info" onClick={()=>redirectToTests(item.id)}>Go to tests</a>
     </div>
   ))}
+</div>
 </div>: <div class="grid-container-subjects">
   {data.map( item => (
     <div class="item">

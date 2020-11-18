@@ -1,11 +1,14 @@
 import React, { useMemo, useState } from "react";
 import{useParams} from "react-router-dom"
 import Api from '../API/TestApi'
+import jwt_decode from "jwt-decode";
 
 export default function TestManager() {
 
         const[isLoading,setIsLoading] = useState(false);
         const[data,setdata] = useState([]);
+        const[userRole,setRole]=useState();
+
         //const { id } = useParams();
 
         async function AllTests(){
@@ -13,8 +16,17 @@ export default function TestManager() {
                 let api = new Api();
                 setIsLoading(true);
                 let res = await api.AllTests(sessionStorage.getItem("TopicId"));
-
-                setdata(res);
+                let decoded=null;
+                let role = null;
+                if(sessionStorage.getItem("accessToken")!==null){
+                  decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+                 role =  decoded[
+                         "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+                       ]; 
+                       console.log(role);
+                 }
+                  setRole(role);
+                 setdata(res);
                 console.log(res);
                 setIsLoading(false);
 
@@ -35,5 +47,5 @@ export default function TestManager() {
                 sessionStorage.setItem("TestId",id);
                 window.location.assign("/addTestQuestions/"+id);
            }
-        return{redirectToEditTest,redirectToTests,AllTests,deleteTest,redirectToAddQuestions,isLoading,data};
+        return{redirectToEditTest,userRole,redirectToTests,AllTests,deleteTest,redirectToAddQuestions,isLoading,data};
 }

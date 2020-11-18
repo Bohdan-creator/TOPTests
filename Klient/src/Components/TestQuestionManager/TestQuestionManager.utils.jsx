@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import{useParams} from "react-router-dom"
 import Api from '../API/TestQuestionsApi'
+import jwt_decode from "jwt-decode";
 
 export default function TestManager() {
 
@@ -18,8 +19,15 @@ export default function TestManager() {
         {
       let api = new Api();
       setIsLoading(true);
-      setRole(sessionStorage.getItem('userRole'));
-      console.log(sessionStorage.getItem('userRole'));
+      let decoded=null;
+      let role=null;
+  if(sessionStorage.getItem("accessToken")!==null){
+   decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+  role =  decoded[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ]; 
+       }
+      setRole(role);
       const res = await api.fetchTestQuestions();
       console.log(res);
       setdata(res);
@@ -39,7 +47,7 @@ export default function TestManager() {
       var index=0;  
       sessionStorage.setItem("SubjectName",subjectName);
          option.map((item,index)=>(
-          sessionStorage.setItem(arr[index+1],item)
+          sessionStorage.setItem(arr[index+1],item.option)
          ))
          window.location.assign("/editTestQuestions/"+id);
     }
@@ -93,8 +101,15 @@ export default function TestManager() {
       {
     let api = new Api();
     setIsLoading(true);
-    setRole(sessionStorage.getItem('userRole'));
-    console.log(sessionStorage.getItem('userRole'));
+    let decoded=null;
+    let role=null;
+if(sessionStorage.getItem("accessToken")!==null){
+ decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+role =  decoded[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ]; 
+     }
+    setRole(role);
     const res = await api.showDeletedQuestions (sessionStorage.getItem("TestId"));
     console.log(res);
     setdata(res);

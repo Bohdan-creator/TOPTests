@@ -8,7 +8,7 @@
         grid-column-gap: 50px;
         grid-template-columns: 390px 390px 390px;
         margin-left: 60px;
-        padding: 75px;
+        padding-left: 75px;;
     }
     .item{
             margin-top:30px;    

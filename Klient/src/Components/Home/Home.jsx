@@ -16,10 +16,12 @@ export default class Home extends Component{
   }
   render(){
         return(
+          <div class="homePage">
+            <div id="backSlide">
                 <Carousel>
                 <Carousel.Item class="carousel-item active"  data-interval="0.01">         
                         <Carousel.Caption class={this.styles} style={{top:50 + '%'}}>
-                                 <div class="grid-container">
+                                 <div class ="grid-container">
                               <div>
                                 <img class="slider-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/C_Sharp_logo.svg/1200px-C_Sharp_logo.svg.png"></img>
                               </div>
@@ -57,7 +59,30 @@ export default class Home extends Component{
                          </Carousel.Caption>
                     </Carousel.Item>
         </Carousel>
-        
+        </div>
+        <h1 style={{color:"whitesmoke"}}>We offer</h1>
+        <div class="grid-container-home">
+          <div class="item-home">
+             <h2>C#</h2>
+          </div>
+          <div class="item-home">
+             <h2>C++</h2>
+          </div>
+          <div class="item-home">
+             <h2>HTML</h2>
+          </div>
+          <div class="item-home">
+             <h2>CSS</h2>
+          </div>
+          <div class="item-home">
+             <h2>Java</h2>
+          </div>
+          <div class="item-home">
+             <h2>Kotlin</h2>
+          </div>
+        </div>
+         
+        </div>
         )
         }
       }

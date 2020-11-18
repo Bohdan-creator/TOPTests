@@ -24,23 +24,18 @@ export default function Login() {
                     let api = new Api();
                     const response = await api.signIn(params);
                     if (sessionStorage.getItem("isLoggedIn")) {
-                      let decodedToken = jwt_decode(response.accessToken);
-                      sessionStorage.setItem(
-                        "userRole",
-                        decodedToken[
+                      let decodedToken = jwt_decode(response.accessToken);  
+                       let role =  decodedToken[
                           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
                         ]
-                      );
-                      sessionStorage.setItem("userID", decodedToken.sub);
                       sessionStorage.setItem("name","Hi, "+response.name);
                       sessionStorage.setItem("accessToken", response.accessToken);
                       sessionStorage.setItem("refreshToken", response.refreshToken);
-                      switch (sessionStorage.getItem("userRole")) {
+                      switch (role) {
                         case "User":
-                          sessionStorage.setItem("userRole", "user");
+                          setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
                           break;
                         case "Admin":
-                          sessionStorage.setItem("userRole", "admin");
                           setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
                           break;
                         default:

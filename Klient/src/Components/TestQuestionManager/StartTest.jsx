@@ -4,8 +4,10 @@ import Loader from "react-loader-spinner";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Api from '../API/CheckTestApi'
 import Result from '../Results/Result.utils';
+import { useState } from 'react';
 
 export default function Start(){
+  const[count,setCount]=useState(0);
   const [minutes, setMinute] = React.useState(localStorage.getItem("Minutes"));
   const [seconds, setSeconds] = React.useState(localStorage.getItem("Seconds"));
   const [timer_style, setStyle] = React.useState();
@@ -52,8 +54,6 @@ export default function Start(){
              list.push(JSON.parse(localStorage.getItem("Number"+i)))
           }
         }
-        //  localStorage.clear();
-
           let api = new Api();
           api.SendToCheckTest(list) 
         }
@@ -74,9 +74,11 @@ export default function Start(){
                 ):
                    (data&&userRole==="user" ?
                    <div class="grid-container-Starttest">
+                     
                    {data.map( (item,index) => {
-                           if(index===parseInt(sessionStorage.getItem("NumberOfQuestion"))){ 
-                             sessionStorage.setItem("QuestionId",item.questionId);  
+                           if(index===parseInt(sessionStorage.getItem("NumberOfQuestion"))){
+        
+                             sessionStorage.setItem("QuestionId",item.questionId);
                                                      
                     return( 
                       
@@ -88,10 +90,11 @@ export default function Start(){
                         <Form>
                           <p class="number" >{index+1}</p>
                            <p class="question-test" >{item.question}</p>
-                           {item.option.map( (items,index) =>{
-                             if(index===0){
-                            return( <div class="answers-test">
-                                 <label class="answer-test">{items}</label>
+                           {item.option.map( (items,index_items) =>{
+                             if(index_items===0){
+                            return(
+                            <div class="answers-test">
+                                 <label class="answer-test">{items.option}</label>
                                <Field 
                            type="checkbox"
                            name="isCorrectA"
@@ -106,10 +109,11 @@ export default function Start(){
                           </div>
                             )
                              }
-                             if(index===1){
-                              return( <div class="answers-test">
-                                   <label class="answer-test">{items}</label>
-                                 <Field 
+                             if(index_items===1){
+                              return( 
+                              <div class="answers-test">
+                               <label class="answer-test">{items.option}</label>
+                              <Field 
                              type="checkbox"
                              name="isCorrectB"
                              className={
@@ -123,9 +127,9 @@ export default function Start(){
                             </div>
                               )
                                }
-                               if(index===2){
+                               if(index_items===2){
                                 return( <div class="answers-test">
-                                     <label class="answer-test">{items}</label>
+                                     <label class="answer-test">{items.option}</label>
                                    <Field 
                                type="checkbox"
                                name="isCorrectC"
@@ -142,14 +146,16 @@ export default function Start(){
                            })}
                          <br></br>
                          <button
+                          style={{border:0+'px',paddingBottom:15+'px'}}
                           type="submit"
                           id="buttonPrevious"
                           onClick={()=>PreviousQuestion(minutes,seconds)}
                         >
                           Previous
                         </button>
-                     
-                     <button
+                
+                     <button 
+                          style={{border:0+'px',paddingBottom:15+'px'}}
                           type="submit"
                           id="buttonNext"
                           onClick={()=>NextQuestion(minutes,seconds)}
@@ -163,15 +169,13 @@ export default function Start(){
                 </div>
                    )          
                  } 
-                 return(
-                 <button
-                id="buttonNext"
-                onClick={()=>CheckTest()}
-              >
-                Check
-              </button>
-                 )          
+                 if(localStorage.length-2===data.length){
+                    CheckTest();
+                  } 
+                 console.log(index);
+  
 })}
+
                </div>
                 :<div>   </div>
                     )

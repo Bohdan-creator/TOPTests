@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import Api from "../API/SubjectApi";
 import Swal from "sweetalert2";
+import jwt_decode from "jwt-decode";
 
 export default function useSubjectManager() {
 
@@ -15,8 +16,15 @@ export default function useSubjectManager() {
       {
     let api = new Api();
     setIsLoading(true);
-    setRole(sessionStorage.getItem('userRole'));
-    console.log(sessionStorage.getItem('userRole'));
+    let decoded=null;
+let role=null;
+if(sessionStorage.getItem("accessToken")!==null){
+ decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+role =  decoded[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ]; 
+}
+    setRole(role);
     const res = await api.fetchSubjects();
     setTimeout(() => {
       console.log('you can see me after 2 seconds')

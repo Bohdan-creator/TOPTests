@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import UserHeader from './Components/UserHeader/UserHeader';
+import jwt_decode from "jwt-decode";
 import Home from './Components/Home/Home';
 import RegisterForm from './Components/RegisterForm/RegisterForm'
 import LoginForm from './Components/LoginForm/LoginForm'
@@ -31,15 +32,24 @@ import {
   Route,
   Link
 } from "react-router-dom";
-let userRole=sessionStorage.getItem('userRole');
-  let isLoggedIn=sessionStorage.getItem("isLoggedIn");
+let decoded=null;
+let role=null;
+if(sessionStorage.getItem("accessToken")!==null){
+ decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+role =  decoded[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ]; 
+}
+  let userRole = role;
+
+  let isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
 function App() {
   return (
     <Router>
        {
        isLoggedIn,
-         ( userRole==="user"&&
+         ( userRole==="User"&&
            <div>
              <Switch>
         <Route path="/registerSubject">
@@ -91,7 +101,7 @@ function App() {
         </Route>
              </Switch>
            </div>
-         )|| ( userRole==="admin"&&
+         )|| ( userRole==="Admin"&&
            <div>
                          <Switch>
                          <Route path="/registerSubject">
@@ -182,6 +192,10 @@ function App() {
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        </Route>
+        <Route path="/tests/:id">
+        <UserHeader></UserHeader>
+        <AllTests ></AllTests>
         </Route>
         <Route path="/register">
         <UserHeader></UserHeader>
