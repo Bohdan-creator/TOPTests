@@ -26,6 +26,7 @@ import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
 import StartTest from './Components/TestQuestionManager/StartTest'
 import RewiewTest from './Components/TestQuestionManager/RewiewTest'
 import Result from './Components/Results/ResultOfTest'
+import MyProfile from './Components/UserProfile/Profile'
 import {
   BrowserRouter as Router,
   Switch,
@@ -41,7 +42,6 @@ role =  decoded[
       ]; 
 }
   let userRole = role;
-
   let isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
 function App() {
@@ -55,6 +55,10 @@ function App() {
         <Route path="/registerSubject">
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
+        </Route>
+        <Route path="/myProfile">
+        <UserHeader></UserHeader>
+            <MyProfile></MyProfile>
         </Route>
         <Route path="/result">
         <UserHeader></UserHeader>
@@ -73,7 +77,7 @@ function App() {
        <StartTest ></StartTest>
         </Route>
         <Route path="/home">
-        <UserHeader></UserHeader>
+        <UserHeader ></UserHeader>
         <Home style="backSlide"></Home>
         </Route>
         <Route path="/login">

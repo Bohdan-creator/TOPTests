@@ -10,21 +10,18 @@ export default class TestQuestionApi extends Api{
   async SendToCheckTest(fields) {
         try {
            const res = await this.baseAxios.post
-           ('https://localhost:44323/api/checkTest/'+sessionStorage.getItem("TestId"),fields);     
-           console.log(res);
-           window.location.assign("/result");
+           ('https://localhost:44323/api/checkTest/'+sessionStorage.getItem("TestId"),fields); 
            return res.data;
         } catch (error) {
           Swal.fire("Oops...", "You don't have anyone subject", "error");
         }
       }
-      async GetResultOfTest(){
+      async GetResultOfTest(userId){
         try{
-              var userId =sessionStorage.getItem("userID");
               var testId=sessionStorage.getItem("TestId");
             
           const res = await this.baseAxios.get(
-            'https://localhost:44323/api/checkTest/'+sessionStorage.getItem("userID")
+            'https://localhost:44323/api/checkTest/'+userId
           )
           return res;
         }catch(error){

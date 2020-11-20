@@ -19,7 +19,7 @@ namespace TopTests.DAL.Entities
         public Results() { }
         public Results(int userId,int testId,int topicId,int subjectId,int score)
         {
-           // DateCreated = DateTime.Now;
+            DateCreated = DateTime.Now;
             UserId = userId;
             TestId = testId;
             TopicId = topicId;

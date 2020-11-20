@@ -28,7 +28,8 @@ namespace TopTests.API.Controllers
         {
             var result = await checkTestService.GetResultOfTest(Int32.Parse(userId));
             
-           return Ok(result);
+           
+            return Ok(result);
         }
     }
 }

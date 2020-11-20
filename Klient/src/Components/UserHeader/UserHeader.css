@@ -7,6 +7,26 @@
         margin-right: 40px;
         transition:200ms;
 }
+.details{
+        width:60px;
+        height: 60px;
+        transition:300ms; 
+}
+.logOut{
+        widows: 40px;
+        height: 40px;
+        margin-top: 10px;
+        margin-right: 20px;
+        transition:300ms;
+}
+.logOut:hover{
+        width: 43px;
+        height:43px;
+}
+.details:hover{
+        width:63px;
+        height: 63px;
+}
 .logo:hover{
         width:35px;
         height: 35px;

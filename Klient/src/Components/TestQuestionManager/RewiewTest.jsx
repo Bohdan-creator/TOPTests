@@ -25,7 +25,7 @@ console.log(data);
              width={100}
            ></Loader>
           </div>
-        ):(data&&userRole==="user"? 
+        ):(data&&userRole==="User"? 
         <div class="grid-container-Starttest">
         {data.map( (item,index) => {
           console.log(index);

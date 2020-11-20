@@ -41,6 +41,7 @@ namespace TopTests.Services.Services
                        listOfTestQuestions[i].isCorrectC == answers[2].isCorrect)
                     {
                         score += 10;
+
                     }
                 }
             }

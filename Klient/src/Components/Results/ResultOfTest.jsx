@@ -4,6 +4,7 @@ import Result from './Result.utils'
 import ReactDOM from 'react-dom'
 import Api from '../API/CheckTestApi'
 import style from '../Results/Result.css'
+import jwt_decode from "jwt-decode";
 
 export default class ResultOfTest extends React.Component {
 
@@ -15,6 +16,15 @@ export default class ResultOfTest extends React.Component {
             text:"",
             text_style:""
           };
+          let decoded=null;
+          this.id=null;
+         if(sessionStorage.getItem("accessToken")!==null){
+          decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+         this.id =  decoded[
+                 "sub"
+               ]; 
+         }
+         console.log(this.id);
           this.GetScoreOfTest();
         }
                  
@@ -28,13 +38,14 @@ export default class ResultOfTest extends React.Component {
                          //alert("sdf");
                 GetScoreOfTest = async () => {
                 let api = new Api();
-                const result =  await api.GetResultOfTest();
+                console.log(this.id);
+                const result =  await api.GetResultOfTest(this.id);
                 console.log(result.data)
                 if(result.data>70){
                   this.setState({text:"That's the good result"})
                   this.setState({text_style:"good"})
                 }
-                if(result.data>40&&result.data<70){
+                if(result.data>=40&&result.data<70){
                   this.setState({text:"You could be better"})
                   this.setState({text_style:"middle"})
                 }

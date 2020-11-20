@@ -1,7 +1,10 @@
 import React, { useMemo, useState } from "react";
 import{useParams} from "react-router-dom"
 import Api from '../API/TestQuestionsApi'
+import ApiCheck from '../API/CheckTestApi'
+
 import jwt_decode from "jwt-decode";
+import { useAccordionToggle } from "react-bootstrap";
 
 export default function TestManager() {
 
@@ -12,6 +15,7 @@ export default function TestManager() {
  const[data,setdata] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
  const [userRole,setRole] = useState();
+ const[userId,setUserId]=useState();
 
  
  async function fetchTestQuestions() {
@@ -21,13 +25,19 @@ export default function TestManager() {
       setIsLoading(true);
       let decoded=null;
       let role=null;
+      let userId=null;
   if(sessionStorage.getItem("accessToken")!==null){
    decoded = jwt_decode(sessionStorage.getItem("accessToken"));
   role =  decoded[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        ]; 
+        ];
+        userId=decoded[
+          "sub"
+        ] ;
        }
+       console.log("decode",decoded);
       setRole(role);
+      setUserId(userId);
       const res = await api.fetchTestQuestions();
       console.log(res);
       setdata(res);
@@ -78,6 +88,7 @@ export default function TestManager() {
       window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToStartTest(id){
+      sessionStorage.setItem("One",false);
       sessionStorage.setItem("TestId",id);
       sessionStorage.setItem("NumberOfQuestion",0);
       localStorage.setItem("Minutes",1);
@@ -124,6 +135,6 @@ role =  decoded[
     }
  return {
    SendFile,fetchTestQuestions,restoreTestQuestion,redirectToTestModify,redirectToEditTestQuestionsAnswer,
-  redirectToDeletedQuestions, deleteTestQuestion,redirectToTests,fetchDeletedQuestions,data,isLoading,userRole,
+  redirectToDeletedQuestions, deleteTestQuestion,redirectToTests,fetchDeletedQuestions,data,isLoading,userRole,userId,
   redirectToAddQuestion,redirectToStartTest,NextQuestion,PreviousQuestion};
 }
