@@ -5,6 +5,7 @@
         grid-template-columns: 380px 380px 380px;
         margin-left: 60px;
         padding: 75px;
+        margin-top: 20px;
     }
 .upsertformTopic{
         position: absolute;

@@ -34,6 +34,8 @@ export default function ForgotPassword()
                           async function sendPassword(fields){
                                   let api = new API();
                                   api.sendPassword(fields);
+                                  Swal.fire("Success","Your password changed","success")
+                                  setTimeout(()=>window.location.assign("/login"),1000);
                           }
 
            return(

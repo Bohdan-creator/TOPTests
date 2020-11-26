@@ -89,10 +89,18 @@ function App() {
         <UserHeader></UserHeader>
         <AllTests ></AllTests>
         </Route>
+        <Route path="/reset">
+        <UserHeader></UserHeader>
+        <EmailToReset style="upsertformsShow"></EmailToReset>
+        </Route>
         <Route path="/register">
         <UserHeader></UserHeader>
         <RegisterForm style="upsertformShow"></RegisterForm>
         <Home style="blur"></Home>
+        </Route>
+        <Route path="/forgotPassword/:id">
+        <UserHeader></UserHeader>
+        <ForgetPassword style="upsertformsShow"></ForgetPassword>
         </Route>
         <Route path="/confirm/:code">
         <UserHeader></UserHeader>
@@ -111,6 +119,10 @@ function App() {
                          <Route path="/registerSubject">
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
+        </Route>
+        <Route path="/forgotPassword/:id">
+        <UserHeader></UserHeader>
+        <ForgetPassword style="upsertformsShow"></ForgetPassword>
         </Route>
         <Route path="/registerTest">
         <UserHeader></UserHeader>
@@ -179,6 +191,10 @@ function App() {
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="blur"></Home>
         </Route>
+        <Route path="/reset">
+        <UserHeader></UserHeader>
+        <EmailToReset style="upsertformsShow"></EmailToReset>
+        </Route>
         <Route path="/subjects">
         <UserHeader></UserHeader>
         <AllSubjects></AllSubjects>
@@ -191,6 +207,14 @@ function App() {
         <Route path="/home">
         <UserHeader></UserHeader>
         <Home style="backSlide"></Home>
+        </Route>
+        <Route path="/reset">
+        <UserHeader></UserHeader>
+        <EmailToReset style="upsertformsShow"></EmailToReset>
+        </Route>
+        <Route path="/forgotPassword/:id">
+        <UserHeader></UserHeader>
+        <ForgetPassword style="upsertformsShow"></ForgetPassword>
         </Route>
         <Route path="/login">
         <UserHeader></UserHeader>

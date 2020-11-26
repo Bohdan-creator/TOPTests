@@ -22,5 +22,13 @@ namespace TopTests.DAL.Repositories
                 .FirstOrDefaultAsync(e => e.UserId == userId);
                 
         }
+
+        public async Task<List<Results>> GetResultsOfTest(int userId)
+        {
+            return await context.Set<Results>()
+                .OrderByDescending(e => e.DateCreated)
+                .Where(e => e.UserId == userId)
+                .ToListAsync();
+        }
     }
 }

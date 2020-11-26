@@ -10,6 +10,7 @@ namespace TopTests.DAL.Entities
         public int UserId { get; set; }
         public int TopicId { get; set; }
         public int TestId { get; set; }
+        public string TestName { get; set; }
         public int SubjectId { get; set; }
         public int Rating { get; set; }
         public Users Users { get; set; }
@@ -17,7 +18,7 @@ namespace TopTests.DAL.Entities
         public Subjects Subjects { get; set; }
 
         public Results() { }
-        public Results(int userId,int testId,int topicId,int subjectId,int score)
+        public Results(int userId,int testId,int topicId,int subjectId,int score,string testName)
         {
             DateCreated = DateTime.Now;
             UserId = userId;
@@ -25,6 +26,7 @@ namespace TopTests.DAL.Entities
             TopicId = topicId;
             SubjectId = subjectId;
             Rating = score;
+            TestName = testName;
         }
     }
 }

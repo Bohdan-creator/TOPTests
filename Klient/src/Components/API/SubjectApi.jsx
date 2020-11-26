@@ -1,7 +1,7 @@
-import Swal from "sweetalert2"
-import Api from "./Api";
-import axios from 'axios'
-export default class SubjectApi extends Api{
+  import Swal from "sweetalert2"
+  import Api from "./Api";
+  import axios from 'axios'
+  export default class SubjectApi extends Api{
 
   constructor()
   {
@@ -41,10 +41,12 @@ export default class SubjectApi extends Api{
       Swal.fire("Oops...", "You don't have anyone subject", "error");
     }
   }
+  delete = async (id) => {
+    let api = new Api();
+    await axios.delete('https://localhost:44323/api/subject/delete/'+id) ;
+  }    
   async DeleteSubject(id){
-    try {
-      await axios.delete('https://localhost:44323/api/subject/delete/'+id)  
-       .then(()=>Swal.fire({
+      Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
@@ -54,18 +56,22 @@ export default class SubjectApi extends Api{
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+          try{ 
+          this.delete(id);
           Swal.fire(
             'Deleted!',
             'Your file has been deleted.',
             'success'
           )
           setTimeout(()=>window.location.assign("/subjects"),1000);
+          }catch(Exception){
+            Swal.fire("Oops...", "You don't have anyone subject", "error");
+          
+          }
         }
 
       })
-          )    
-   } catch (error) {
-     Swal.fire("Oops...", "You don't have anyone subject", "error");
-   }
-  }
+    
+  
+}
 }

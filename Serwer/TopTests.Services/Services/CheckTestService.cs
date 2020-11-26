@@ -14,10 +14,12 @@ namespace TopTests.Services.Services
         private readonly ITestQuestionRepository testQuestionRepository;
         private readonly IAnswersRepository answersRepository;
         private readonly IResultsRepository resultsRepository;
-        
-        public CheckTestService(ITestQuestionRepository testQuestionRepository,IAnswersRepository answersRepository,IResultsRepository resultsRepository)
+        private readonly ITestRepository testRepository;
+        public CheckTestService(ITestQuestionRepository testQuestionRepository,IAnswersRepository answersRepository,
+            IResultsRepository resultsRepository,ITestRepository testRepository)
         {
             this.testQuestionRepository = testQuestionRepository;
+            this.testRepository = testRepository;
             this.answersRepository = answersRepository;
             this.resultsRepository = resultsRepository;
         } 
@@ -29,7 +31,7 @@ namespace TopTests.Services.Services
                 return score;
             }
             var infoForResult = await testQuestionRepository.GetQuestion(Int32.Parse(listOfTestQuestions[0].QuestionId));
-            
+            var testName = await testRepository.GetTest(infoForResult.TestId);
             for (var i =0; i<listOfTestQuestions.Count; i++)
             {
                 var question = await testQuestionRepository.GetQuestion(Int32.Parse(listOfTestQuestions[i].QuestionId));
@@ -46,7 +48,7 @@ namespace TopTests.Services.Services
                 }
             }
             var result = new Results(Int32.Parse(listOfTestQuestions[0].UserId), infoForResult.TestId, infoForResult.TopicId,
-                                     infoForResult.SubjectId, score);
+                                     infoForResult.SubjectId, score,testName.Name);
             resultsRepository.Create(result);
             await resultsRepository.SaveChangesAsync();
             return score;
@@ -57,6 +59,22 @@ namespace TopTests.Services.Services
             var result = await resultsRepository.GetResultOfTest(userId);
             
             return result.Rating;
+        }
+
+        public async Task<List<ResultsTests>> GetResultsOfTest(int userId)
+        {
+            var results = await resultsRepository.GetResultsOfTest(userId);
+            var resultsOfTests = new List<ResultsTests>();
+           foreach (var res in results)
+            {
+                ResultsTests resultsTests = new ResultsTests();
+                resultsTests.dateTime = res.DateCreated.Day;
+                resultsTests.month = res.DateCreated.Month;
+                resultsTests.NameOfTest = res.TestName;
+                resultsTests.Score = res.Rating.ToString();
+                resultsOfTests.Add(resultsTests);
+            }
+            return resultsOfTests ;
         }
     }
 }

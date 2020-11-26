@@ -8,6 +8,8 @@ namespace TopTests.DAL.Interfaces
 {
     public interface IResultsRepository : IRepositoryBase<Results>
     {
-        public Task<Results> GetResultOfTest(int userId); 
+        public Task<Results> GetResultOfTest(int userId);
+        public Task<List<Results>> GetResultsOfTest(int userId);
+
     }
 }

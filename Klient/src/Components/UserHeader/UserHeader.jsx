@@ -43,10 +43,10 @@ class UserHeader extends Component{
     </Nav>
   
     <Nav>
-      <a class="link-logo" href="http://localhost:3000/login"><img class="details" src={details}></img></a>
+      <a class="link-logo" href="http://localhost:3000/myProfile"><img class="details" src={details}></img></a>
       <a class="link-logo" href="/home"><img class="logOut" src={logOut} 
       onClick={()=>{
-        sessionStorage.setItem("isLoggedIn",false);
+        sessionStorage.clear();
       }}
       ></img></a>
     </Nav>

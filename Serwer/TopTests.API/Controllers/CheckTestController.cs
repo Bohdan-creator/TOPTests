@@ -31,5 +31,13 @@ namespace TopTests.API.Controllers
            
             return Ok(result);
         }
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetResults(string userId)
+        {
+            var result = await checkTestService.GetResultsOfTest(Int32.Parse(userId));
+
+
+            return Ok(result);
+        }
     }
 }

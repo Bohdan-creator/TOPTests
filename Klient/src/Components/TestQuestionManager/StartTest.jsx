@@ -19,7 +19,7 @@ export default function Start(){
     const timer =
     seconds > 0 && setInterval(() => setSeconds(seconds - 1), 1000);
     if(minutes===0&&seconds===0){
-      //CheckTest();
+      CheckTest();
       // alert("sdf");  
     } 
     if(seconds===0&&minutes>0){

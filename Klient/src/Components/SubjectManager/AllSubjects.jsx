@@ -8,7 +8,7 @@ import plus from "../img/plus.png"
 export default function SubjectManager(){
   const {data,fetchSubject,redirect,deleteSubject,isLoading,userRole} = SubjectManagerUtils();
   const {redirectToTopics} = TopicsManagerUtils();
-  
+
   useEffect(() => {fetchSubject()},[]);  
   return(
     <div>

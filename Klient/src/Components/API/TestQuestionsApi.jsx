@@ -43,10 +43,13 @@ export default class TestQuestionApi extends Api{
      Swal.fire("Oops...", "You don't have anyone subject", "error");
    }
   }
+  delete = async (id) => {
+    let api = new Api();
+    await axios.delete('https://localhost:44323/api/testQuestion/'+id)  
+  }    
   async DeleteTestQuestion(id){
     try {
-      await axios.delete('https://localhost:44323/api/testQuestion/'+id)  
-       .then(()=>Swal.fire({
+       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
@@ -56,6 +59,7 @@ export default class TestQuestionApi extends Api{
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.delete(id)
           Swal.fire(
             'Deleted!',
             'Your file has been deleted.',
@@ -65,7 +69,7 @@ export default class TestQuestionApi extends Api{
         }
 
       })
-          )    
+           
    } catch (error) {
      Swal.fire("Oops...", "You don't have anyone subject", "error");
    }

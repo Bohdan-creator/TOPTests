@@ -29,4 +29,17 @@ export default class TestQuestionApi extends Api{
 
         }
       }
+      async GetResultsOfTest(userId){
+        try{
+              var testId=sessionStorage.getItem("TestId");
+            
+          const res = await this.baseAxios.get(
+            'https://localhost:44323/api/checkTest/profile/'+userId
+          )
+          return res;
+        }catch(error){
+          Swal.fire("Oops...", "Please try again", "error");
+
+        }
+      }
 }

@@ -63,7 +63,7 @@ namespace TopTests.Services.Services
                            <p style='font-family: Arial,sans-serif'>We heard that you lost your Account password. Sorry about that!
                                =But don’t worry! You can use the following link to reset your password.
                              <br></p>                         
-                              <div style='text-align:center'><a href='http://localhost:3000/set-password/" + code + @"' style='font-size:30px'>Change Password</a></div>
+                              <div style='text-align:center'><a href='http://localhost:3000/forgotPassword/" + code + @"' style='font-size:30px'>Change Password</a></div>
                               <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Car Rental Service</p>
                             <img src=""cid:WinLogo"" />
                                     </body>

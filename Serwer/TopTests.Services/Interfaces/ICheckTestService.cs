@@ -10,5 +10,7 @@ namespace TopTests.Services.Interfaces
     {
         Task<int> CheckTest(string id,List<ListOfTestQuestions> listOfTestQuestions);
         Task<int> GetResultOfTest(int userId);
+        Task<List<ResultsTests>> GetResultsOfTest(int userId);
+
     }
 }

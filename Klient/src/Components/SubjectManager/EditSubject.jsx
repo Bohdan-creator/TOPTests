@@ -3,7 +3,7 @@ import { Form, Formik,Field,ErrorMessage } from "formik";
 import { useParams } from "react-router-dom";
 import API from "../API/SubjectApi"
 import Swal from 'sweetalert2';
-import {Input } from "reactstrap";
+import {Button } from "reactstrap";
 import { useEffect } from 'react';
 
 export default function EditSubject() {
@@ -37,7 +37,6 @@ export default function EditSubject() {
                         <br></br>
                         <Field
                         name="name"
-                        maxLength = "9"
                         class="input"
                           />
                            <ErrorMessage
