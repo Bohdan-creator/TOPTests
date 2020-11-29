@@ -42,5 +42,20 @@ namespace TopTests.DAL.Repositories
             .Where(e => e.isDelete == true)
             .FirstOrDefaultAsync(e => e.Id == id);
         }
+
+        public async Task<List<Subjects>> GetSubjectsTests()
+        {
+            var subjectsTest = await (from pd in context.Subjects.Where(e => e.isDelete == false)
+                                join od in context.Tests on pd.Id equals od.SubjectId
+                                orderby pd.Id
+                                select new Subjects
+                                (
+                                    pd.Id,
+                                    pd.Name,
+                                    context.Tests.Where(e => e.isDelete == false && e.SubjectId == pd.Id) as List<Test>
+                                )
+                               ).Distinct().ToListAsync();
+            return subjectsTest;
+        }
     }
 }

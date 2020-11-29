@@ -12,8 +12,6 @@ namespace TopTests.DAL.Interfaces
         void SetValueIsDeleteOnTest(int id);
         void SetValueIsNotDeleteOnTest(int id);
         Task<TestQuestions> GetQuestion(int id);
-        void SetValueIsDeleteOnTopic(int id);
-        void SetValueIsNotDeleteOnTopic(int id);
         void AddTestsQuestions(List<TestQuestions> testQuestions);
         Task<TestQuestions> CheckIfQuestionExist(TestQuestions TestQuestions);
         Task<IEnumerable<TestQuestions>> GetAllTestQuestions(int TestId);

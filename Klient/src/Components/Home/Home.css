@@ -51,6 +51,15 @@
               height: 233px;
               background-color: rgb(107, 107, 209);
       }
+      .carousel-indicators li {
+        opacity: 0!important;
+      }
+      .carousel-control-next {
+              opacity: 0!important;
+      }
+      .carousel-control-prev {
+        opacity: 0!important;
+}
 .title{
         font-family: 'Roboto';
     color: #ffffff;

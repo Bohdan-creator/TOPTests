@@ -55,20 +55,6 @@ namespace TopTests.DAL.Repositories
                 .ToList()
                 .ForEach(c => c.isDelete = true);
         }
-        public void SetValueIsDeleteOnTopic(int id)
-        {
-            context.Set<Answers>()
-                .Where(e => e.TopicId == id)
-                .ToList()
-                .ForEach(c => c.isDelete = true);
-        }
-        public void SetValueIsNotDeleteOnTopic(int id)
-        {
-            context.Set<Answers>()
-                .Where(e => e.TopicId == id)
-                .ToList()
-                .ForEach(c => c.isDelete = false);
-        }
         public void SetValueIsNotDeleteOnTest(int id)
         {
             context.Set<Answers>()

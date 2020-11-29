@@ -27,6 +27,14 @@
       Swal.fire("Oops...", "You don't have anyone subject", "error");
     }
   }
+  async fetchSubjectsTests() {
+    try {
+       const res = await this.baseAxios.get('https://localhost:44323/api/subject/getAllTests');     
+      return res.data;
+    } catch (error) {
+      Swal.fire("Oops...", "You don't have anyone subject", "error");
+    }
+  }
   
   async EditSubject(fields) {
     try {

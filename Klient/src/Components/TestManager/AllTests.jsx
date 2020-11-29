@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState} from 'react';
 import TestManager from "../TestManager/TestManager.utils";
 import TestQuestionManager from '../TestQuestionManager/TestQuestionManager.utils'
-import style from "../TopicsManager/TopicsStyle.css"
 import Loader from "react-loader-spinner";
 import plus from "../img/plus.png"
 import edit from "../img/edit.png"
 import jwt_decode from "jwt-decode";
-
+import css from '../TestManager/Test.css'
 export default function AllTests(){
 const {data,isLoading,userRole,redirectToEditTest,AllTests,deleteTest} = TestManager();
 const{redirectToTestModify,redirectToStartTest}=TestQuestionManager();
 useEffect(() => {AllTests()},[]);  
-
+const [info,setInfo] =useState("")
+const [name,setData] =useState()
+const [id,setId] =useState(0)
+const[style,setStyle]=useState("");
 console.log(data);
 
-return(
+function Change(info,name,id){
+  console.log(info);
+  setInfo(info)
+  setData(name)
+  setId(id);
+  sessionStorage.setItem("TestId",id)
+}
+  return(
     <div>
     {isLoading ? (
           <div class="loader">
@@ -49,14 +58,59 @@ return(
        </a>
   </div>:data&&userRole==="User"?
   <div>
-    <h1 style={{marginTop:20+'px',color:"whitesmoke",textDecoration:"underline"}}>Tests</h1>
-  <div class="grid-container-subjects">
-  {data.map( item => (
-    <div class="item">
-    <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-    <a  role="button " class="btn btn-info" onClick={()=>redirectToStartTest(item.id)}>Let's start test</a>
+  <div class="test">
+  {data.map( item => {
+
+    if(item.id===parseInt(sessionStorage.getItem("TestId"))){
+      if(info===""||name===""||id===null){
+        setInfo(item.additionalInfo);
+        setData(item.name);
+        setId(item.id);
+      }
+      return(
+      <div style={{width:100+'%'}}>
+      <h1 class="title_test">About Test</h1>
+       <p class="test_info" >{info}</p>
+      <h1 class="title_test">How to count score</h1>
+      <p class="text_score">You will get 1 point for each correct answer. At the end of the Quiz,
+         your total score will be displayed. Maximum score is 10 points.</p> 
+         <div class="box">
+            <h3 class="title_test">{name}</h3>
+            <p class="title_test">Good Luck</p>
+            <div class='container'>
+               <span class='pulse-button' onClick={()=>redirectToStartTest(id)}>Start</span>
+              </div>
+         </div>
     </div>
-  ))}
+      )
+    }
+})}
+</div>
+ <div class="item_list">
+   <h1 class="title_item_list" >References</h1>
+   {data.map( item => {
+      if(item.id===parseInt(sessionStorage.getItem("TestId"))){
+        return(
+          <div class="choosed_test">
+             <p class="text_test">{item.name}</p>
+             <p>Good Luck</p>
+             <a type="button" style={{width:170+'px',fontSize:17+'px'}} class="btn btn-info">Choose test</a>
+          </div>
+        )
+      }else{
+        return(
+        <div class="item_test">
+            <p class="text_test">{item.name}</p>
+            <p>Good Luck</p>
+            <a type="button" style={{width:170+'px',fontSize:17+'px'}} class="btn btn-info"
+            onClick={()=>Change(item.additionalInfo,item.name,item.id)}>Choose test</a>
+    </div>
+        );
+        
+      }
+        
+    
+})}
 </div>
 </div>:<div></div>
     )}

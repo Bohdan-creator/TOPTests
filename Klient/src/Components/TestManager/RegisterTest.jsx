@@ -10,8 +10,8 @@ export default function RegisterTest(){
 
         let initialValues = {
                 Name: "",
+                AdditionalInfo:"",
                 SubjectId:sessionStorage.getItem("SubjectId"),
-                TopicId:sessionStorage.getItem("TopicId")
               };
               
               const validationSchema = Yup.object().shape({
@@ -19,7 +19,15 @@ export default function RegisterTest(){
                         .min(1, "Too short!")
                         .max(20, "Too long!")
                         .required("Required"),
-                    });
+                    },
+                    {
+                AdditionalInfo: Yup.string()
+                        .min(10, "Too short!")
+                        .max(100, "Too long!")
+                        .required("Required"),
+                    }
+                    )
+                   
                     function onSubmit(fields) {
                         console.log(fields);
                         createTest(fields);  
@@ -55,6 +63,19 @@ export default function RegisterTest(){
                               />
                               <ErrorMessage
                                 name="Name"
+                                component="div"
+                                className="invalid-feedback"
+                              />
+                               <label>Information</label>
+                              <Field
+                                name="AdditionalInfo"
+                                className={
+                                  "form-control" +
+                                  (errors.Name && touched.Name ? " is-invalid" : "")
+                                }
+                              />
+                              <ErrorMessage
+                                name="AdditionalInfo"
                                 component="div"
                                 className="invalid-feedback"
                               />

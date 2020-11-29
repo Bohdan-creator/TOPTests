@@ -51,9 +51,9 @@ namespace TopTests.Services.Services
             return true;
         }
 
-        public Task<IEnumerable<Test>> GetTests(string id)
+        public async Task<IEnumerable<Test>> GetTests(string id)
         {
-            var tests = testRepository.GetTests(Int32.Parse(id));
+            var tests = await testRepository.GetTests(Int32.Parse(id));
             if (tests == null)
             {
                 return null;
@@ -67,7 +67,7 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
-            var test = new Test(Int32.Parse(registerTestDto.TopicId), Int32.Parse(registerTestDto.SubjectId), registerTestDto.Name);
+            var test = new Test( Int32.Parse(registerTestDto.SubjectId),registerTestDto.AdditionalInfo, registerTestDto.Name);
             testRepository.Create(test);
             await testRepository.SaveChangesAsync();
             return test;

@@ -17,9 +17,7 @@ export default class TestQuestionApi extends Api{
         }
       }
       async GetResultOfTest(userId){
-        try{
-              var testId=sessionStorage.getItem("TestId");
-            
+        try{            
           const res = await this.baseAxios.get(
             'https://localhost:44323/api/checkTest/'+userId
           )
@@ -30,9 +28,7 @@ export default class TestQuestionApi extends Api{
         }
       }
       async GetResultsOfTest(userId){
-        try{
-              var testId=sessionStorage.getItem("TestId");
-            
+        try{            
           const res = await this.baseAxios.get(
             'https://localhost:44323/api/checkTest/profile/'+userId
           )

@@ -12,9 +12,6 @@ import ForgetPassword from './Components/ForgetPassword/ForgetPassword'
 import Subject from './Components/SubjectForm/SubjectForm'
 import AllSubjects from './Components/SubjectManager/AllSubjects'
 import EditSubject from './Components/SubjectManager/EditSubject'
-import AllTopics from './Components/TopicsManager/AllTopics'
-import RegisterTopic from './Components/TopicsManager/RegisterTopic'
-import EditTopic from './Components/TopicsManager/EditTopic'
 import AddTest from './Components/TestManager/RegisterTest'
 import AllTests from './Components/TestManager/AllTests'
 import EditTest from './Components/TestManager/EditTest'
@@ -67,10 +64,6 @@ function App() {
         <Route path="/rewiewTest">
         <UserHeader></UserHeader>
         <RewiewTest style="upsertResultShow"></RewiewTest>
-        </Route>
-        <Route path="/topics/:id">
-        <UserHeader></UserHeader>
-        <AllTopics></AllTopics>
         </Route>
         <Route path="/test/:id">
         <UserHeader></UserHeader>
@@ -156,21 +149,9 @@ function App() {
         <UserHeader></UserHeader>
             <EditTestQuestionAnswer style="editTestQuestionsforms"></EditTestQuestionAnswer>
         </Route>
-        <Route path="/topics/register">
-        <UserHeader></UserHeader>
-        <RegisterTopic></RegisterTopic>
-        </Route>
-        <Route path="/topics/edit/:id">
-        <UserHeader></UserHeader>
-        <EditTopic></EditTopic>
-        </Route>
              <Route path="/editSubject/:id">
         <UserHeader></UserHeader>
             <EditSubject></EditSubject>
-        </Route>
-        <Route path="/topics/:id">
-        <UserHeader></UserHeader>
-        <AllTopics></AllTopics>
         </Route>
         <Route path="/home">
         <UserHeader></UserHeader>
@@ -234,10 +215,6 @@ function App() {
         <UserHeader></UserHeader>
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="blur"></Home>
-        </Route>
-        <Route path="/topics/:id">
-        <UserHeader></UserHeader>
-        <AllTopics></AllTopics>
         </Route>
         <Route path="/subjects">
         <UserHeader></UserHeader>

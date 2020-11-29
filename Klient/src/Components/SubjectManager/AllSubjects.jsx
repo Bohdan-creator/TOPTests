@@ -1,15 +1,16 @@
 import SubjectManagerUtils from "../SubjectManager/SubjectManager.utils";
-import TopicsManagerUtils from "../TopicsManager/TopicManager.Utils";
 import React, {useEffect} from "react";
+import TestManager from '../TestManager/TestManager.utils'
 import Loader from "react-loader-spinner";
 import style from "../SubjectManager/SubjectsStyle.css"
 import edit from "../img/edit.png"
 import plus from "../img/plus.png"
 export default function SubjectManager(){
   const {data,fetchSubject,redirect,deleteSubject,isLoading,userRole} = SubjectManagerUtils();
-  const {redirectToTopics} = TopicsManagerUtils();
+  const {redirectToTests} = TestManager();
 
-  useEffect(() => {fetchSubject()},[]);  
+  useEffect(() => {fetchSubject()},[])
+  
   return(
     <div>
     {isLoading ? (
@@ -21,19 +22,7 @@ export default function SubjectManager(){
          width={100}
        ></Loader>
       </div>
-    ) : ( data&&userRole==="User" ?
-    <div>
-        <h1 style={{marginTop:20+'px',color:"whitesmoke",textDecoration:"underline"}}>Subjects</h1>
-      <div class="grid-container-subjects">
-      {data.map( item => (
-        <div class="item">
-        <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-        <a  role="button " class="btn btn-info"  onClick={()=>redirectToTopics(item.id)}>Go to topics</a>
-        </div>
-      ))}
-    </div>
-    </div>:
-       data&&userRole==="Admin" ?
+    ) :data&&userRole==="Admin" ?
 
        <div class="grid-container-subjects">
        {data.map( item => (
@@ -42,7 +31,7 @@ export default function SubjectManager(){
            <img class="edit"src={edit}></img>
            </a>
          <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-         <a  role="button" class="btn btn-info" onClick={()=>redirectToTopics(item.id)}>Go to test</a>
+         <a  role="button" class="btn btn-info" onClick={()=>redirectToTests(item.id)}>Go to test</a>
          <br></br>
          <br></br>
          <a class="icon" onClick={()=>deleteSubject(item.id)} >
@@ -60,11 +49,11 @@ export default function SubjectManager(){
       {data.map( item => (
         <div class="item">
         <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-        <a  role="button " class="btn btn-info"  onClick={()=>redirectToTopics(item.id)}>Go to test</a>
+        <a  role="button " class="btn btn-info"  onClick={()=>redirectToTests(item.id)}>Go to test</a>
         </div>
       ))}
     </div>
-    )}
+    }
   </div>
     );
   }

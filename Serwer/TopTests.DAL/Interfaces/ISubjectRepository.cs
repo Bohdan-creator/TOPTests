@@ -10,7 +10,7 @@ namespace TopTests.DAL.Interfaces
     {
         Task<IEnumerable<Subjects>> GetSubjects();
         Task<IEnumerable<Subjects>> GetDeleteSubjects();
-
+        Task<List<Subjects>> GetSubjectsTests();
         Task<Subjects> GetSubjectById(int id);
         Task<Subjects> GetDeleteSubjectById(int id);
 

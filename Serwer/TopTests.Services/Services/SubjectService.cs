@@ -11,18 +11,15 @@ namespace TopTests.Services.Services
     public class SubjectService : ISubjectService
     {
         private readonly ISubjectRepository subjectRepository;
-        private readonly ITopicsRepository topicsRepository;
         private readonly ITestQuestionRepository testQuestionRepository;
         private readonly IAnswersRepository answersRepository;
         private readonly IMapper mapper;
         public SubjectService(ISubjectRepository subjectRepository, IMapper mapper,
-                              ITopicsRepository topicsRepository,
                               ITestQuestionRepository testQuestionRepository,
                               IAnswersRepository answersRepository)
         {
             this.subjectRepository = subjectRepository;
             this.mapper = mapper;
-            this.topicsRepository = topicsRepository;
             this.testQuestionRepository = testQuestionRepository;
             this.answersRepository = answersRepository;
         }
@@ -64,12 +61,10 @@ namespace TopTests.Services.Services
             {
                 return false;
             }
-            topicsRepository.SetValueIsDelete(subject.Id);
             testQuestionRepository.SetValueIsDeleteOnSubject(subject.Id);
             answersRepository.SetValueIsDeleteOnSubject(subject.Id);
             subjectRepository.Update(subject);
             await subjectRepository.SaveChangesAsync();
-            await topicsRepository.SaveChangesAsync();
             await testQuestionRepository.SaveChangesAsync();
             await answersRepository.SaveChangesAsync();
             return true;
@@ -103,11 +98,19 @@ namespace TopTests.Services.Services
                 return null;
             };
             subject.isDelete = false;
-            topicsRepository.RestoreTopics(id);
             subjectRepository.Update(subject);
             await subjectRepository.SaveChangesAsync();
-            await topicsRepository.SaveChangesAsync();
             return mapper.Map<SubjectDto>(subject);
+        }
+
+        public async Task<List<Subjects>> GetAllSubjectsTests()
+        {
+            var subjectsTest = await subjectRepository.GetSubjectsTests();
+            if (subjectsTest == null)
+            {
+                return null;
+            }
+            return subjectsTest;
         }
     }
 }

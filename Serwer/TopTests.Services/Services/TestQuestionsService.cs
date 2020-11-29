@@ -16,14 +16,12 @@ namespace TopTests.Services.Services
 {
     public class TestQuestionsService : ITestQuestionsService
     {
-        private readonly ITopicsRepository topicsRepository;
         private readonly IAnswersRepository answersRepository;
         private readonly ITestRepository testRepository;
         private readonly ITestQuestionRepository testQuestionRepository;
-        public TestQuestionsService(ITopicsRepository topicsRepository, IAnswersRepository answersRepository,
+        public TestQuestionsService(IAnswersRepository answersRepository,
                            ITestQuestionRepository testQuestionRepository, ITestRepository testRepository)
         {
-            this.topicsRepository = topicsRepository;
             this.answersRepository = answersRepository;
             this.testQuestionRepository = testQuestionRepository;
             this.testRepository = testRepository;
@@ -86,7 +84,7 @@ namespace TopTests.Services.Services
                         return errorTestDto;
                     }
                     var test = await testRepository.GetTest(id);
-                    var testQuestion = new TestQuestions(test.Id, test.TopicId, test.SubjectId, i.Question);
+                    var testQuestion = new TestQuestions(test.Id , test.SubjectId, i.Question);
                     var check_question = await testQuestionRepository.CheckIfQuestionExist(testQuestion);
                     if (check_question != null)
                     {
@@ -101,12 +99,12 @@ namespace TopTests.Services.Services
                     {
                         if (answers == i.Answer)
                         {
-                            var answer = new Answers(test.SubjectId, test.TopicId, test.Id, testQuestion.NumberOfIdentification, answers, true);
+                            var answer = new Answers(test.SubjectId, test.Id, testQuestion.NumberOfIdentification, answers, true);
                             list_answer.Add(answer);
                         }
                         else
                         {
-                            var answer = new Answers(test.SubjectId, test.TopicId, test.Id, testQuestion.NumberOfIdentification, answers, false);
+                            var answer = new Answers(test.SubjectId, test.Id, testQuestion.NumberOfIdentification, answers, false);
                             list_answer.Add(answer);
                         }
                     }
@@ -126,7 +124,7 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
-            var testQuestion = new TestQuestions(Int32.Parse(registerTestQuestionDto.TestId), Int32.Parse(registerTestQuestionDto.TopicId),
+            var testQuestion = new TestQuestions(Int32.Parse(registerTestQuestionDto.TestId),
                                                  Int32.Parse(registerTestQuestionDto.SubjectId), registerTestQuestionDto.Question);
             List<bool> isCorrect = new List<bool>();
             isCorrect.Add(registerTestQuestionDto.isCorrectOptionA);
@@ -138,8 +136,8 @@ namespace TopTests.Services.Services
             option.Add(registerTestQuestionDto.OptionC);
             List<Answers> answers = new List<Answers>();
             for (int i = 0; i < 3; i++) {
-                answers.Add(new Answers(Int32.Parse(registerTestQuestionDto.SubjectId), Int32.Parse(registerTestQuestionDto.SubjectId),
-                                            Int32.Parse(registerTestQuestionDto.SubjectId), testQuestion.NumberOfIdentification,
+                answers.Add(new Answers(Int32.Parse(registerTestQuestionDto.SubjectId),
+                                            Int32.Parse(registerTestQuestionDto.TestId), testQuestion.NumberOfIdentification,
                                              option[i],isCorrect[i]));
             }
             testQuestionRepository.Create(testQuestion);

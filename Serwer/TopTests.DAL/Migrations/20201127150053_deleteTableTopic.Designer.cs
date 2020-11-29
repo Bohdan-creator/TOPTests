@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopTests.DAL;
 
 namespace TopTests.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201127150053_deleteTableTopic")]
+    partial class deleteTableTopic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,24 +222,16 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdditionalInfo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectsId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("isDelete")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectsId");
 
                     b.ToTable("Tests");
                 });
@@ -349,13 +343,6 @@ namespace TopTests.DAL.Migrations
                     b.HasOne("TopTests.DAL.Entities.Users", "Users")
                         .WithMany()
                         .HasForeignKey("UsersId");
-                });
-
-            modelBuilder.Entity("TopTests.DAL.Entities.Test", b =>
-                {
-                    b.HasOne("TopTests.DAL.Entities.Subjects", "Subjects")
-                        .WithMany("Tests")
-                        .HasForeignKey("SubjectsId");
                 });
 
             modelBuilder.Entity("TopTests.DAL.Entities.TestQuestions", b =>

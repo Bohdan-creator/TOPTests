@@ -26,7 +26,7 @@ namespace TopTests.API.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetResultOfTest(string userId)
         {
-            var result = await checkTestService.GetResultOfTest(Int32.Parse(userId));
+                var result = await checkTestService.GetResultOfTest(Int32.Parse(userId));
             
            
             return Ok(result);

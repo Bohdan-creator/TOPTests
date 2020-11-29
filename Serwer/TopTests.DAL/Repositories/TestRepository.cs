@@ -21,20 +21,6 @@ namespace TopTests.DAL.Repositories
                .Where(e => e.isDelete == true)
                .ToListAsync();
         }
-        public void SetValueIsDeleteOnTopic(int id)
-        {
-            context.Set<Test>()
-                .Where(e => e.TopicId == id)
-                .ToList()
-                .ForEach(c => c.isDelete = true);
-        }
-        public void SetValueIsNotDeleteOnTopic(int id)
-        {
-            context.Set<Answers>()
-                .Where(e => e.TopicId == id)
-                .ToList()
-                .ForEach(c => c.isDelete = false);
-        }
         public async Task<Test> GetTest(int id)
         {
             return await context.Set<Test>()
@@ -44,7 +30,7 @@ namespace TopTests.DAL.Repositories
         public async Task<IEnumerable<Test>> GetTests(int id)
         {
             return await context.Set<Test>()
-                .Where(e => e.isDelete == false&&e.TopicId==id)
+                .Where(e => e.isDelete == false&&e.SubjectId==id)
                 .ToListAsync();
         }
 

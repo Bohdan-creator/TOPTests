@@ -47,7 +47,7 @@ namespace TopTests.Services.Services
                     }
                 }
             }
-            var result = new Results(Int32.Parse(listOfTestQuestions[0].UserId), infoForResult.TestId, infoForResult.TopicId,
+            var result = new Results(Int32.Parse(listOfTestQuestions[0].UserId), infoForResult.TestId,
                                      infoForResult.SubjectId, score,testName.Name);
             resultsRepository.Create(result);
             await resultsRepository.SaveChangesAsync();

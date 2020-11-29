@@ -16,7 +16,6 @@ namespace TopTests.DAL
         public DbSet<News> News { get; set; }
         public DbSet<Results> Results { get; set; }
         public DbSet<Subjects> Subjects { get; set; }
-        public DbSet<Topics> Topics { get; set; }
         public DbSet<TestQuestions> TestQuestions { get; set; }
         public DbSet<Answers> Answers { get; set; }
         public DbSet<RefreshTokens> RefreshTokens { get; set; }

@@ -38,7 +38,7 @@ role =  decoded[
       {
           console.log(error);
       }
-  }
+    }
         async function redirect(id,name){
               sessionStorage.setItem("SubjectName", name);
               window.location.assign("/editSubject/"+id);
@@ -49,6 +49,7 @@ role =  decoded[
           }
 
   return {data,fetchSubject,redirect,deleteSubject,isLoading,userRole};
+
 
 }
 

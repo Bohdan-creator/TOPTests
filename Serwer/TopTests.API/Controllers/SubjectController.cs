@@ -64,6 +64,16 @@ namespace TopTests.API.Controllers
             }
             return Ok(subjects);
         }
+        [HttpGet("getAllTests")]
+        public async Task<IActionResult> GetAllSubjectsTest()
+        {
+            var subjects = await subjectService.GetAllSubjectsTests();
+            if (subjects == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(subjects);
+        }
         [HttpGet("getAllDeleted")]
         public async Task<IActionResult> GetAllDeletedSubjects()
         {

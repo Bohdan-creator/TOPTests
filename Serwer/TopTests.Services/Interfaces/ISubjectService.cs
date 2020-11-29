@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TopTests.DAL.Entities;
 using TopTests.Services.Models.Subjects;
 
 namespace TopTests.Services.Interfaces
@@ -12,6 +13,7 @@ namespace TopTests.Services.Interfaces
         Task<EditSubjectDto> EditSubject(int id,EditSubjectDto editSubjectDto);
         Task<bool> DeleteSubject(int id);
         Task<IEnumerable<SubjectDto>> GetAllSubjects();
+        Task<List<Subjects>> GetAllSubjectsTests();
         Task<IEnumerable<SubjectDto>> GetAllDeletedSubjects();
         Task<SubjectDto> RestoreSubject(int id);
     }

@@ -11,8 +11,6 @@ namespace TopTests.DAL.Interfaces
         void SetValueIsDeleteOnSubject(int id);
         void SetValueIsDeleteOnTest(int id);
         void SetValueIsDeleteOnQuestion(string id);
-        void SetValueIsDeleteOnTopic(int id);
-        void SetValueIsNotDeleteOnTopic(int id);
         void SetValueIsNotDeleteOnTest(int id);
         void SetValueIsNotDeleteOnQuestion(string numberOfIndetification);
         void SaveAnswers(List<Answers> answers);

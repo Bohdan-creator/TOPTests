@@ -15,7 +15,7 @@ export default function TestManager() {
                 
                 let api = new Api();
                 setIsLoading(true);
-                let res = await api.AllTests(sessionStorage.getItem("TopicId"));
+                let res = await api.AllTests(sessionStorage.getItem("SubjectId"));
                 let decoded=null;
                 let role = null;
                 if(sessionStorage.getItem("accessToken")!==null){
@@ -40,7 +40,7 @@ export default function TestManager() {
              window.location.assign("/editTest/"+id);
         }
         async function redirectToTests(id){
-                sessionStorage.setItem("TopicId",id);
+                sessionStorage.setItem("SubjectId",id);
                 window.location.assign("/tests/"+id);
            }
            async function redirectToAddQuestions(id){

@@ -30,7 +30,6 @@ namespace TopTests.API.StartupExtensions
             return services
                 .AddSingleton<Profile, AuthorizeProfile>()
                 .AddSingleton<Profile,SubjectProfile>()
-                .AddSingleton<Profile,TopicProfile>()
                 .AddSingleton<IConfigurationProvider, AutoMapperConfiguration>(p =>
                     new AutoMapperConfiguration(p.GetServices<Profile>()))
                 .AddSingleton<IMapper, Mapper>();
@@ -43,7 +42,6 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             services.AddScoped<ISubjectService, SubjectService>();
-            services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<ICheckTestService, CheckTestService>();
             services.AddScoped<ITestQuestionsService, TestQuestionsService>();
@@ -53,7 +51,6 @@ namespace TopTests.API.StartupExtensions
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshRepository, RefreshRepository>();
-            services.AddScoped<ITopicsRepository, TopicsRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<ITestQuestionRepository, TestQuestionsRepository>();

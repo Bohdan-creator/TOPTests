@@ -23,7 +23,6 @@ export default function Start(){
       // alert("sdf");  
     } 
     if(seconds===0&&minutes>0){
-      //CheckTest();
        setSeconds(60);
        setMinute(minutes-1);
       }
@@ -52,23 +51,26 @@ export default function Start(){
              list.push(JSON.parse(localStorage.getItem("Number"+i)))
           }
         }
-          let api = new Api();
+        let api = new Api();
           api.SendToCheckTest(list) 
+       //   window.location.assign("/result");
         }
-        async function onSubmit(fields){
+         async function onSubmit(fields){
                console.log(fields);
                let obj = JSON.stringify(fields);
                localStorage.setItem("Number"+sessionStorage.getItem("NumberOfQuestion"),obj);
                console.log(localStorage.getItem("CountOfQuestions"));
                if(parseInt(localStorage.getItem("CountOfQuestions")) === localStorage.length-3){
                 let list = new Array();
-                for(var i =localStorage.length-3 ;i>0;i--){
-                   list.push(JSON.parse(localStorage.getItem("Number"+i)))
+                for(var i =localStorage.length-3 ;i>0;i--)
+                {
+                  list.push(JSON.parse(localStorage.getItem("Number"+i)))
                 }
-                let api = new Api();
-                api.SendToCheckTest(list);
-                window.location.assign("/result");
-              } 
+               let api = new Api();
+               api.SendToCheckTest(list) 
+               window.location.assign("/result");
+
+                            } 
             }
           
 
@@ -87,7 +89,6 @@ export default function Start(){
                 ):
                    (data&&userRole==="User" ?
                    <div class="grid-container-Starttest">
-                     
                    {data.map( (item,index) => {
                         
                            if(index===parseInt(sessionStorage.getItem("NumberOfQuestion"))){

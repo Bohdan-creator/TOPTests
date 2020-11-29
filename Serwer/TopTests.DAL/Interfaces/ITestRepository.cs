@@ -12,7 +12,5 @@ namespace TopTests.DAL.Interfaces
         Task<IEnumerable<Test>> GetTests(int id);
         Task<Test> RestoreTest(int id);
         Task<IEnumerable<Test>> GetAllDeletedTests();
-        void SetValueIsDeleteOnTopic(int id);
-        void SetValueIsNotDeleteOnTopic(int id);
     }
 }
