@@ -4,6 +4,8 @@ import style from "../SubjectManager/SubjectsStyle.css"
 import edit from "../img/edit.png"
 import back from "../img/back.png"
 import TestQuestions from '../TestQuestionManager/TestQuestionManager.utils'
+import AllFiles from '../FileManager/AllFiles'
+import AddTestQuestions from './AddTestQuestions'
 import styleTest from '../TestQuestionManager/TestQuestion.css'
 export default function ShowTestQuestion(){
         const {fetchTestQuestions,redirectToTests,redirectToEditTestQuestionsAnswer,
@@ -11,7 +13,6 @@ export default function ShowTestQuestion(){
                redirectToAddQuestion} = TestQuestions();
         useEffect(() => {fetchTestQuestions()},[]);  
         console.log(data);
-       
 
   return(
     <div>
@@ -25,7 +26,7 @@ export default function ShowTestQuestion(){
        ></Loader>
       </div>
     ):
-       (data&&userRole==="Admin" ?
+       (data.length!==0&&userRole==="Admin" ?
        <div class="grid-container-test">
          <h1 style={{margin:20+'px'}}>Please rewiew the test and confirm</h1>
          <div class="modify-test">
@@ -38,13 +39,16 @@ export default function ShowTestQuestion(){
            onClick={()=>redirectToDeletedQuestions()}>Restore questions
            </a>
            <br></br>
-           <br></br>
            <a type="button" class="btn btn-info" id="right-side" onClick={()=>redirectToAddQuestion()}>
              Add question
              </a>
+             <a type="button" class="btn btn-info" id="right-side" 
+           onClick={()=>window.location.assign("/addTestQuestions")}>Add questions with file
+           </a>
           </div>
          </div>
-       {data.map( (item,index) => (
+       {data.map( (item,index) => {
+         return(
          <div class="item-test" >
          <a class="icon">
            <img class="edit-test"src={edit} onClick={()=>redirectToEditTestQuestionsAnswer(item.questionId,
@@ -65,11 +69,19 @@ export default function ShowTestQuestion(){
   </svg>
   </a>
          </div>
-       ))}
+       )})}
        <a type="button" class="btn btn-info" id="confirm" onClick={()=>redirectToTests()} >Confirm</a>
      </div>
-        :<div>       
-        </div>
+          
+        :userRole==="Admin"?
+        <div>
+        <AddTestQuestions style={{marginTop:50+'px'}}></AddTestQuestions>
+        <h1>Also you can use another method by add question on this page </h1>
+        <button class="btn btn-info" onClick={()=>window.location.assign("/addTestQuestion")}>
+          Add Test Question</button>
+          </div>       
+        :<div>
+         </div>
     )
     }
   </div>

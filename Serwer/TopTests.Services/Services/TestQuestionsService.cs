@@ -86,11 +86,11 @@ namespace TopTests.Services.Services
                     var test = await testRepository.GetTest(id);
                     var testQuestion = new TestQuestions(test.Id , test.SubjectId, i.Question);
                     var check_question = await testQuestionRepository.CheckIfQuestionExist(testQuestion);
-                    if (check_question != null)
-                    {
-                        errorTestDto.QuestionExist = 400;
-                        return errorTestDto;
-                    }
+                  //  if (check_question != null)
+                   // {
+                    //    errorTestDto.QuestionExist = 400;
+                     //   return errorTestDto;
+                   // }
                     list_testQuestion.Add(testQuestion);
                     options.Add(i.OptionA);
                     options.Add(i.OptionB);

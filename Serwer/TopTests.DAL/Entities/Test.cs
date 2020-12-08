@@ -9,15 +9,17 @@ namespace TopTests.DAL.Entities
         public int Id { get; set; }
         public int SubjectId { get; set; }
         public string Name { get; set; }
+        public TypeOfTest TypeOfTest { get; set; }
         public string AdditionalInfo { get; set; }
         public bool isDelete { get; set; }
         public Subjects Subjects { get; set; }
         public Test() { }
-        public Test(int subjectId, string additionalinfo,string name)
+        public Test(int subjectId, string additionalinfo,string name,int typeTest)
         {
             AdditionalInfo = additionalinfo;
             SubjectId = subjectId;
             Name = name;
+            TypeOfTest = (TypeOfTest)typeTest;
         } 
     }
 }

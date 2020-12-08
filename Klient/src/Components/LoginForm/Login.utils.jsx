@@ -31,7 +31,6 @@ export default function Login() {
                       sessionStorage.setItem("name","Hi, "+response.name);
                       sessionStorage.setItem("accessToken", response.accessToken);
                       sessionStorage.setItem("refreshToken", response.refreshToken);
-                      sessionStorage.setItem("isLoggedIn",true);
                       switch (role) {
                         case "User":
                           setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);

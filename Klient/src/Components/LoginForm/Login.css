@@ -1,6 +1,8 @@
-
+body{
+        overflow-x: hidden;
+}
 .upsertformsShow{
-        position: absolute;
+        position: fixed;
         z-index: 3;
         text-align: center;
         background-color: aliceblue;

@@ -24,6 +24,7 @@ import StartTest from './Components/TestQuestionManager/StartTest'
 import RewiewTest from './Components/TestQuestionManager/RewiewTest'
 import Result from './Components/Results/ResultOfTest'
 import MyProfile from './Components/UserProfile/Profile'
+import AllFiles from './Components/FileManager/AllFiles'
 import {
   BrowserRouter as Router,
   Switch,
@@ -112,6 +113,10 @@ function App() {
                          <Route path="/registerSubject">
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
+        </Route>
+        <Route path="/allFiles">
+        <UserHeader></UserHeader>
+            <AllFiles></AllFiles>
         </Route>
         <Route path="/forgotPassword/:id">
         <UserHeader></UserHeader>

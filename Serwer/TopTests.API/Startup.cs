@@ -34,6 +34,7 @@ namespace TopTests.API
                 .AddRepositories()
                 .AddJwtAuthentication();
 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +54,9 @@ namespace TopTests.API
               options
               .AllowAnyOrigin()
               .AllowAnyMethod()
-              .AllowAnyHeader());
+              .AllowAnyHeader()
+              .WithExposedHeaders("Content-Disposition")
+              );
             app.UseAuthentication();
             app.UseAuthorization();
 

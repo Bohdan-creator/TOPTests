@@ -67,7 +67,8 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
-            var test = new Test( Int32.Parse(registerTestDto.SubjectId),registerTestDto.AdditionalInfo, registerTestDto.Name);
+            var test = new Test( Int32.Parse(registerTestDto.SubjectId),registerTestDto.AdditionalInfo, registerTestDto.Name
+                                , Int32.Parse(registerTestDto.TypeOfTest));
             testRepository.Create(test);
             await testRepository.SaveChangesAsync();
             return test;

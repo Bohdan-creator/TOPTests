@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TopTests.DAL.Entities;
 
@@ -20,5 +21,32 @@ namespace TopTests.DAL
         public DbSet<Answers> Answers { get; set; }
         public DbSet<RefreshTokens> RefreshTokens { get; set; }
         public DbSet<FeedBacks> FeedBacks { get; set; }
+        public DbSet<Files> Files { get; set; }
+
+        public static byte[] ReadFile(string sPath)
+        {
+            byte[] data ;
+            FileInfo fInfo = new FileInfo(sPath);
+            long numBytes = fInfo.Length;
+            FileStream fStream = new FileStream(sPath, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fStream);
+            data = br.ReadBytes((int)numBytes);
+
+            return data;
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Files>().HasData(
+                 new
+                 {
+                     Id = 2,
+                     FileName = "Test",
+                     FileContent = ReadFile("C:\\Users\\kuche\\Desktop\\TopTests\\TypesOfTest\\MultipleOfChoiseTest.csv")
+                 }
+
+                );
+        }
     }
+ 
 }

@@ -11,6 +11,7 @@ export default function RegisterTest(){
         let initialValues = {
                 Name: "",
                 AdditionalInfo:"",
+                TypeOfTest:"0",
                 SubjectId:sessionStorage.getItem("SubjectId"),
               };
               
@@ -50,7 +51,7 @@ export default function RegisterTest(){
                       >
                         {({ errors, touched }) => {
                           return (
-                            <Form className="upsertformTopic">
+                            <Form className="upsertformsShowTest">
                               <h1>Add Test</h1>
                   
                               <label>Title</label>
@@ -69,6 +70,7 @@ export default function RegisterTest(){
                                <label>Information</label>
                               <Field
                                 name="AdditionalInfo"
+                                placeHolder="Type something about test"
                                 className={
                                   "form-control" +
                                   (errors.Name && touched.Name ? " is-invalid" : "")
@@ -79,6 +81,15 @@ export default function RegisterTest(){
                                 component="div"
                                 className="invalid-feedback"
                               />
+                              <br></br>
+                              <label>Choose type of test</label>
+
+                              <Field as="select" name="TypeOfTest" class="form-control">
+                                <option value="0">Multiple choises of test</option>
+                                <option value="1">Single test selection</option>
+                                <option value="2">Calculation test</option>
+                              </Field>
+
                               <div className="pt-3">
                                 <button
                                   type="submit"

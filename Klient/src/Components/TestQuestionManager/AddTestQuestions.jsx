@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2"
 import TestManager from "../TestQuestionManager/TestQuestionManager.utils"
+import AllFiles from "../FileManager/AllFiles";
 
 export const FileUpload = () => {
   const [file, setFile] = useState();
@@ -22,10 +23,15 @@ export const FileUpload = () => {
   };
 
   return (
-    <>
-      <input type="file" onChange={saveFile} />
-      <input type="button" value="upload" onClick={uploadFile} />
-    </>
+    <div>
+    <div style={{marginTop:50+'px'}}>
+      <h1 style={{color:"whitesmoke",fontSize:30+"px"}}>Please choose file with your questions</h1>
+      <input type="file" onChange={saveFile}/>
+      <button class="btn btn-success" onClick={uploadFile}>Upload File</button>
+    </div>
+    <AllFiles></AllFiles>
+
+    </div>
   );
 };
 export default FileUpload;

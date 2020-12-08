@@ -9,7 +9,9 @@ import css from '../TestManager/Test.css'
 export default function AllTests(){
 const {data,isLoading,userRole,redirectToEditTest,AllTests,deleteTest} = TestManager();
 const{redirectToTestModify,redirectToStartTest}=TestQuestionManager();
+
 useEffect(() => {AllTests()},[]);  
+
 const [info,setInfo] =useState("")
 const [name,setData] =useState()
 const [id,setId] =useState(0)
@@ -56,7 +58,7 @@ function Change(info,name,id){
      <a href="http://localhost:3000/registerTest">
        <img class="plus" src={plus}></img>
        </a>
-  </div>:data&&userRole==="User"?
+  </div>:data?
   <div>
   <div class="test">
   {data.map( item => {
@@ -68,7 +70,7 @@ function Change(info,name,id){
         setId(item.id);
       }
       return(
-      <div style={{width:100+'%'}}>
+      <div className={style}>
       <h1 class="title_test">About Test</h1>
        <p class="test_info" >{info}</p>
       <h1 class="title_test">How to count score</h1>

@@ -12,7 +12,7 @@ namespace TopTests.DAL.Entities
 
         public BaseEntity()
         {
-
+            DateCreated = new DateTime();
         }
     }
 }

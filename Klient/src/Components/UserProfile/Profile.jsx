@@ -32,6 +32,27 @@ export default class UserProfile extends Component{
                 this.setState({text:result.data});        
         }
         render(){
+               
+                        
+                if(this.state.text.length===0){
+                        return(
+                                <div>
+                                <div class="rightSide"><p style={{marginTop:20+'%',fontSize:35+'px'}}>You don't have results of tests</p></div>
+
+                                <div class="leftSide">
+                                <h1>Profile</h1>
+                        <h2 class="oneSymbol" style={{fontSize:75+'px'}}>
+                        {sessionStorage.getItem("name").charAt(4)}</h2>
+                        <a href="" style={{fontSize:30+'px'}} onClick={()=>this.GetResultsOfTest()}>Results of tests</a>
+                        <br></br>
+                        <a href=""style={{fontSize:30+'px'}} >Average Result</a>
+                        <br></br>
+                        <a href=""style={{fontSize:30+'px',color:'red'}} >Delete Account</a>
+                        </div>
+                                </div>
+                        )
+                }
+                else{
                 return(
                         <div>
                         <div class="rightSide">
@@ -60,6 +81,9 @@ export default class UserProfile extends Component{
                         <a href=""style={{fontSize:30+'px',color:'red'}} >Delete Account</a>
                         </div>
                         </div>
+                    
                 );
+        }
+                
         }
 }

@@ -84,6 +84,32 @@ namespace TopTests.DAL.Migrations
                     b.ToTable("FeedBacks");
                 });
 
+            modelBuilder.Entity("TopTests.DAL.Entities.Files", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            FileContent = new byte[] { 78, 117, 109, 98, 101, 114, 79, 102, 81, 117, 101, 115, 116, 105, 111, 110, 44, 81, 117, 101, 115, 116, 105, 111, 110, 44, 79, 112, 116, 105, 111, 110, 65, 44, 79, 112, 116, 105, 111, 110, 66, 44, 79, 112, 116, 105, 111, 110, 67, 44, 65, 110, 115, 119, 101, 114, 44, 67, 111, 109, 112, 108, 101, 120, 105, 116, 121, 13, 10 },
+                            FileName = "Test"
+                        });
+                });
+
             modelBuilder.Entity("TopTests.DAL.Entities.News", b =>
                 {
                     b.Property<int>("Id")
@@ -230,6 +256,9 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfTest")
                         .HasColumnType("int");
 
                     b.Property<bool>("isDelete")

@@ -36,6 +36,7 @@ export default function Start(){
            isCorrectC:false
         }
         async function CheckTest(){
+          let api = new Api();
           let list = new Array();
           if(localStorage.length-3===0){
             var obj = JSON.stringify({
@@ -46,16 +47,12 @@ export default function Start(){
               isCorrectC:false
             })
             list.push(JSON.parse(obj))
-          }else{
-          for(var i =localStorage.length-3 ;i>0;i--){
-             list.push(JSON.parse(localStorage.getItem("Number"+i)))
           }
-        }
-        let api = new Api();
-          api.SendToCheckTest(list) 
-       //   window.location.assign("/result");
+          api.SendToCheckTest(list); 
+          window.location.assign("/result");
         }
          async function onSubmit(fields){
+           let api = new Api();
                console.log(fields);
                let obj = JSON.stringify(fields);
                localStorage.setItem("Number"+sessionStorage.getItem("NumberOfQuestion"),obj);
@@ -66,11 +63,9 @@ export default function Start(){
                 {
                   list.push(JSON.parse(localStorage.getItem("Number"+i)))
                 }
-               let api = new Api();
-               api.SendToCheckTest(list) 
-               window.location.assign("/result");
-
-                            } 
+                api.SendToCheckTest(list);
+                window.location.assign("/result");  
+              } 
             }
           
 
@@ -92,7 +87,6 @@ export default function Start(){
                    {data.map( (item,index) => {
                         
                            if(index===parseInt(sessionStorage.getItem("NumberOfQuestion"))){
-        
                              sessionStorage.setItem("QuestionId",item.questionId);
                                                      
                     return( 

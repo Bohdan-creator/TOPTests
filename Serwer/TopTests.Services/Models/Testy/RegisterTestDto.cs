@@ -9,6 +9,6 @@ namespace TopTests.Services.Models.Testy
         public string Name { get; set; }
         public string SubjectId { get; set; }
         public string AdditionalInfo { get; set; }
-        public string TopicId { get; set; }
+        public string TypeOfTest { get; set; }
     }
 }

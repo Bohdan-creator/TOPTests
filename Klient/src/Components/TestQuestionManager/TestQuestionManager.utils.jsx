@@ -1,17 +1,14 @@
 import React, { useMemo, useState } from "react";
-import{useParams} from "react-router-dom"
 import Api from '../API/TestQuestionsApi'
-import ApiCheck from '../API/CheckTestApi'
-
+import Alert from 'react-bootstrap/Alert'
 import jwt_decode from "jwt-decode";
-import { useAccordionToggle } from "react-bootstrap";
-
 export default function TestManager() {
 
  async function SendFile(filePath){
          let api = new Api();
          api.SendTestQuestions(filePath);
  }
+ 
  const[data,setdata] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
  const [userRole,setRole] = useState();
@@ -88,12 +85,17 @@ export default function TestManager() {
       window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToStartTest(id){
-      sessionStorage.setItem("One",false);
+      localStorage.clear();
+      if(sessionStorage.getItem("accessToken")===null){
+          setTimeout(()=>window.location.assign("/login"),200);
+      }
+      else{
       sessionStorage.setItem("TestId",id);
       sessionStorage.setItem("NumberOfQuestion",0);
       localStorage.setItem("Minutes",1);
       localStorage.setItem("Seconds",10);
       window.location.assign("/test/"+sessionStorage.getItem("TestId"));
+      }
     }
     async function redirectToAddQuestion(){
       window.location.assign("/addTestQuestion");
