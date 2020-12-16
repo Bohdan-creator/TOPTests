@@ -20,11 +20,13 @@ import ShowTestToModify from './Components/TestQuestionManager/ShowTestModify'
 import EditTestQuestionAnswer from './Components/TestQuestionManager/EditTestQuestionAnswer'
 import DeletedQuestions from './Components/TestQuestionManager/DeletedQuestions'
 import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
+import AddTestQuestionSingleTest from './Components/TestQuestionManager/AddTestQuestionSingleTest'
 import StartTest from './Components/TestQuestionManager/StartTest'
 import RewiewTest from './Components/TestQuestionManager/RewiewTest'
 import Result from './Components/Results/ResultOfTest'
 import MyProfile from './Components/UserProfile/Profile'
 import AllFiles from './Components/FileManager/AllFiles'
+import Timer from './Components/Timer/TimerRemaining'
 import {
   BrowserRouter as Router,
   Switch,
@@ -69,6 +71,10 @@ function App() {
         <Route path="/test/:id">
         <UserHeader></UserHeader>
        <StartTest ></StartTest>
+        </Route>
+        <Route path="/timer">
+        <UserHeader ></UserHeader>
+        <Timer ></Timer>
         </Route>
         <Route path="/home">
         <UserHeader ></UserHeader>
@@ -137,6 +143,10 @@ function App() {
         <Route path="/addTestQuestions">
         <UserHeader></UserHeader>
             <AddTestQuestions style="upsertformsShow"></AddTestQuestions>
+        </Route>
+        <Route path="/addTestQuestionSingleTest">
+        <UserHeader></UserHeader>
+            <AddTestQuestionSingleTest style="upsertformsShow"></AddTestQuestionSingleTest>
         </Route>
         <Route path="/addTestQuestion">
         <UserHeader></UserHeader>

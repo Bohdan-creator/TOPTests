@@ -44,9 +44,10 @@ class UserHeader extends Component{
      this.setState({height:100})
    }
  }
- redirect(subjectId,testId){
+ redirect(subjectId,testId,typeOfTest){
   sessionStorage.setItem("SubjectId",subjectId);
   sessionStorage.setItem("TestId",testId)
+  sessionStorage.setItem("TypeTest",typeOfTest)
   window.location.assign("/tests/"+subjectId);
 }
 onChange=e=>{
@@ -85,14 +86,14 @@ onChange=e=>{
                  if(items.name.toLowerCase().indexOf(this.state.search.toLowerCase())===-1){
                    return(
                     <div class="deleted_item">
-                    <a class="TestsName" onClick={()=>this.redirect(item.id,items.id)}>{items.name}</a>
+                    <a class="TestsName" onClick={()=>this.redirect(item.id,items.id,items.typeOfTest)}>{items.name}</a>
                     </div>
                   
                    );
                   }
                  return(
                  <div class="exist_item">
-                   <a class="TestsName" onClick={()=>this.redirect(item.id,items.id)}>{items.name}</a>
+                   <a class="TestsName" onClick={()=>this.redirect(item.id,items.id,items.typeOfTest)}>{items.name}</a>
                    </div>
                  );
   })}

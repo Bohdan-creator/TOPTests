@@ -23,7 +23,8 @@ export default function Login() {
                 try{
                     let api = new Api();
                     const response = await api.signIn(params);
-                    if (sessionStorage.getItem("isLoggedIn")) {
+                    console.log(response);
+                    if (response.code===200) {
                       let decodedToken = jwt_decode(response.accessToken);  
                        let role =  decodedToken[
                           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"

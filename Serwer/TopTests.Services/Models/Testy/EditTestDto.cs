@@ -8,5 +8,6 @@ namespace TopTests.Services.Models.Testy
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string TypeOfTest { get; set; }
     }
 }

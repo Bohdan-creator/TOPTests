@@ -5,7 +5,7 @@ using TopTests.DAL.Entities;
 
 namespace TopTests.Services.Models.Testy
 {
-    public class ReadTestDto
+    public class ReadSingleTestDto
     {
         public string NumberOfQuestion { get; set; }
         public string Question { get; set; }

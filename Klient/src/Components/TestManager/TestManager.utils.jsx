@@ -35,8 +35,9 @@ export default function TestManager() {
                 let api = new Api();
                 api.DeleteTest(id);
               }
-        async function redirectToEditTest(id,name){
+        async function redirectToEditTest(id,name,type){
                 sessionStorage.setItem("TestName",name);
+                sessionStorage.setItem("TypeTest",type);
              window.location.assign("/editTest/"+id);
         }
         async function redirectToTests(id){

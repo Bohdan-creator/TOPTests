@@ -13,8 +13,8 @@ export default function TestManager() {
  const [isLoading, setIsLoading] = useState(false);
  const [userRole,setRole] = useState();
  const[userId,setUserId]=useState();
+ const[question,setQuestion]=useState();
 
- 
  async function fetchTestQuestions() {
         try
         {
@@ -35,7 +35,7 @@ export default function TestManager() {
        console.log("decode",decoded);
       setRole(role);
       setUserId(userId);
-      const res = await api.fetchTestQuestions();
+      const res = await api.fetchTestQuestions(userId);
       console.log(res);
       setdata(res);
       setIsLoading(false);
@@ -61,27 +61,13 @@ export default function TestManager() {
     async function redirectToTests(){
       window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
     }
-    async function NextQuestion(minutes,seconds){
-      localStorage.setItem("Minutes",minutes);
-      localStorage.setItem("Seconds",seconds);
-      let number = sessionStorage.getItem("NumberOfQuestion");
-      ++number;
-      sessionStorage.setItem("NumberOfQuestion",number);
-      window.location.assign("/test/"+sessionStorage.getItem("TestId"));
-    }
-    async function PreviousQuestion(minutes,seconds){
-      localStorage.setItem("Minutes",minutes);
-      localStorage.setItem("Seconds",seconds);
-      let number = sessionStorage.getItem("NumberOfQuestion");
-      --number;
-      sessionStorage.setItem("NumberOfQuestion",number);
-      window.location.assign("/test/"+sessionStorage.getItem("TestId"));
-    }
+
     async function redirectToDeletedQuestions(){
       window.location.assign("/showDeletedQuestions/"+sessionStorage.getItem("TestId"));
     }
-    async function redirectToTestModify(id){
+    async function redirectToTestModify(id,type){
       sessionStorage.setItem("TestId",id);
+      sessionStorage.setItem("TypeTest",type)
       window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"));
     }
     async function redirectToStartTest(id){
@@ -92,13 +78,18 @@ export default function TestManager() {
       else{
       sessionStorage.setItem("TestId",id);
       sessionStorage.setItem("NumberOfQuestion",0);
-      localStorage.setItem("Minutes",1);
-      localStorage.setItem("Seconds",10);
       window.location.assign("/test/"+sessionStorage.getItem("TestId"));
       }
     }
     async function redirectToAddQuestion(){
+      if(parseInt(sessionStorage.getItem("TypeTest"))== 0)
+      {
       window.location.assign("/addTestQuestion");
+      }
+      else if(parseInt(sessionStorage.getItem("TypeTest"))==1)
+      {
+      window.location.assign("/addTestQuestionSingleTest");
+      }
     }
     async function deleteTestQuestion(id){
       let api = new Api();
@@ -138,5 +129,6 @@ role =  decoded[
  return {
    SendFile,fetchTestQuestions,restoreTestQuestion,redirectToTestModify,redirectToEditTestQuestionsAnswer,
   redirectToDeletedQuestions, deleteTestQuestion,redirectToTests,fetchDeletedQuestions,data,isLoading,userRole,userId,
-  redirectToAddQuestion,redirectToStartTest,NextQuestion,PreviousQuestion};
+  redirectToAddQuestion,redirectToStartTest
+};
 }

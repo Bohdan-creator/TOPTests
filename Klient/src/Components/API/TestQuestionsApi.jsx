@@ -21,10 +21,16 @@ export default class TestQuestionApi extends Api{
                           title:'Some empty fields are empty'});
               }
   }
-  async fetchTestQuestions() {
+  async fetchTestQuestions(userId) {
     try {
+      const time ={
+            UserId:parseInt(userId),
+            TestId : sessionStorage.getItem("TestId") 
+      }
        const res = await this.baseAxios.get('https://localhost:44323/api/testQuestion/'+sessionStorage.getItem("TestId"));     
-       console.log(res);
+       const registeredTime = await this.baseAxios.post('https://localhost:44323/api/time',
+       time)
+      // console.log(res);
        return res.data;
     } catch (error) {
       Swal.fire("Oops...", "You don't have anyone subject", "error");

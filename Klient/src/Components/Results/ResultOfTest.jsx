@@ -20,6 +20,7 @@ export default class ResultOfTest extends React.Component {
                  "sub"
                ]; 
          }
+         this.GetScoreOfTest();
         }
                  
         redirectToRewiew(){
@@ -28,9 +29,6 @@ export default class ResultOfTest extends React.Component {
         Finished(){
           window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
           localStorage.clear();
-        }
-        componentDidMount(){
-          this.GetScoreOfTest();
         }
         GetScoreOfTest =async () => {
                 let api = new Api();

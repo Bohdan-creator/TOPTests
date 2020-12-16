@@ -12,6 +12,7 @@ export default function RegisterTest(){
                 Name: "",
                 AdditionalInfo:"",
                 TypeOfTest:"0",
+                TimeOfTest:0,
                 SubjectId:sessionStorage.getItem("SubjectId"),
               };
               
@@ -26,12 +27,14 @@ export default function RegisterTest(){
                         .min(10, "Too short!")
                         .max(100, "Too long!")
                         .required("Required"),
-                    }
+                    },
+                    
                     )
                    
                     function onSubmit(fields) {
                         console.log(fields);
-                        createTest(fields);  
+                        createTest(fields); 
+                        sessionStorage.setItem("TypeTest",fields.TypeOfTest); 
                       }
                       async function createTest(fields) {
                         try {
@@ -89,7 +92,15 @@ export default function RegisterTest(){
                                 <option value="1">Single test selection</option>
                                 <option value="2">Calculation test</option>
                               </Field>
-
+                              <label>Time of test</label>
+                              <Field
+                                name="TimeOfTest"
+                                placeHolder="Enter time of test"
+                                className={
+                                  "form-control" +
+                                  (errors.TimeOfTest && touched.TimeOfTest ? " is-invalid" : "")
+                                }
+                              />
                               <div className="pt-3">
                                 <button
                                   type="submit"
@@ -98,7 +109,7 @@ export default function RegisterTest(){
                                   Save
                                 </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                { <a role="button " class="btn btn-danger" onClick={()=>redirectToTests(sessionStorage.getItem("TopicId"))}  >     
+                                { <a role="button " class="btn btn-danger" onClick={()=>redirectToTests(sessionStorage.getItem("SubjectId"))}  >     
                                 Cancel
                                 </a> }
                               </div>

@@ -39,7 +39,7 @@ namespace TopTests.API.Controllers
         [HttpPost("addTestQuestion")]
         public async Task<IActionResult> AddTestQuestion(RegisterTestQuestionDto registerTestQuestionDto)
         {
-            var testQuestions = await testQuestionService.RegisterTestQuestion(registerTestQuestionDto);
+                var testQuestions = await testQuestionService.RegisterTestQuestion(registerTestQuestionDto);
             if (testQuestions == null)
             {
                 return BadRequest(resourceManager.GetString("Null"));

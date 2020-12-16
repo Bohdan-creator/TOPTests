@@ -1,6 +1,5 @@
 import Swal from "sweetalert2"
 import Api from "./Api";
-import axios from 'axios'
 export default class TestQuestionApi extends Api{
 
   constructor()
@@ -11,9 +10,13 @@ export default class TestQuestionApi extends Api{
         try {
            const res = await this.baseAxios.post
            ('https://localhost:44323/api/checkTest/'+sessionStorage.getItem("TestId"),fields); 
-           return res.data;
+           console.log(res.status);
+           if(res.status==200){
+             window.location.assign("/result")
+           }
+           return res.status;
         } catch (error) {
-          Swal.fire("Oops...", "You don't have anyone subject", "error");
+          Swal.fire("Oops...", "Problem with writing test", "error");
         }
       }
       async GetResultOfTest(userId){

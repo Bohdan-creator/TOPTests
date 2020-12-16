@@ -22,6 +22,7 @@ namespace TopTests.DAL
         public DbSet<RefreshTokens> RefreshTokens { get; set; }
         public DbSet<FeedBacks> FeedBacks { get; set; }
         public DbSet<Files> Files { get; set; }
+        public DbSet<TimeRemainingOfTest> TimeRemainingOfTests { get; set; }
 
         public static byte[] ReadFile(string sPath)
         {
@@ -40,12 +41,19 @@ namespace TopTests.DAL
             modelBuilder.Entity<Files>().HasData(
                  new
                  {
-                     Id = 2,
-                     FileName = "Test",
-                     FileContent = ReadFile("C:\\Users\\kuche\\Desktop\\TopTests\\TypesOfTest\\MultipleOfChoiseTest.csv")
+                     Id = 4,
+                     FileName = "Multiple Choices Test",
+                     FileContent = ReadFile("C:\\Users\\kuche\\Desktop\\TopTests\\TypesOfTest\\MultipleChoiseTest.csv"),
+                     TypeOfTest = 0
+                 },
+                 new {
+                        Id = 5,
+                     FileName = "Single Selection Test",
+                     FileContent = ReadFile("C:\\Users\\kuche\\Desktop\\TopTests\\TypesOfTest\\SingleSelectionTest .csv"),
+                     TypeOfTest = 1
                  }
 
-                );
+                ); ;
         }
     }
  

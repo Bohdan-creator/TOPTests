@@ -3,10 +3,10 @@ import * as Yup from 'yup';
 import ReactDOM from 'react-dom'
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Api from '../API/TestQuestionsApi'
-import TestManager from '../TestQuestionManager/TestQuestionManager.utils';
+import TestManager from './TestQuestionManager.utils';
 import Swal from "sweetalert2"
 
-export default function AddTestQuestion(){
+export default function AddTestQuestionMultipleTest(){
 let initialValues = {
         Question: "dfgdfg",
         OptionA: "dfg",
@@ -64,7 +64,6 @@ let initialValues = {
                  }
               }
               return (
-               
                 <Formik 
                   validationSchema={validationSchema}
                   initialValues={initialValues}

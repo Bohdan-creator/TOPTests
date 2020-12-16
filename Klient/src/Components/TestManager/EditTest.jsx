@@ -10,6 +10,7 @@ const{id} = useParams();
 
         let initialValues = {
                 Id:id,
+                TypeOfTest:sessionStorage.getItem("TypeTest"),
                 Name:sessionStorage.getItem("TestName")
               }
 
@@ -45,6 +46,14 @@ const{id} = useParams();
                           component="div"
                        className="invalid-feedback"
                           />
+                          <br></br>
+                          <label>Choose type of test</label>
+
+                          <Field as="select" name="TypeOfTest" class="form-control">
+                            <option value="0">Multiple choises of test</option>
+                            <option value="1">Single test selection</option>
+                            <option value="2">Calculation test</option>
+                          </Field>
                         <div className="pt-3">
                           <button
                             type="submit"

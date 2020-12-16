@@ -50,9 +50,9 @@ namespace TopTests.Services.Services
             editAnswers.Add(editQuestionDto.OptionA);
             editAnswers.Add(editQuestionDto.OptionB);
             editAnswers.Add(editQuestionDto.OptionC);
-            for (int i = 0; i< editAnswers.Count; i++)
+            for (int i = 0; i < editAnswers.Count; i++)
             {
-                answers[i].Option = editAnswers[i]; 
+                answers[i].Option = editAnswers[i];
             }
             if (question == null || editQuestionDto.Question == "")
             {
@@ -62,8 +62,22 @@ namespace TopTests.Services.Services
             await testQuestionRepository.SaveChangesAsync();
             return true;
         }
-
         public async Task<ErrorTestDto> ReadTestQuestions(int id, UploadFile uploadFile)
+        {
+            var type_test = await testRepository.GetTest(id);
+            var error = new ErrorTestDto();
+            if ((int)type_test.TypeOfTest == 0)
+            {
+                error = await ReadMultipleTestQuestions(id, uploadFile);
+            }
+            if ((int)type_test.TypeOfTest == 1)
+            {
+                error = await ReadSingleTestQuestions(id, uploadFile);
+            }
+            return error;
+        }
+
+        public async Task<ErrorTestDto> ReadSingleTestQuestions(int id, UploadFile uploadFile)
         {
             ErrorTestDto errorTestDto = new ErrorTestDto();
             var files = uploadFile.formFile;
@@ -74,7 +88,7 @@ namespace TopTests.Services.Services
             using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.UTF8))
             using (var csv = new CsvReader(reader, culture1))
             {
-                foreach (var i in csv.GetRecords<ReadTestDto>())
+                foreach (var i in csv.GetRecords<ReadSingleTestDto>())
                 {
                     if (i.Question == "" || i.OptionA == "" ||
                         i.OptionB == "" || i.OptionC == "" ||
@@ -84,13 +98,8 @@ namespace TopTests.Services.Services
                         return errorTestDto;
                     }
                     var test = await testRepository.GetTest(id);
-                    var testQuestion = new TestQuestions(test.Id , test.SubjectId, i.Question);
-                    var check_question = await testQuestionRepository.CheckIfQuestionExist(testQuestion);
-                  //  if (check_question != null)
-                   // {
-                    //    errorTestDto.QuestionExist = 400;
-                     //   return errorTestDto;
-                   // }
+                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question);
+                    ///
                     list_testQuestion.Add(testQuestion);
                     options.Add(i.OptionA);
                     options.Add(i.OptionB);
@@ -117,7 +126,51 @@ namespace TopTests.Services.Services
             }
 
         }
+        public async Task<ErrorTestDto> ReadMultipleTestQuestions(int id, UploadFile uploadFile)
+        {
+            ErrorTestDto errorTestDto = new ErrorTestDto();
+            var files = uploadFile.formFile;
+            var list_testQuestion = new List<TestQuestions>();
+            var list_answer = new List<Answers>();
+            var options = new List<string>();
+            CultureInfo culture1 = CultureInfo.CurrentCulture;
+            using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.UTF8))
+            using (var csv = new CsvReader(reader, culture1))
+            {
+                foreach (var i in csv.GetRecords<ReadMultipleTestDto>())
+                {
+                    if (i.Question == "" || i.OptionA == "" ||
+                        i.OptionB == "" || i.OptionC == "" || i.Complexity == "" ||
+                        i.FirstAnswer == "" || i.SecondAnswer == "" ||
+                        i.ThirdAnswer == ""  )
+                    {
+                        errorTestDto.FieldEmpty = 400;
+                        return errorTestDto;
+                    }
+                    var test = await testRepository.GetTest(id);
+                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question);
+                    ///
+                    list_testQuestion.Add(testQuestion);
+                  
+                    var answer_one = new Answers(test.SubjectId, test.Id, testQuestion.NumberOfIdentification, i.OptionA, bool.Parse(i.FirstAnswer));
+                    list_answer.Add(answer_one);
 
+                    var answer_two = new Answers(test.SubjectId, test.Id, testQuestion.NumberOfIdentification, i.OptionB, bool.Parse(i.SecondAnswer));
+                    list_answer.Add(answer_two);
+
+                    var answer_third = new Answers(test.SubjectId, test.Id, testQuestion.NumberOfIdentification, i.OptionC, bool.Parse(i.ThirdAnswer));
+                    list_answer.Add(answer_third);
+
+                    list_answer.Add(answer_one);
+                    list_answer.Add(answer_two);
+                    list_answer.Add(answer_third);
+                }
+                testQuestionRepository.AddTestsQuestions(list_testQuestion);
+                answersRepository.SaveAnswers(list_answer);
+                return errorTestDto;
+            }
+
+        }
         public async Task<RegisterTestQuestionDto> RegisterTestQuestion(RegisterTestQuestionDto registerTestQuestionDto)
         {
             if (registerTestQuestionDto == null)
@@ -135,10 +188,11 @@ namespace TopTests.Services.Services
             option.Add(registerTestQuestionDto.OptionB);
             option.Add(registerTestQuestionDto.OptionC);
             List<Answers> answers = new List<Answers>();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 answers.Add(new Answers(Int32.Parse(registerTestQuestionDto.SubjectId),
                                             Int32.Parse(registerTestQuestionDto.TestId), testQuestion.NumberOfIdentification,
-                                             option[i],isCorrect[i]));
+                                             option[i], isCorrect[i]));
             }
             testQuestionRepository.Create(testQuestion);
             answersRepository.SaveAnswers(answers);

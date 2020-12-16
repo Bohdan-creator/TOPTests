@@ -18,11 +18,12 @@ const [id,setId] =useState(0)
 const[style,setStyle]=useState("");
 console.log(data);
 
-function Change(info,name,id){
+function Change(info,name,id,typeOfTest){
   console.log(info);
   setInfo(info)
   setData(name)
   setId(id);
+  sessionStorage.setItem("TypeTest",typeOfTest);
   sessionStorage.setItem("TestId",id)
 }
   return(
@@ -40,11 +41,11 @@ function Change(info,name,id){
     <div class="grid-container-subjects">
     {data.map( item => (
       <div class="item">
-                  <a class="icon" onClick={()=>redirectToEditTest(item.id,item.name)}>
+                  <a class="icon" onClick={()=>redirectToEditTest(item.id,item.name,item.typeOfTest)}>
            <img class="edit"src={edit}  ></img>
            </a>
       <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-      <a  role="button " class="btn btn-info" onClick={()=>redirectToTestModify(item.id)} >Go ahead</a>
+      <a  role="button " class="btn btn-info" onClick={()=>redirectToTestModify(item.id,item.typeOfTest)} >Go ahead</a>
       <br></br>
       <br></br>
       <a class="icon" onClick={()=>deleteTest(item.id)}>
@@ -105,7 +106,7 @@ function Change(info,name,id){
             <p class="text_test">{item.name}</p>
             <p>Good Luck</p>
             <a type="button" style={{width:170+'px',fontSize:17+'px'}} class="btn btn-info"
-            onClick={()=>Change(item.additionalInfo,item.name,item.id)}>Choose test</a>
+            onClick={()=>Change(item.additionalInfo,item.name,item.id,item.typeOfTest)}>Choose test</a>
     </div>
         );
         

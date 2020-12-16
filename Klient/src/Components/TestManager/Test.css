@@ -119,7 +119,7 @@
   height: 460px;
   width:350px;
   padding: 2%;
-  margin-top:100px;
+  margin-top:50px;
   margin-left: 35%;
   border-radius: 35px;
   animation-name: bottom;
@@ -127,7 +127,7 @@
 }
 @keyframes bottom {
   from {top: -600px;}
-  to {top: 86px;}
+  to {top: 0px;}
 }
 .test_form{
   width:100%;

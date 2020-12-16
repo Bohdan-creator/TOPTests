@@ -75,9 +75,9 @@ export default function ShowTestQuestion(){
           
         :userRole==="Admin"?
         <div>
-        <AddTestQuestions style={{marginTop:50+'px'}}></AddTestQuestions>
-        <h1>Also you can use another method by add question on this page </h1>
-        <button class="btn btn-info" onClick={()=>window.location.assign("/addTestQuestion")}>
+        <AddTestQuestions ></AddTestQuestions>
+        <h1 style={{marginTop:30+'px'}}>Also you can use another method by add question on this page </h1>
+        <button class="btn btn-info" onClick={()=>redirectToAddQuestion()}>
           Add Test Question</button>
           </div>       
         :<div>

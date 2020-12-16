@@ -46,6 +46,7 @@ namespace TopTests.Services.Services
                 return false;
             }
             test.Name = editTestDto.Name;
+            test.TypeOfTest = (TypeOfTest)Int32.Parse(editTestDto.TypeOfTest);
             testRepository.Update(test);
             await testRepository.SaveChangesAsync();
             return true;
@@ -68,7 +69,7 @@ namespace TopTests.Services.Services
                 return null;
             }
             var test = new Test( Int32.Parse(registerTestDto.SubjectId),registerTestDto.AdditionalInfo, registerTestDto.Name
-                                , Int32.Parse(registerTestDto.TypeOfTest));
+                                , Int32.Parse(registerTestDto.TypeOfTest),registerTestDto.TimeOfTest);
             testRepository.Create(test);
             await testRepository.SaveChangesAsync();
             return test;

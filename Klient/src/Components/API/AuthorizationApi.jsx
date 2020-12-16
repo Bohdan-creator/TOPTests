@@ -13,7 +13,6 @@ export default class AuthorizationApi {
              params
           );
           Swal.fire("Success", "Success", "success");
-          sessionStorage.setItem("isLoggedIn", true);
                     return response.data;
         } catch (error) {
           if (error.response) {

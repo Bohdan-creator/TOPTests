@@ -10,5 +10,6 @@ namespace TopTests.Services.Models.Files
         public int Id { get; set; }
         public string FileName { get; set; }
         public MemoryStream Memory { get; set; }
+        public int TypeOfTest { get; set; }
     }
 }
