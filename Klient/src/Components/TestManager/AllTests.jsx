@@ -45,7 +45,7 @@ function Change(info,name,id,typeOfTest){
            <img class="edit"src={edit}  ></img>
            </a>
       <p class="SubjectTitle" key={item.id}>  {item.name}</p>
-      <a  role="button " class="btn btn-info" onClick={()=>redirectToTestModify(item.id,item.typeOfTest)} >Go ahead</a>
+      <a  role="button" class="btn btn-info" onClick={()=>redirectToTestModify(item.id,item.typeOfTest)} >Go ahead</a>
       <br></br>
       <br></br>
       <a class="icon" onClick={()=>deleteTest(item.id)}>
@@ -97,7 +97,8 @@ function Change(info,name,id,typeOfTest){
           <div class="choosed_test">
              <p class="text_test">{item.name}</p>
              <p>Good Luck</p>
-             <a type="button" style={{width:170+'px',fontSize:17+'px'}} class="btn btn-info">Choose test</a>
+             <a type="button" style={{width:170+'px',fontSize:17+'px'}} class="btn btn-info">
+               Choose test</a>
           </div>
         )
       }else{

@@ -33,7 +33,7 @@ namespace TopTests.API.Controllers
             var time = await timeRemainingService.RegisterTimeOfEndTest(setTimeDto);
             return Ok(time);
         }
-        [HttpGet("timer")]
+        [HttpGet("timers")]
         public async Task<IActionResult> GetTime()
         {
             return Ok("Heyka");

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TopTests.API.HUB;
 using TopTests.DAL;
 using TopTests.DAL.Entities;
 using TopTests.DAL.Interfaces;
@@ -29,8 +31,8 @@ namespace TopTests.API.StartupExtensions
         {
             return services
                 .AddSingleton<Profile, AuthorizeProfile>()
-                .AddSingleton<Profile,SubjectProfile>()
-                .AddSingleton<Profile,FileProfile>()
+                .AddSingleton<Profile, SubjectProfile>()
+                .AddSingleton<Profile, FileProfile>()
                 .AddSingleton<IConfigurationProvider, AutoMapperConfiguration>(p =>
                     new AutoMapperConfiguration(p.GetServices<Profile>()))
                 .AddSingleton<IMapper, Mapper>();
@@ -72,18 +74,36 @@ namespace TopTests.API.StartupExtensions
             })
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
+                options.RequireHttpsMetadata = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "Roles",
+                    ValidateIssuer = true,
+                    ValidIssuer = TokenOptions.ISSUER,
+                    ValidAudience = TokenOptions.AUDIENCE,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = TokenOptions.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true
+                };
+                    options.Events = new JwtBearerEvents
                     {
-                        NameClaimType = "Roles",
-                        ValidateIssuer = true,
-                        ValidIssuer = TokenOptions.ISSUER,
-                        ValidAudience = TokenOptions.AUDIENCE,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = TokenOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/timer")))
+                            {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
+
             return services;
         }
     }

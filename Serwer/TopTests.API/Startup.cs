@@ -2,14 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdminService.Middleware;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TopTests.API.HUB;
 using TopTests.API.StartupExtensions;
 
 namespace TopTests.API
@@ -34,6 +38,14 @@ namespace TopTests.API
                 .AddRepositories()
                 .AddJwtAuthentication();
 
+            services.AddCors(options =>
+                options.AddPolicy("CorsPolicy",
+                    builder =>
+                        builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials()));
+            services.AddSignalR();
 
         }
 
@@ -50,19 +62,42 @@ namespace TopTests.API
             app.UseRouting();
 
             app.UseStaticFiles();
-            app.UseCors(options =>
-              options
-              .AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .WithExposedHeaders("Content-Disposition")
-              );
+            //app.UseCors(options =>
+            //  options
+            //  .AllowAnyOrigin()
+            //  .AllowAnyMethod()
+            //  .AllowAnyHeader()
+            //  .WithExposedHeaders("Content-Disposition")
+            //  );
+            app.UseCors("CorsPolicy");
+            app.UseMiddleware<WebSocketsMiddleware>();
+
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.Map("/signalr", map =>
+            //{
+            //    map.UseCors(CorsOptions);
+
+            //    map.Provider(new OAuthBearerAuthenticationOptions()
+            //    {
+            //        Provider = new QueryStringOAuthBearerProvider()
+            //    });
+
+            //    var hubConfiguration = new HubConfiguration
+            //    {
+            //        Resolver = GlobalHost.DependencyResolver,
+            //    };
+            //    map.RunSignalR(hubConfiguration);
+            //});
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<TimerHub>("/timer", options =>
+                {
+                    options.Transports =
+                        HttpTransportType.WebSockets;
+                });
             });
         }
     }

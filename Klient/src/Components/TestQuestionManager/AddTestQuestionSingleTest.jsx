@@ -13,6 +13,7 @@ export default function AddTestQuestionSingleTest(){
         isCorrectOptionA: false,
         isCorrectOptionB: false,
         isCorrectOptionC: false,
+        TypeOfQuestion:"1",
         SubjectId:sessionStorage.getItem("SubjectId"),
         TestId:sessionStorage.getItem("TestId")
       };
@@ -177,6 +178,12 @@ export default function AddTestQuestionSingleTest(){
                         component="div"
                         className="invalid-feedback"
                       />
+                      <Field as="select" style={{float:"right",width:49+'%'}}
+                      name="TypeOfQuestion" class="form-control">
+                                <option value="1">Easy</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Hard</option>
+                              </Field>
                       <button
                           type="submit"
                           className="btn btn-primary"
@@ -184,7 +191,8 @@ export default function AddTestQuestionSingleTest(){
                           Save
                         </button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         <a role="button " class="btn btn-danger" >     
+                         <a role="button " class="btn btn-danger" onClick={
+                         ()=>window.location.assign('/showTestModify/'+sessionStorage.getItem('TestId'))} >     
                         Cancel
                         </a> 
                     </Form>

@@ -13,7 +13,7 @@ export default class TestQuestionApi extends Api{
                 console.log(res);
                 Swal.fire({icon: 'success',
                           title: 'You have added test questions',
-                          title:'You have added subject'});
+                          title:'You have added test questions'});
                           setTimeout(()=>window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId")),1000);
               } catch (ex) {
                 Swal.fire({icon: 'error',
@@ -23,14 +23,7 @@ export default class TestQuestionApi extends Api{
   }
   async fetchTestQuestions(userId) {
     try {
-      const time ={
-            UserId:parseInt(userId),
-            TestId : sessionStorage.getItem("TestId") 
-      }
        const res = await this.baseAxios.get('https://localhost:44323/api/testQuestion/'+sessionStorage.getItem("TestId"));     
-       const registeredTime = await this.baseAxios.post('https://localhost:44323/api/time',
-       time)
-      // console.log(res);
        return res.data;
     } catch (error) {
       Swal.fire("Oops...", "You don't have anyone subject", "error");
@@ -44,6 +37,18 @@ export default class TestQuestionApi extends Api{
       title:'You have edit test question'});
       setTimeout(()=>window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId")),1000);
       return res.data;
+     
+   } catch (error) {
+     Swal.fire("Oops...", "You don't have anyone subject", "error");
+   }
+  }
+  async GetTestQuestion(){
+    try {
+      const res = await this.baseAxios
+      .get('https://localhost:44323/api/testQuestion/getQuestion/'+sessionStorage.getItem("QuestionId"));     
+
+      console.log(res);
+      return res;
      
    } catch (error) {
      Swal.fire("Oops...", "You don't have anyone subject", "error");

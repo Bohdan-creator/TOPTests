@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from "react";
 import Api from '../API/TestQuestionsApi'
+import TimeApi from '../API/TimeApi'
 import Alert from 'react-bootstrap/Alert'
 import jwt_decode from "jwt-decode";
-export default function TestManager() {
+import API from '../API/TestQuestionsApi'
 
+export default function TestManager() {
  async function SendFile(filePath){
          let api = new Api();
          api.SendTestQuestions(filePath);
@@ -23,9 +25,9 @@ export default function TestManager() {
       let decoded=null;
       let role=null;
       let userId=null;
-  if(sessionStorage.getItem("accessToken")!==null){
-   decoded = jwt_decode(sessionStorage.getItem("accessToken"));
-  role =  decoded[
+      if(sessionStorage.getItem("accessToken")!==null){
+      decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+      role =  decoded[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
         userId=decoded[
@@ -49,14 +51,26 @@ export default function TestManager() {
     }
     async function redirectToEditTestQuestionsAnswer(id,subjectName,option){
       console.log(subjectName);
-      var arr = ['Test','OptionA','OptionB','OptionC']; 
+      let api = new API();
       sessionStorage.setItem("QuestionId",id);
+      const result =  await api.GetTestQuestion();
+      console.log(result);
+      var arr = ['Test','OptionA','OptionB','OptionC']; 
       var index=0;  
       sessionStorage.setItem("SubjectName",subjectName);
          option.map((item,index)=>(
           sessionStorage.setItem(arr[index+1],item.option)
          ))
+        sessionStorage.setItem('isCorrectA',result.data.isCorrectA);
+        sessionStorage.setItem('isCorrectB',result.data.isCorrectB);
+        sessionStorage.setItem('isCorrectC',result.data.isCorrectC);
+        if(parseInt(sessionStorage.getItem("TypeTest"))== 0){
          window.location.assign("/editTestQuestions/"+id);
+        }
+        else if(parseInt(sessionStorage.getItem("TypeTest"))== 1){
+        window.location.assign("/editTestQuestionsSingle/"+id);
+      }
+
     }
     async function redirectToTests(){
       window.location.assign("/tests/"+sessionStorage.getItem("TestId"));
@@ -76,6 +90,20 @@ export default function TestManager() {
           setTimeout(()=>window.location.assign("/login"),200);
       }
       else{
+        let decoded=null;
+        let role=null;
+        let userId=null;
+        if(sessionStorage.getItem("accessToken")!==null){
+        decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+        role =  decoded[
+            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          ];
+          userId=decoded[
+            "sub"
+          ] ;
+         }
+      let api = new TimeApi();
+      await api.registerTime(userId);
       sessionStorage.setItem("TestId",id);
       sessionStorage.setItem("NumberOfQuestion",0);
       window.location.assign("/test/"+sessionStorage.getItem("TestId"));

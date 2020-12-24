@@ -4,12 +4,15 @@ import Api from '../API/CheckTestApi'
 import { useState } from 'react';
 import TestManager from './TestQuestionManager.utils'
 import Swal from "sweetalert2"
+import Timer from '../Timer/TimerRemaining'
+import * as Yup from 'yup';
 
 export default function SingleSelectionTest(props){
         let[ans_one,setFirstChecked]=useState(false)
         let[ans_second,setSecondChecked]=useState(false)
         let[ans_third,setThirdChecked]=useState(false)
-        let[a,as] = useState(false);
+        let[questionId,setId]=useState();
+
         let initialValues={
           QuestionId:sessionStorage.getItem("QuestionId"),
           UserId:props.userId,
@@ -17,32 +20,37 @@ export default function SingleSelectionTest(props){
           isCorrectB:ans_second,
           isCorrectC:ans_third
        };
+
         function NextQuestion(){
+          if(initialValues.isCorrectA!==false
+            ||initialValues.isCorrectB!==false
+            ||initialValues.isCorrectC!==false){
         let number = sessionStorage.getItem("NumberOfQuestion");
+        sessionStorage.setItem("PreviousQuestion",number);
         ++number;
         sessionStorage.setItem("NumberOfQuestion",number);
-        let question = localStorage.getItem(sessionStorage.getItem("NumberOfQuestion"));
-        let ques = JSON.parse(question);
-        console.log(ques);
-        if(ques===null){
-        }
-        else{
-        setFirstChecked(ques.isCorrectA);
-        setSecondChecked(ques.isCorrectB);
-        setThirdChecked(ques.isCorrectC); 
-        }     
-       // window.location.assign("/test/"+sessionStorage.getItem("TestId")); 
+            }
+            else{
+              
+              Swal.fire({icon: 'warning',
+              title:'Warning',
+               text:'Please set a true answer'});
+            // console.log("Field empty");
+            }
+
       }
   
       function PreviousQuestion(){
         let number = sessionStorage.getItem("NumberOfQuestion");
+        sessionStorage.setItem("PreviousQuestion",number);
         --number;
-        sessionStorage.setItem("NumberOfQuestion",number);
-        let question = localStorage.getItem(sessionStorage.getItem("NumberOfQuestion"));
-        let ques = JSON.parse(question);
-        setFirstChecked(ques.isCorrectA);
-        setSecondChecked(ques.isCorrectB);
-        setThirdChecked(ques.isCorrectC);  
+        if(number<0){
+          sessionStorage.setItem("NumberOfQuestion",number);
+         }
+        else{
+         sessionStorage.setItem("NumberOfQuestion",number
+         );
+        }
       }
              function singleSelection(a,b,c){
               setFirstChecked(a);
@@ -53,9 +61,27 @@ export default function SingleSelectionTest(props){
                function onSubmit(fields){
                 let api = new Api();
                     let obj = JSON.stringify(fields);
-                    localStorage.setItem(sessionStorage.getItem("NumberOfQuestion")-1,obj);
-                    if(parseInt(localStorage.getItem("CountOfQuestions")) === parseInt(localStorage.length-1)){
-                     alert("hey");
+                    if(parseInt(sessionStorage.getItem("NumberOfQuestion"))===-1){
+                      sessionStorage.setItem("NumberOfQuestion",0)
+                    }
+                    else{
+                      if(parseInt(sessionStorage.getItem("NumberOfQuestion"))
+                      <parseInt(sessionStorage.getItem("PreviousQuestion"))){
+                      
+                      localStorage.setItem("xcvxc",obj);
+
+                      }
+                      else{
+                        if(initialValues.isCorrectA!==false
+                          ||initialValues.isCorrectB!==false
+                          ||initialValues.isCorrectC!==false){
+                        localStorage.setItem(parseInt(sessionStorage.getItem("NumberOfQuestion")-1),obj);
+                          }
+                      }
+
+                    }
+                    if(parseInt(localStorage.getItem("CountOfQuestions")) 
+                    === parseInt(sessionStorage.getItem("NumberOfQuestion"))){
                       Swal.fire({
                         title: 'Are you ready to finish the test?',
                         icon: 'warning',
@@ -65,14 +91,13 @@ export default function SingleSelectionTest(props){
                         confirmButtonText: 'Finished'
                       }).then((result) => {
                         if (result.isConfirmed) {
-                          alert("tut")
                           Swal.fire(
                             'Finished!',
                             'Your test has been finished.',
                             'success'
                           )
                           let list = new Array();
-                          for(var i = localStorage.length-3 ;i>0;i--)
+                          for(var i = localStorage.length-2 ;i>0;i--)
                           {
                             list.push(JSON.parse(localStorage.getItem(i-1)))
                           }
@@ -80,20 +105,38 @@ export default function SingleSelectionTest(props){
                           }
                           
                           else{
-                            alert("dd")
                             sessionStorage.setItem("NumberOfQuestion",sessionStorage.getItem("NumberOfQuestion")-1)
-                           // window.location.assign("/test/"+sessionStorage.getItem("TestId"))
                           }
                      
                    })
-                     
-                   } else{
-                    window.location.assign("/test/"+sessionStorage.getItem("TestId"));
                    }
-                   
+                   else{
+
+                    sessionStorage.setItem("NumberOfQuestion",sessionStorage.getItem("NumberOfQuestion"))
+                    let question = localStorage.getItem(sessionStorage.getItem("NumberOfQuestion"));
+                    let ques = JSON.parse(question);
+                    console.log(ques);
+                    if(ques===null){
+                      setFirstChecked(false);
+                      setSecondChecked(false);
+                      setThirdChecked(false); 
+                    }
+                    else{
+                    setFirstChecked(ques.isCorrectA);
+                    setSecondChecked(ques.isCorrectB);
+                    setThirdChecked(ques.isCorrectC); 
+                    setId(ques.QuestionId);
+
+                    }     
+                  }
+                  
                  }
 
       return(
+        <div>
+        <div>
+           <Timer userId={props.userId}></Timer>
+        </div>
         <div class="grid-container-Starttest">
         {props.data.map( (item,index) => {
              
@@ -193,6 +236,7 @@ export default function SingleSelectionTest(props){
         )          
       } 
 })}
+    </div>
     </div>
       )
 

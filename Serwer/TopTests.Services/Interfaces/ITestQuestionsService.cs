@@ -14,6 +14,7 @@ namespace TopTests.Services.Interfaces
         Task<bool> DeleteTestQuestion(int id);
         Task<bool> EditTestQuestion(int id,EditQuestionDto editQuestionDto);
         Task<bool> RestoreTestQuestion(int id);
+        Task<EditQuestionDto> GetTestQuestion(int questionId);
         Task<IEnumerable<ShowTestQuestionAnswers>> ShowAllDeletedTestQuestions(int id);
         Task<IEnumerable<ShowTestQuestionAnswers>> ShowTestQuestion(int TestId);
         Task<RegisterTestQuestionDto> RegisterTestQuestion(RegisterTestQuestionDto registerTestQuestionDto);

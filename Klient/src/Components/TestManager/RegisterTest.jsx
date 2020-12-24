@@ -90,7 +90,6 @@ export default function RegisterTest(){
                               <Field as="select" name="TypeOfTest" class="form-control">
                                 <option value="0">Multiple choises of test</option>
                                 <option value="1">Single test selection</option>
-                                <option value="2">Calculation test</option>
                               </Field>
                               <label>Time of test</label>
                               <Field

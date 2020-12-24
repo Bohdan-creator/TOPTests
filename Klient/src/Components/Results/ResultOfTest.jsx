@@ -41,7 +41,7 @@ export default class ResultOfTest extends React.Component {
                     list.push(JSON.parse(localStorage.getItem("Number"+i)))
                   }
                  await api.SendToCheckTest(list);
-                   result =  await api.GetResultOfTest(this.id);
+                result =  await api.GetResultOfTest(this.id);
                 }
                 console.log("Result",result.data);
                 this.setState({score:result.data})

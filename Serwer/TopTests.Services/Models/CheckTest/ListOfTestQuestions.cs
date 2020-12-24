@@ -11,5 +11,6 @@ namespace TopTests.Services.Models.CheckTest
         public bool isCorrectA { get; set; }
         public bool isCorrectB { get; set; }
         public bool isCorrectC { get; set; } 
+        
     }
 }

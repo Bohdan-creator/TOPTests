@@ -29,7 +29,10 @@ export default function HowToFieldMultipleTest(){
                    </ol>
                    <ol>
                            <strong>Complexicy</strong>  : this type complicity of question.
-                                                        Scale of complicity from 1..5
+                                                        Scale of complicity from 1..3<br></br>
+                                                        1 - Easy
+                                                        2 - Medium
+                                                        3 - Hard 
                    </ol>
                 </ul>
                 </div>

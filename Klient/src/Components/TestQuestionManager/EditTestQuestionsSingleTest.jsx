@@ -4,7 +4,7 @@ import API from "../API/TestQuestionsApi"
 import style from '../TestQuestionManager/TestQuestion.css'
 import Api from '../API/Api';
 
-export default function EditTestQuestion() {
+export default function EditTestQuestionSingleTest() {
         let initialValues = {
           Question:sessionStorage.getItem("SubjectName"),
           optionA:sessionStorage.getItem("OptionA"),
@@ -23,11 +23,16 @@ export default function EditTestQuestion() {
                         console.log("error");
                 }  
         }
+        function singleSelection(a,b,c){
+
+                initialValues.isCorrectA = a;
+                initialValues.isCorrectB = b;
+                initialValues.isCorrectC = c;       
+            }
         async function EditTestQuestion(fields){
             let api = new API();
             api.EditTestQuestion(fields);
         }
-        //if(parseInt(sessionStorage.getItem("TypeTest"))== 0){
         return (
             
                 <Formik 
@@ -62,6 +67,7 @@ export default function EditTestQuestion() {
                           />
                               <Field
                         type="checkbox"
+                        onClick={()=>singleSelection(true,false,false)}
                         name="isCorrectA"
                         maxLength = "9"
                         class="info"
@@ -86,6 +92,7 @@ export default function EditTestQuestion() {
                           />
                               <Field
                         type="checkbox"
+                        onClick={()=>singleSelection(false,true,false)}
                         name="isCorrectB"
                         maxLength = "9"
                         class="info"
@@ -115,6 +122,7 @@ export default function EditTestQuestion() {
                           />
                            <ErrorMessage
                           name="isCorrectC"
+                          onClick={()=>singleSelection(false,false,true)}
                           component="div"
                        className="invalid-feedback"
                           />

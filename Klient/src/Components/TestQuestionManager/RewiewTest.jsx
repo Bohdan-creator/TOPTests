@@ -43,7 +43,13 @@ console.log(data);
            </div>
                     )             
             }
-            if(a.isCorrectA!==items.isCorrect){
+            if(a==undefined||a==null)
+            {
+              return(
+                <div></div>
+              )
+            }
+            else if(a.isCorrectA!==items.isCorrect){
               return(
                 <div class="answers">
            <p class="answer_false">{items.option}</p>
@@ -58,6 +64,12 @@ console.log(data);
                 <div class="answers">
                     <p class="answer_true">{items.option}</p>
                  </div> 
+              )
+            }
+            if(a==undefined||a==null)
+            {
+              return(
+                <div></div>
               )
             }
             if(a.isCorrectB!==items.isCorrect){
@@ -75,6 +87,12 @@ console.log(data);
           <p class="answer_true">{items.option}</p>
                  </div> 
                    )
+            }
+            if(a==undefined||a==null)
+            {
+              return(
+                <div></div>
+              )
             }
             if(a.isCorrectC !==items.isCorrect)
             {

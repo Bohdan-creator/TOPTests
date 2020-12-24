@@ -13,7 +13,7 @@ namespace TopTests.Services.Models.TestQuestions
         public bool isCorrectOptionA { get; set; }
         public bool isCorrectOptionB { get; set; }
         public bool isCorrectOptionC { get; set; }
-
+        public string TypeOfQuestion { get; set; }
         public string SubjectId { get; set; }
         public string TopicId { get; set; }
         public string TestId { get; set; }

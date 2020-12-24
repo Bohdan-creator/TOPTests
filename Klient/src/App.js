@@ -18,6 +18,7 @@ import EditTest from './Components/TestManager/EditTest'
 import AddTestQuestions from './Components/TestQuestionManager/AddTestQuestions'
 import ShowTestToModify from './Components/TestQuestionManager/ShowTestModify'
 import EditTestQuestionAnswer from './Components/TestQuestionManager/EditTestQuestionAnswer'
+import EditTestQuestionAnswerSingleTest from './Components/TestQuestionManager/AddTestQuestionSingleTest'
 import DeletedQuestions from './Components/TestQuestionManager/DeletedQuestions'
 import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
 import AddTestQuestionSingleTest from './Components/TestQuestionManager/AddTestQuestionSingleTest'
@@ -163,6 +164,10 @@ function App() {
         <Route path="/editTestQuestions/:id">
         <UserHeader></UserHeader>
             <EditTestQuestionAnswer style="editTestQuestionsforms"></EditTestQuestionAnswer>
+        </Route>
+        <Route path="/editTestQuestionsSingle/:id">
+        <UserHeader></UserHeader>
+            <EditTestQuestionAnswerSingleTest style="editTestQuestionsforms"></EditTestQuestionAnswerSingleTest>
         </Route>
              <Route path="/editSubject/:id">
         <UserHeader></UserHeader>

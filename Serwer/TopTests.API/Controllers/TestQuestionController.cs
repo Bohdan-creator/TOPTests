@@ -96,5 +96,15 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [HttpGet("getQuestion/{id}")]
+        public  async Task<IActionResult> GetTestQuestion(string id)
+        {
+            var testQuestion = await testQuestionService.GetTestQuestion(Int32.Parse(id));
+            if (testQuestion == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(testQuestion);
+        }
     }
 }

@@ -50,9 +50,14 @@ namespace TopTests.Services.Services
             editAnswers.Add(editQuestionDto.OptionA);
             editAnswers.Add(editQuestionDto.OptionB);
             editAnswers.Add(editQuestionDto.OptionC);
+            List<bool> correctAnswer = new List<bool>();
+            correctAnswer.Add(editQuestionDto.isCorrectA);
+            correctAnswer.Add(editQuestionDto.isCorrectB);
+            correctAnswer.Add(editQuestionDto.isCorrectC);
             for (int i = 0; i < editAnswers.Count; i++)
             {
                 answers[i].Option = editAnswers[i];
+                answers[i].isCorrect = correctAnswer[i];
             }
             if (question == null || editQuestionDto.Question == "")
             {
@@ -98,7 +103,7 @@ namespace TopTests.Services.Services
                         return errorTestDto;
                     }
                     var test = await testRepository.GetTest(id);
-                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question);
+                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question,Int32.Parse(i.Complexity));
                     ///
                     list_testQuestion.Add(testQuestion);
                     options.Add(i.OptionA);
@@ -119,6 +124,11 @@ namespace TopTests.Services.Services
                     }
                     options = new List<string>();
 
+                }
+                if (list_testQuestion.Count == 0)
+                {
+                    errorTestDto.FieldEmpty = 400;
+                    return errorTestDto;
                 }
                 testQuestionRepository.AddTestsQuestions(list_testQuestion);
                 answersRepository.SaveAnswers(list_answer);
@@ -148,7 +158,7 @@ namespace TopTests.Services.Services
                         return errorTestDto;
                     }
                     var test = await testRepository.GetTest(id);
-                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question);
+                    var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question,Int32.Parse(i.Complexity));
                     ///
                     list_testQuestion.Add(testQuestion);
                   
@@ -165,6 +175,11 @@ namespace TopTests.Services.Services
                     list_answer.Add(answer_two);
                     list_answer.Add(answer_third);
                 }
+                if (list_testQuestion.Count == 0)
+                {
+                    errorTestDto.FieldEmpty = 400;
+                    return errorTestDto;
+                }
                 testQuestionRepository.AddTestsQuestions(list_testQuestion);
                 answersRepository.SaveAnswers(list_answer);
                 return errorTestDto;
@@ -178,7 +193,8 @@ namespace TopTests.Services.Services
                 return null;
             }
             var testQuestion = new TestQuestions(Int32.Parse(registerTestQuestionDto.TestId),
-                                                 Int32.Parse(registerTestQuestionDto.SubjectId), registerTestQuestionDto.Question);
+                                                 Int32.Parse(registerTestQuestionDto.SubjectId), registerTestQuestionDto.Question
+                                                 ,Int32.Parse(registerTestQuestionDto.TypeOfQuestion));
             List<bool> isCorrect = new List<bool>();
             isCorrect.Add(registerTestQuestionDto.isCorrectOptionA);
             isCorrect.Add(registerTestQuestionDto.isCorrectOptionB);
@@ -284,6 +300,27 @@ namespace TopTests.Services.Services
                 list.Add(show);
             }
             return list;
+        }
+
+        public async Task<EditQuestionDto> GetTestQuestion(int questionId)
+        {
+            var testQuestion = await testQuestionRepository.GetQuestion(questionId);
+            var answers = await answersRepository.GetAnswersForQuestion(testQuestion.NumberOfIdentification);
+            if (testQuestion == null || answers == null)
+            {
+                return null;
+            }
+            var editModel = new EditQuestionDto()
+            {
+                Question = testQuestion.Question,
+                OptionA = answers[0].Option,
+                OptionB = answers[1].Option,
+                OptionC = answers[2].Option,
+                isCorrectA = answers[0].isCorrect,
+                isCorrectB = answers[1].isCorrect,
+                isCorrectC = answers[2].isCorrect
+            };
+            return editModel;
         }
     }
 }

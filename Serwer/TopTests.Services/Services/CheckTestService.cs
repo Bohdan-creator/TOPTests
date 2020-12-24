@@ -15,40 +15,117 @@ namespace TopTests.Services.Services
         private readonly IAnswersRepository answersRepository;
         private readonly IResultsRepository resultsRepository;
         private readonly ITestRepository testRepository;
-        public CheckTestService(ITestQuestionRepository testQuestionRepository,IAnswersRepository answersRepository,
-            IResultsRepository resultsRepository,ITestRepository testRepository)
+        public CheckTestService(ITestQuestionRepository testQuestionRepository, IAnswersRepository answersRepository,
+            IResultsRepository resultsRepository, ITestRepository testRepository)
         {
             this.testQuestionRepository = testQuestionRepository;
             this.testRepository = testRepository;
             this.answersRepository = answersRepository;
             this.resultsRepository = resultsRepository;
-        } 
-        public async Task<int> CheckTest(string id,List<ListOfTestQuestions> listOfTestQuestions)
+        }
+        public async Task<int> CountMaxScoreOfTest(List<ListOfTestQuestions> listOfTestQuestions)
+        {
+            var score = 0;
+            for (var i = 0; i < listOfTestQuestions.Count; i++)
+            {
+                var question = await testQuestionRepository.GetQuestion(Int32.Parse(listOfTestQuestions[i].QuestionId));
+                if ((int)question.Complexity == 1)
+                {
+                    score += 5;
+                }
+                else if ((int)question.Complexity == 2)
+                {
+                    score += 10;
+                }
+                else if ((int)question.Complexity == 3)
+                {
+                    score += 15;
+                }
+            }
+            return score;
+        }
+        public async Task<int> CheckTest(string id, List<ListOfTestQuestions> listOfTestQuestions)
         {
             var score = 0;
             if (listOfTestQuestions == null)
             {
                 return score;
             }
+            var type_test = await testRepository.GetTest(Int32.Parse(id));
             var infoForResult = await testQuestionRepository.GetQuestion(Int32.Parse(listOfTestQuestions[0].QuestionId));
             var testName = await testRepository.GetTest(infoForResult.TestId);
-            for (var i =0; i<listOfTestQuestions.Count; i++)
+
+            var maxScore = await CountMaxScoreOfTest(listOfTestQuestions);
+
+            for (var i = 0; i < listOfTestQuestions.Count; i++)
             {
                 var question = await testQuestionRepository.GetQuestion(Int32.Parse(listOfTestQuestions[i].QuestionId));
                 if (question.Id == Int32.Parse(listOfTestQuestions[i].QuestionId))
                 {
                     var answers = await answersRepository.GetAnswersForQuestion(question.NumberOfIdentification);
-                    if(listOfTestQuestions[i].isCorrectA == answers[0].isCorrect&&
-                       listOfTestQuestions[i].isCorrectB == answers[1].isCorrect&&
-                       listOfTestQuestions[i].isCorrectC == answers[2].isCorrect)
+                    if ((int)type_test.TypeOfTest == 0)
                     {
-                        score += 10;
+                        if (listOfTestQuestions[i].isCorrectA == answers[0].isCorrect &&
+                           listOfTestQuestions[i].isCorrectB == answers[1].isCorrect &&
+                           listOfTestQuestions[i].isCorrectC == answers[2].isCorrect)
+                        {
+                            if ((int)question.Complexity == 1)
+                            {
+                                score += 5;
+                            }
+                            else if ((int)question.Complexity == 2)
+                            {
+                                score += 10;
+                            }
+                            else if ((int)question.Complexity == 3)
+                            {
+                                score += 15;
+                            }
 
+                        }
+                        if (listOfTestQuestions[i].isCorrectA == answers[0].isCorrect == true ||
+                           listOfTestQuestions[i].isCorrectB == answers[1].isCorrect == true ||
+                           listOfTestQuestions[i].isCorrectC == answers[2].isCorrect == true)
+                        {
+                            if ((int)question.Complexity == 1)
+                            {
+                                score += 2;
+                            }
+                            else if ((int)question.Complexity == 2)
+                            {
+                                score += 5;
+                            }
+                            else if ((int)question.Complexity == 3)
+                            {
+                                score += 7;
+                            }
+                        }
+                    }
+                    else if ((int)type_test.TypeOfTest == 1)
+                    {
+                        if (listOfTestQuestions[i].isCorrectA == answers[0].isCorrect &&
+                           listOfTestQuestions[i].isCorrectB == answers[1].isCorrect &&
+                           listOfTestQuestions[i].isCorrectC == answers[2].isCorrect)
+                        {
+                            if ((int)question.Complexity == 1)
+                            {
+                                score += 5;
+                            }
+                            else if ((int)question.Complexity == 2)
+                            {
+                                score += 10;
+                            }
+                            else if ((int)question.Complexity == 3)
+                            {
+                                score += 15;
+                            }
+
+                        }
                     }
                 }
             }
             var result = new Results(Int32.Parse(listOfTestQuestions[0].UserId), infoForResult.TestId,
-                                     infoForResult.SubjectId, score,testName.Name);
+                                     infoForResult.SubjectId, (score * 100) / maxScore, testName.Name);
             resultsRepository.Create(result);
             await resultsRepository.SaveChangesAsync();
             return score;
@@ -57,7 +134,7 @@ namespace TopTests.Services.Services
         public async Task<int> GetResultOfTest(int userId)
         {
             var result = await resultsRepository.GetResultOfTest(userId);
-            
+
             return result.Rating;
         }
 
@@ -65,7 +142,7 @@ namespace TopTests.Services.Services
         {
             var results = await resultsRepository.GetResultsOfTest(userId);
             var resultsOfTests = new List<ResultsTests>();
-           foreach (var res in results)
+            foreach (var res in results)
             {
                 ResultsTests resultsTests = new ResultsTests();
                 resultsTests.dateTime = res.DateCreated.Day;
@@ -74,7 +151,7 @@ namespace TopTests.Services.Services
                 resultsTests.Score = res.Rating.ToString();
                 resultsOfTests.Add(resultsTests);
             }
-            return resultsOfTests ;
+            return resultsOfTests;
         }
     }
 }

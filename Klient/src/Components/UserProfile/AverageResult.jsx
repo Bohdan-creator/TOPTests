@@ -16,12 +16,8 @@ export default class UserProfile extends Component{
                this.id =  decoded[
                        "sub"
                      ];
-                     this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
                 }
-                this.state = {
-                        text:[]
-                      };
                 this.GetResultsOfTest();
         }
         GetResultsOfTest = async () => {

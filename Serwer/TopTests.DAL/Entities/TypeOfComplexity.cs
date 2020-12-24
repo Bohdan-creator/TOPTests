@@ -6,8 +6,8 @@ namespace TopTests.DAL.Entities
 {
     public enum TypeOfComplexity
     {
-        Easy=0,
-        Medium=1,
-        Hard=2
+        Easy=1,
+        Medium=2,
+        Hard=3
     }
 }

@@ -16,7 +16,7 @@ namespace TopTests.DAL.Entities
         {
             UserId = userId;
             TestId = testId;
-            StartTest = DateTime.UtcNow;
+            StartTest = DateTime.Now;
             EndTest = StartTest.AddMinutes(timeOfTest);
         }
     }

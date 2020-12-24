@@ -10,5 +10,8 @@ namespace TopTests.Services.Models.TestQuestions
         public string OptionA { get; set; }
         public string OptionB { get; set; }
         public string OptionC { get; set; }
+        public bool isCorrectA { get; set; }
+        public bool isCorrectB { get; set; }
+        public bool isCorrectC { get; set; }
     }
 }
