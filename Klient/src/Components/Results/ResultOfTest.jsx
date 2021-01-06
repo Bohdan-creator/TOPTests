@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Api from '../API/CheckTestApi'
 import style from '../Results/Result.css'
 import jwt_decode from "jwt-decode";
+import FeedBackAboutTest from '../Feedback/FeedBackAboutTest' 
 export default class ResultOfTest extends React.Component {
 
   constructor(props) {
@@ -46,15 +47,15 @@ export default class ResultOfTest extends React.Component {
                 console.log("Result",result.data);
                 this.setState({score:result.data})
                 if(result.data>70){
-                  this.setState({text:"That's the good result"})
+                  this.setState({text:"You pass the test! That's the good result"})
                   this.setState({text_style:"good"})
                 }
-                if(result.data>=40&&result.data<70){
-                  this.setState({text:"You could be better"})
+                if(result.data>=61&&result.data<70){
+                  this.setState({text:"You pass the test! You could be better"})
                   this.setState({text_style:"middle"})
                 }
-                if(result.data<40){
-                  this.setState({text:"Don't worry! You could be better"})
+                if(result.data<61){
+                  this.setState({text:"You don't pass the test"})
                   this.setState({text_style:"bad"})
                 }
               }
@@ -62,6 +63,7 @@ export default class ResultOfTest extends React.Component {
           
         render() {
           return (
+            <div>
             <div className={this.styles} >
               <h1>Your score</h1>
               <p class="score">{this.state.score}%</p>
@@ -71,6 +73,8 @@ export default class ResultOfTest extends React.Component {
               <br></br>
               <button class="btn btn-danger" onClick={()=>this.Finished()}
               >Finished</button>
+            </div>
+              <FeedBackAboutTest></FeedBackAboutTest>
             </div>
           );
         }

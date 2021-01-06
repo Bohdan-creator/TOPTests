@@ -6,7 +6,8 @@ namespace TopTests.DAL.Entities
 {
     public enum RoleOfUser
     {
+        User,
+        Teacher,
         Admin,
-        User
     }
 }

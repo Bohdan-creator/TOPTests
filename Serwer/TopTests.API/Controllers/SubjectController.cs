@@ -20,15 +20,15 @@ namespace TopTests.API.Controllers
             this.subjectService = subjectService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
-        [Authorize(Roles ="Admin")]
-        [HttpPost("registerSubject")]
-        public async Task<IActionResult> RegisterSubject(RegisterSubjectDto registerSubjectDto)
+        [Authorize(Roles ="Teacher")]
+        [HttpPost("registerSubject/{id}")]
+        public async Task<IActionResult> RegisterSubject(int id,RegisterSubjectDto registerSubjectDto)
         {
             if (registerSubjectDto == null)
             {
                 return BadRequest(resourceManager.GetString("Null"));
             }
-            var subject = await subjectService.RegisterSubject(registerSubjectDto);
+            var subject = await subjectService.RegisterSubject(registerSubjectDto,id);
             return Ok(subject);
         }
         [HttpPatch,Route("editSubject/{Code}")]
@@ -54,6 +54,10 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        /// <summary>
+        /// For users
+        /// </summary>
+        /// <returns>All avaliable subjects</returns>
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAllSubjects()
         {
@@ -63,6 +67,22 @@ namespace TopTests.API.Controllers
                 return NotFound(resourceManager.GetString("Null"));
             }
             return Ok(subjects);
+            
+        }
+        /// <summary>
+        /// For Teacher
+        /// </summary>
+        /// <returns>All subjects created by teacher</returns>
+        [HttpGet("getTeacherSubjects/{id}")]
+        public async Task<IActionResult> GetAllTeachersSubjects(int id)
+        {
+            var subjects = await subjectService.GetTeacherSubjects(id);
+            if (subjects == null)
+            {
+                return NotFound(resourceManager.GetString("Null"));
+            }
+            return Ok(subjects);
+
         }
         [HttpGet("getAllTests")]
         public async Task<IActionResult> GetAllSubjectsTest()

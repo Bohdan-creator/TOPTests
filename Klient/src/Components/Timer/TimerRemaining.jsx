@@ -36,41 +36,37 @@ export default class TimeRemaining extends Component
   // }
   constructor(props){
     super();
+    let userId=null;
+    if(sessionStorage.getItem("accessToken")!==null){
+      let decoded=null;
+      let role=null;
+      decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+     role =  decoded[
+             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+           ];
+           userId=decoded[
+             "sub"
+           ] ;
+          }
     this.state={
       minutes:0,
       seconds:0,
-      userId: props.userId
+      userId: userId
     }
   
   }
           componentDidMount() {
             const hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44323/timer',{
-            accessTokenFactory: () => 
-               sessionStorage.getItem("accessToken")
-            }
-              )
+            .withUrl('https://localhost:44323/timer')
             .configureLogging(LogLevel.Information)
             .withAutomaticReconnect()  
             .build();
-
-         hubConnection.start().then(()=>hubConnection.invoke('CheckDatesAndShow'))
+          console.log(this.userId);
+         hubConnection.start().then(()=>hubConnection.invoke('CheckDatesAndShow',this.state.userId))
        
        hubConnection.on('sendToAll', (minutes,seconds) => {
         console.log("Time" , minutes);
-        let userId=null;
-        if(sessionStorage.getItem("accessToken")!==null){
-          let decoded=null;
-          let role=null;
-          decoded = jwt_decode(sessionStorage.getItem("accessToken"));
-         role =  decoded[
-                 "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-               ];
-               userId=decoded[
-                 "sub"
-               ] ;
-              }
-        this.setState({minutes:minutes,seconds:seconds,userId:userId});
+        this.setState({minutes:minutes,seconds:seconds,userId:this.state.userId});
       });
       }
            

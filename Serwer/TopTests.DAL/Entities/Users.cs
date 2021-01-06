@@ -18,7 +18,7 @@ namespace TopTests.DAL.Entities
         public string CodeOfVerification { get; set; }
         public bool IsDeleted { get; set; }
         public List<RefreshTokens> RefreshTokens { get; set; }
-        public Users(string firstName, string lastName, string email,string hash,string salt)
+        public Users(string firstName, string lastName, string email,string hash,string salt,RoleOfUser roleOfUser)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -26,7 +26,7 @@ namespace TopTests.DAL.Entities
             HashPassword = hash;
             Salt = salt;
             DateCreated = DateTime.Now;
-            RoleOfUser = RoleOfUser.User;
+            RoleOfUser = roleOfUser;
             StatusOfVerification = "Processing";
             CodeOfVerification = GetRandomString(256);
         }

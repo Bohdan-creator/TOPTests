@@ -12,5 +12,7 @@ namespace TopTests.DAL.Interfaces
         Task<IEnumerable<Users>> FindAllUsersAsync();
         Task<Users> FindByCodeOfVerificationAsync(string code);
         Task<Users> FindByLoginAsync(string email);
+        void DeleteAccount(int id);
+        void ActiveAccount(int id);
     }
 }

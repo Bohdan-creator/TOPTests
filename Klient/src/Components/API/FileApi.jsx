@@ -24,12 +24,11 @@ export default class FileApi extends Api{
                            
                     responseType: 'blob'
                   }).then((response) => {
-                    const url = window.URL.createObjectURL(new Blob([response.data]));
-                   const filename = response.headers['content-disposition'].split(" filename*=UTF-8''");
-                   console.log(filename);
+                   const url = window.URL.createObjectURL(new Blob([response.data]));
+                    var fileName = parseInt(sessionStorage.getItem("TypeTest"))==0?"MultipleSelectionTest":"SingleSelectionTest"
                     const link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', filename[1]+'.csv');
+                    link.setAttribute('download', fileName+'.csv');
                     document.body.appendChild(link);
                    link.click();
                   });     

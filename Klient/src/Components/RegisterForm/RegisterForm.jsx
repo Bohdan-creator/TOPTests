@@ -11,9 +11,6 @@ const {
 } = RegisterFormUser();
 export default class RegisterUser extends Component{
     isTrue = false;
- // constructor(){
- //   i
- // }
      constructor(props){
        super();
        this.styles = props.style;
@@ -89,6 +86,16 @@ render(){
             />
             <ErrorMessage
               name="Password"
+              component="div"
+              className="invalid-feedback"
+            />
+            <br></br>
+            <Field as="select" name="RoleOfUser" class="form-control">
+                            <option value="0">User</option>
+                            <option value="1">Teacher</option>
+                          </Field>
+                          <ErrorMessage
+              name="RoleOfUser"
               component="div"
               className="invalid-feedback"
             />

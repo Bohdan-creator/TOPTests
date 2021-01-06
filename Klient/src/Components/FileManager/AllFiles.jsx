@@ -35,6 +35,7 @@ export default class AllFiles extends Component{
    DownloadFile =async (id) => {
         let api = new Api();
         var result = await api.DownloadTestFile(id);
+        console.log(result);
         if(result===undefined){
                 return(
                         <div>You don't have files</div>

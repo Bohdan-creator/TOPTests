@@ -13,6 +13,7 @@ namespace TopTests.Services.Interfaces
         Task<bool> DeleteTest(int id);
         Task<bool> EditTest(int id, EditTestDto editTestDto);
         Task<IEnumerable<Test>> GetTests(string id);
+        Task<IEnumerable<Test>> GetTeachersTests(string id);
         Task<bool> RestoreTest(int id);
         Task<IEnumerable<Test>> ShowAllDeletedTests();
     }

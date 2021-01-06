@@ -26,7 +26,7 @@ export default function ShowTestQuestion(){
        ></Loader>
       </div>
     ):
-       (data.length!==0&&userRole==="Admin" ?
+       (data.length!==0&&userRole==="Admin"||data.length!==0&&userRole==="Teacher" ?
        <div class="grid-container-test">
          <h1 style={{margin:20+'px'}}>Please rewiew the test and confirm</h1>
          <div class="modify-test">
@@ -73,10 +73,10 @@ export default function ShowTestQuestion(){
        <a type="button" class="btn btn-info" id="confirm" onClick={()=>redirectToTests()} >Confirm</a>
      </div>
           
-        :userRole==="Admin"?
+        :userRole==="Admin"||userRole==="Teacher"?
         <div>
         <AddTestQuestions ></AddTestQuestions>
-        <h1 style={{marginTop:30+'px'}}>Also you can use another method by add question on this page </h1>
+        <h1 style={{marginTop:30+'px'}}>Also you can use another method by adding question on this page </h1>
         <button class="btn btn-info" onClick={()=>redirectToAddQuestion()}>
           Add Test Question</button>
           </div>       

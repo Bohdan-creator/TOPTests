@@ -1,15 +1,29 @@
   import Swal from "sweetalert2"
   import Api from "./Api";
   import axios from 'axios'
+  import jwt_decode from "jwt-decode";
+
   export default class SubjectApi extends Api{
 
   constructor()
   {
     super();
+    let decoded=null;
+    this.id=null;
+    this.role="";
+   if(sessionStorage.getItem("accessToken")!==null){
+    decoded = jwt_decode(sessionStorage.getItem("accessToken"));
+   this.id =  decoded[
+           "sub"
+         ]; 
+         this.role =  decoded[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ]; 
+   }
   }
   async createSubject(params) {
         try {
-                await this.baseAxios.post('https://localhost:44323/api/subject/registerSubject',params)
+                await this.baseAxios.post('https://localhost:44323/api/subject/registerSubject/'+this.id,params)
                 Swal.fire({icon: 'success',
                 title: 'You have added subject',
                 title:'You have added subject'});
@@ -20,9 +34,15 @@
   }
   
   async fetchSubjects() {
+    
     try {
-       const res = await this.baseAxios.get('https://localhost:44323/api/subject/getAll');     
-      return res.data;
+       if(this.role==="User"){
+       const res = await this.baseAxios.get('https://localhost:44323/api/subject/getAll'); 
+       return res.data;
+       }else if(this.role==="Teacher"){
+        const res = await this.baseAxios.get('https://localhost:44323/api/subject/getTeacherSubjects/'+this.id); 
+        return res.data;
+       }
     } catch (error) {
       Swal.fire("Oops...", "You don't have anyone subject", "error");
     }

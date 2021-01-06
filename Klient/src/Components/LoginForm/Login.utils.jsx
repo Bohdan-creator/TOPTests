@@ -36,6 +36,9 @@ export default function Login() {
                         case "User":
                           setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
                           break;
+                          case "Teacher":
+                            setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
+                            break;
                         case "Admin":
                           setTimeout(()=>window.location.assign("http://localhost:3000/home"),2000);
                           break;
@@ -45,7 +48,7 @@ export default function Login() {
                     }
                   }
                 catch(error){
-                  Swal.fire("OOps",error.message,"Bad password");
+                  //Swal.fire("OOps",error.message,"Bad password");
                 }
               }
               return {

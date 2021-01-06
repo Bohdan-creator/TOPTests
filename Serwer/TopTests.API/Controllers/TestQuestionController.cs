@@ -48,7 +48,7 @@ namespace TopTests.API.Controllers
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
-        {
+        { 
             var question = await testQuestionService.DeleteTestQuestion(id);
             if (question == false)
             {

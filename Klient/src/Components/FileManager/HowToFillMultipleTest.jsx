@@ -9,13 +9,13 @@ export default function HowToFieldMultipleTest(){
                 <div style={{marginLeft:300+'px', marginTop:40+'px'}}>
                 <ul style={{fontSize:20+'px',color:"black" ,background:"white",width:70+'%'}}>
                    <ol>
-                           <strong>Number of question</strong> : this field doesn't be empty. In this field <br></br>
-                           you write from 1 to .. numbers of questions
+                           <strong>Number of question</strong> : this field can't be empty. This field <br></br>
+                           has to be started from 1 to ..
                    </ol>
                    <ol>
-                           <strong>Question</strong> : this you write a question also this field doesn't be empty
+                           <strong>Question</strong> : Please write your question here, this field can't be empty
                    </ol>
-                   <p><strong>All of this options must contain asnwers</strong></p>
+                   <p><strong>All of this options must have asnwers</strong></p>
                    <ol>
                           Option A
                    </ol>
@@ -25,7 +25,7 @@ export default function HowToFieldMultipleTest(){
                    <ol>
                     Option C
                    </ol>
-                   <p><strong>All of this fields must contain true or false does answer correct or no </strong></p>
+                   <p><strong>True or false options have to be choosen according to OptionA/OptionB/OptionC </strong></p>
                    <ol>
                            First Answer
                    </ol>
@@ -36,8 +36,8 @@ export default function HowToFieldMultipleTest(){
                            Third Answer
                    </ol>
                    <ol>
-                           <strong>Complexicy</strong>  : this type complicity of question.
-                                                        Scale of complicity from 1..3<br></br>
+                           <strong>Complexity</strong>  : this type complexity of question.
+                                                        Scale of complexity from 1..3<br></br>
                                                         1 - Easy
                                                         2 - Medium
                                                         3 - Hard 

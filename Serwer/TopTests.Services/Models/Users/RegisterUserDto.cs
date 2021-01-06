@@ -11,5 +11,6 @@ namespace TopTests.Services.Models.Users
         public string Email { get; set; }
         public string Password { get; set; }
         public string CodeOfVerification { get; set; }
+        public string RoleOfUser { get; set; }
     }
 }

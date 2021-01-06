@@ -78,5 +78,33 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [HttpPatch("delete/{id}")]
+        public async Task<IActionResult> DeleteAccount(int id)
+        {
+            if (!await authorizationService.DeleteAccount(id))
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok();
+        }
+        [HttpPatch("active/{id}")]
+        public async Task<IActionResult> ActiveAccount(int id)
+        {
+            if (!await authorizationService.ActiveAccount(id))
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok();
+        }
+        [HttpGet("getUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await authorizationService.GetUsers();
+            if (users == null)
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok(users);
+        }
     }
 }

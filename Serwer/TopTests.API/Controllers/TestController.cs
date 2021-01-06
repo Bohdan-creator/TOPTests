@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using TopTests.API.Resources;
+using TopTests.DAL.Entities;
 using TopTests.Services.Interfaces;
 using TopTests.Services.Models.Testy;
 
@@ -19,14 +21,16 @@ namespace TopTests.API.Controllers
     {
         private readonly ITestService testService;
         private readonly ResourceManager resourceManager;
-        public TestController(ITestService testService)
+        public TestController(ITestService testService,ITestQuestionsService testQuestionsService)
         {
             this.testService = testService;
+           // this.testQuestionsService = testQuestionsService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterTestDto registerTestDto)
+        [HttpPost("register/{id}")]
+        public async Task<IActionResult> Register(int id,RegisterTestDto registerTestDto)
         {
+            registerTestDto.TeacherId = id;
             var test = await testService.RegisterTest(registerTestDto);
             if (test == null)
             {
@@ -56,6 +60,16 @@ namespace TopTests.API.Controllers
         public async Task<IActionResult> GetTests(string id)
         {
             var tests = await testService.GetTests(id);
+            if (tests == null)
+            {
+                return BadRequest(resourceManager.GetString("Null"));
+            }
+            return Ok(tests);
+        }
+        [HttpGet("teachersTests/{id}")]
+        public async Task<IActionResult> GetTeachersTests(string id)
+        {
+            var tests = await testService.GetTeachersTests(id);
             if (tests == null)
             {
                 return BadRequest(resourceManager.GetString("Null"));

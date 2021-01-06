@@ -25,7 +25,7 @@ namespace TopTests.DAL.Repositories
         public async Task<IEnumerable<Users>> FindAllUsersAsync()
         {
             return await context.Set<Users>()
-                .Where(e => e.IsDeleted == false)
+                .Where(e => e.RoleOfUser==0)
                 .ToListAsync();
         }
 
@@ -41,6 +41,20 @@ namespace TopTests.DAL.Repositories
             return await context.Set<Users>()
                 .Where(e => e.IsDeleted == false)
                 .FirstOrDefaultAsync(e => e.Email == email);
+        }
+        public void DeleteAccount(int id)
+        {
+                      context.Set<Users>()
+                     .Where(e => e.Id == id)
+                     .ToList()
+                     .ForEach(c => c.StatusOfVerification = "Blocked");
+        }
+        public void ActiveAccount(int id)
+        {
+            context.Set<Users>()
+           .Where(e => e.Id == id)
+           .ToList()
+           .ForEach(c => c.StatusOfVerification = "Active");
         }
     }
 }

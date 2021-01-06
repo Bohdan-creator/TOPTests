@@ -17,9 +17,9 @@ namespace TopTests.API.HUB
         {
             this.timeRemainingRepository = timeRemainingRepository;
         }
-        public async Task CheckDatesAndShow()
+        public async Task CheckDatesAndShow(string userId)
         {
-            var time =   timeRemainingRepository.GetTimetOfTest(22); 
+            var time =   timeRemainingRepository.GetTimetOfTest(Int32.Parse(userId)); 
             var times = time.EndTest - DateTime.Now;
            await  Clients.Caller.SendAsync("sendToAll", ((times.Hours * 60) + times.Minutes).ToString(),times.Seconds.ToString());
         }

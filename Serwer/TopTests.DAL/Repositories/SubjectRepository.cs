@@ -29,6 +29,12 @@ namespace TopTests.DAL.Repositories
                  .Where(e => e.isDelete == false)
                  .ToListAsync();
         }
+        public async Task<IEnumerable<Subjects>> GetTeachersSubjects(int id)
+        {
+            return await context.Set<Subjects>()
+                 .Where(e => e.isDelete == false&&e.TeacherId==id)
+                 .ToListAsync();
+        }
         public async Task<IEnumerable<Subjects>> GetDeleteSubjects()
         {
             return await context.Set<Subjects>()

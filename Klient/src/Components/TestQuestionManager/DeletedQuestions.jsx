@@ -22,7 +22,7 @@ export default function ShowDeletedQuestion(){
                    ></Loader>
                   </div>
                 ) :
-                   data&&userRole==="Admin"?
+                   data&&userRole==="Teacher"?
                    <div class="grid-container-test">
                      <h1 style={{margin:20+'px'}}>Deleted Questions</h1>
                    {data.map( (item,index) => (
@@ -39,7 +39,7 @@ export default function ShowDeletedQuestion(){
                      <a type="button" class="btn btn-info" onClick={()=>restoreTestQuestion(item.questionId)} >Restore</a>
                      </div>
                    ))}
-                   <a type="button" class="btn btn-info" id="confirm" onClick={()=>redirectToTestModify(sessionStorage.getItem("TestId"))}>
+                   <a type="button" class="btn btn-info" id="confirm" onClick={()=>window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"))}>
                            Back To test</a>
                  </div>
                   :<div style={{marginTop:15+'%'}}>

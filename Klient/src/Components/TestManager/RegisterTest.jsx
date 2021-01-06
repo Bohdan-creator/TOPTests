@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState} from "react"
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Api from '../API/TestApi'
@@ -7,28 +7,34 @@ import TestManager from "./TestManager.utils";
 export default function RegisterTest(){
 
         const{redirectToTests}=TestManager();
-
+        const[automatic,setAutomatic]=useState(false);
         let initialValues = {
                 Name: "",
                 AdditionalInfo:"",
                 TypeOfTest:"0",
-                TimeOfTest:0,
+                TimeOfTest:"0",
+                AutomaticCountTime:false,
                 SubjectId:sessionStorage.getItem("SubjectId"),
               };
-              
+              function ChooseTypeOfCountTime(){
+                return(
+                automatic==false?setAutomatic(true):setAutomatic(false)
+                );
+              }
               const validationSchema = Yup.object().shape({
                 Name: Yup.string()
                         .min(1, "Too short!")
-                        .max(20, "Too long!")
-                        .required("Required"),
-                    },
-                    {
+                        .max(17, "Too long!")
+                        .required("Required")
+                    ,
+                    
                 AdditionalInfo: Yup.string()
                         .min(10, "Too short!")
                         .max(100, "Too long!")
                         .required("Required"),
-                    },
                     
+
+                    },
                     )
                    
                     function onSubmit(fields) {
@@ -93,6 +99,7 @@ export default function RegisterTest(){
                               </Field>
                               <label>Time of test</label>
                               <Field
+                                disabled={automatic==true?true:false}
                                 name="TimeOfTest"
                                 placeHolder="Enter time of test"
                                 className={
@@ -100,6 +107,16 @@ export default function RegisterTest(){
                                   (errors.TimeOfTest && touched.TimeOfTest ? " is-invalid" : "")
                                 }
                               />
+                              <label>Automatic counter time for test</label>
+                               <Field 
+                      type="checkbox"
+                        name="AutomaticCountTime"
+                        onClick={()=>ChooseTypeOfCountTime()}
+                        className={
+                          "radio" +
+                          (errors.AutomaticCountTime && touched.AutomaticCountTime ? " is-invalid" : "")
+                        }
+                      />
                               <div className="pt-3">
                                 <button
                                   type="submit"

@@ -186,7 +186,8 @@ let initialValues = {
                           Save
                         </button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         <a role="button " class="btn btn-danger" >     
+                         <a role="button" class="btn btn-danger"
+                         onClick={()=>window.location.assign("/showTestModify/"+sessionStorage.getItem("TestId"))} >     
                         Cancel
                         </a> 
                     </Form>

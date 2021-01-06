@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+  
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Net.Http.Headers;
 using TopTests.API.Resources;
 using TopTests.Services.Interfaces;
 using System.Text;
+using TopTests.Services.Models.Files;
 
 namespace TopTests.API.Controllers
 {
@@ -33,9 +36,9 @@ namespace TopTests.API.Controllers
             var downloadFile = await fileService.DownloadFile(id);
             if (downloadFile == null)
                 return Content("filename not present");
-            // return File(memory, "application/vnd.ms-excel", "MultipleOfChoiseTest");
-            var file =  File(downloadFile.memory, "application/vnd.ms-excel");
-            file.FileDownloadName = downloadFile.FileName;
+           //  return File(downloadFile.memory, "application/vnd.ms-excel", "MultipleOfChoiseTest");
+           var file = File(downloadFile.memory, "application/vnd.ms-excel", downloadFile.FileName);
+            //file.FileDownloadName = downloadFile.FileName;
             return file;
         }
 
@@ -48,7 +51,7 @@ namespace TopTests.API.Controllers
             {".doc", "application/vnd.ms-word"},
             {".docx", "application/vnd.ms-word"},
             {".xls", "application/vnd.ms-excel"},
-            {".xlsx", "application/vnd.openxmlformats officedocument.spreadsheetml.sheet"},  
+            {".xlsx", "application/vnd.openxmlformats officedocument.spreadsheetml.sheet"},
                 {".png", "image/png"},
                 {".jpg", "image/jpeg"},
                 {".jpeg", "image/jpeg"},

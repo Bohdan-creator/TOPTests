@@ -29,12 +29,27 @@ namespace TopTests.Services.Services
 
         public async Task<bool> DeleteTestQuestion(int id)
         {
+            var test_question = await testQuestionRepository.GetQuestion(id);
+            var test = await testRepository.GetTest(test_question.TestId);
             var question = await testQuestionRepository.GetQuestion(id);
             if (question == null)
             {
                 return false;
             }
+            if ((int)test_question.Complexity == 3)
+            {
+                test.TimeOfTest -= 5;
+            }else if((int)test_question.Complexity == 2)
+            {
+                test.TimeOfTest -= 3;
+            }
+            else if((int)test_question.Complexity == 1)
+            {
+                test.TimeOfTest -= 1;
+            }
             question.isDelete = true;
+            testRepository.Update(test);
+            await testRepository.SaveChangesAsync();
             answersRepository.SetValueIsDeleteOnQuestion(question.NumberOfIdentification);
             testQuestionRepository.Update(question);
             await testQuestionRepository.SaveChangesAsync();
@@ -89,6 +104,7 @@ namespace TopTests.Services.Services
             var list_testQuestion = new List<TestQuestions>();
             var list_answer = new List<Answers>();
             var options = new List<string>();
+            var test = await testRepository.GetTest(id);
             CultureInfo culture1 = CultureInfo.CurrentCulture;
             using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.UTF8))
             using (var csv = new CsvReader(reader, culture1))
@@ -102,7 +118,28 @@ namespace TopTests.Services.Services
                         errorTestDto.FieldEmpty = 400;
                         return errorTestDto;
                     }
-                    var test = await testRepository.GetTest(id);
+                    if(Int32.Parse(i.Complexity)<1&& Int32.Parse(i.Complexity) > 3)
+                    {
+                        errorTestDto.FieldEmpty = 400;
+                        return errorTestDto;
+                    }
+                    if (test.AutomaticTime == true)
+                    {
+                        var testTime = 0;
+                        if (i.Complexity == "1")
+                        {
+                            testTime += 1;
+                        }else if (i.Complexity == "2")
+                        {
+                            testTime += 3;
+                        }else if(i.Complexity == "3")
+                        {
+                            testTime += 5;
+                        }
+                        test.TimeOfTest += testTime;
+                        testRepository.Update(test);
+                        await testRepository.SaveChangesAsync();
+                    }
                     var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question,Int32.Parse(i.Complexity));
                     ///
                     list_testQuestion.Add(testQuestion);
@@ -132,6 +169,7 @@ namespace TopTests.Services.Services
                 }
                 testQuestionRepository.AddTestsQuestions(list_testQuestion);
                 answersRepository.SaveAnswers(list_answer);
+                
                 return errorTestDto;
             }
 
@@ -143,6 +181,7 @@ namespace TopTests.Services.Services
             var list_testQuestion = new List<TestQuestions>();
             var list_answer = new List<Answers>();
             var options = new List<string>();
+            var test = await testRepository.GetTest(id);
             CultureInfo culture1 = CultureInfo.CurrentCulture;
             using (TextReader reader = new StreamReader(files.OpenReadStream(), Encoding.UTF8))
             using (var csv = new CsvReader(reader, culture1))
@@ -157,7 +196,25 @@ namespace TopTests.Services.Services
                         errorTestDto.FieldEmpty = 400;
                         return errorTestDto;
                     }
-                    var test = await testRepository.GetTest(id);
+                    if (test.AutomaticTime == true)
+                    {
+                        var testTime = 0;
+                        if (i.Complexity == "1")
+                        {
+                            testTime += 1;
+                        }
+                        else if (i.Complexity == "2")
+                        {
+                            testTime += 3;
+                        }
+                        else if (i.Complexity == "3")
+                        {
+                            testTime += 5;
+                        }
+                        test.TimeOfTest += testTime;
+                        testRepository.Update(test);
+                        await testRepository.SaveChangesAsync();
+                    }
                     var testQuestion = new TestQuestions(test.Id, test.SubjectId, i.Question,Int32.Parse(i.Complexity));
                     ///
                     list_testQuestion.Add(testQuestion);
@@ -192,6 +249,20 @@ namespace TopTests.Services.Services
             {
                 return null;
             }
+            var test = await testRepository.GetTest(Int32.Parse(registerTestQuestionDto.TestId));
+            if (test != null && test.AutomaticTime == true)
+            {
+                if (Int32.Parse(registerTestQuestionDto.TypeOfQuestion) == 3)
+                {
+                    test.TimeOfTest += 5;
+                }else if(Int32.Parse(registerTestQuestionDto.TypeOfQuestion) == 2)
+                {
+                    test.TimeOfTest += 3;
+                }else if(Int32.Parse(registerTestQuestionDto.TypeOfQuestion) == 1)
+                {
+                    test.TimeOfTest += 1;
+                }
+            }
             var testQuestion = new TestQuestions(Int32.Parse(registerTestQuestionDto.TestId),
                                                  Int32.Parse(registerTestQuestionDto.SubjectId), registerTestQuestionDto.Question
                                                  ,Int32.Parse(registerTestQuestionDto.TypeOfQuestion));
@@ -212,6 +283,8 @@ namespace TopTests.Services.Services
             }
             testQuestionRepository.Create(testQuestion);
             answersRepository.SaveAnswers(answers);
+            testRepository.Update(test);
+            await testRepository.SaveChangesAsync();
             await testQuestionRepository.SaveChangesAsync();
             return registerTestQuestionDto;
         }
@@ -222,6 +295,11 @@ namespace TopTests.Services.Services
             if (question == null)
             {
                 return false;
+            }
+            var test = await testRepository.GetTest(question.TestId);
+            if (test.AutomaticTime == true)
+            {
+                test.TimeOfTest += (int)question.Complexity;
             }
             question.isDelete = false;
             answersRepository.SetValueIsNotDeleteOnQuestion(question.NumberOfIdentification);

@@ -12,9 +12,8 @@ export default class UserApi{
               await axios.post('https://localhost:44323/api/authorize/register',params)
               Swal.fire("Success", "Email has been sent. Please confirm your registration", "success");
             } catch (error) {
-              if(error.response.status===400 || 401 || 403)
-              Swal.fire("Oops...","User with the same email existed")
+              window.location.assign("/errorConnection")
             }
             setTimeout(()=>window.location.assign("/home"),2000);  
-          }
+          }  
         }    

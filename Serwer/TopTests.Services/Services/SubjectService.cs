@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TopTests.DAL.Entities;
 using TopTests.DAL.Interfaces;
@@ -13,15 +14,17 @@ namespace TopTests.Services.Services
         private readonly ISubjectRepository subjectRepository;
         private readonly ITestQuestionRepository testQuestionRepository;
         private readonly IAnswersRepository answersRepository;
+        private readonly ITestQuestionsService testQuestionsService;
         private readonly IMapper mapper;
         public SubjectService(ISubjectRepository subjectRepository, IMapper mapper,
                               ITestQuestionRepository testQuestionRepository,
-                              IAnswersRepository answersRepository)
+                              IAnswersRepository answersRepository,ITestQuestionsService testQuestionsService)
         {
             this.subjectRepository = subjectRepository;
             this.mapper = mapper;
             this.testQuestionRepository = testQuestionRepository;
             this.answersRepository = answersRepository;
+            this.testQuestionsService = testQuestionsService;
         }
 
         public async Task<EditSubjectDto> EditSubject(int id, EditSubjectDto editSubjectDto)
@@ -41,13 +44,13 @@ namespace TopTests.Services.Services
             return mapper.Map<EditSubjectDto>(subject);
         }
 
-        public async Task<RegisterSubjectDto> RegisterSubject(RegisterSubjectDto registerSubject)
+        public async Task<RegisterSubjectDto> RegisterSubject(RegisterSubjectDto registerSubject,int id)
         {
             if (registerSubject == null)
             {
                 return null;
             }
-            var subject = new Subjects(registerSubject.Name);
+            var subject = new Subjects(id,registerSubject.Name);
             subjectRepository.Create(subject);
             await subjectRepository.SaveChangesAsync();
             return mapper.Map<RegisterSubjectDto>(subject);
@@ -106,11 +109,54 @@ namespace TopTests.Services.Services
         public async Task<List<Subjects>> GetAllSubjectsTests()
         {
             var subjectsTest = await subjectRepository.GetSubjectsTests();
+            var completedTests = new List<Subjects>();
+            foreach (var test in subjectsTest)
+            {
+                if (test.Tests.Count() != 0)
+                {
+                    List<Test> completed_questions = new List<Test>();
+                    foreach (var tests in test.Tests)
+                    {
+                        var questions = await testQuestionsService.ShowTestQuestion(tests.Id);
+                        if (questions.Count() != 0)
+                        {
+                            completed_questions.Add(tests);
+                            //tests.
+                        }
+                    }
+                    test.Tests = completed_questions;
+                    //completed_questions.Clear();
+                    completedTests.Add(test);
+                }
+            }
+            //var completed_tests = new List<Test>();
+            //foreach (var test in completedTests)
+            //{
+            //    test.Tests.Clear();
+            //    foreach (var tests in test.Tests)
+            //    {
+            //        var questions = await testQuestionsService.ShowTestQuestion(tests.Id);
+            //        if (questions.Count() != 0)
+            //        {
+            //            completedTests.Add(test);
+            //        }
+            //    }
+            //}
             if (subjectsTest == null)
             {
                 return null;
             }
-            return subjectsTest;
+            return completedTests;
+        }
+
+        public async Task<IEnumerable<SubjectDto>> GetTeacherSubjects(int id)
+        {
+            var subjects = await subjectRepository.GetTeachersSubjects(id);
+            if (subjects == null)
+            {
+                return null;
+            }
+            return mapper.Map<IEnumerable<SubjectDto>>(subjects);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace TopTests.Services.Services
             PasswordHasher passwordHasher = new PasswordHasher();
             var password = passwordHasher.GenerateSaltedHash(16, registerUserDto.Password);
             var new_user = new Users(registerUserDto.Name, registerUserDto.Surname,
-              registerUserDto.Email, password.Hash, password.Salt);
+              registerUserDto.Email, password.Hash, password.Salt,(RoleOfUser)Int32.Parse(registerUserDto.RoleOfUser));
             var check_user = await userRepository.FindByLoginAsync(registerUserDto.Email);
             if (check_user == null)
             {
@@ -71,7 +71,7 @@ namespace TopTests.Services.Services
         {
             var user = await userRepository.FindByLoginAsync(signInDto.Email);
             TokenDto tokenDto = new TokenDto();
-            if (user == null||user.StatusOfVerification== "Processing")
+            if (user == null||user.StatusOfVerification== "Processing"|| user.StatusOfVerification == "Blocked")
             {
                 tokenDto.Code = 401;
                 return tokenDto;
@@ -122,6 +122,43 @@ namespace TopTests.Services.Services
             userRepository.Update(user);
             await userRepository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> DeleteAccount(int id)
+        {
+            try
+            {
+                userRepository.DeleteAccount(id);
+                await userRepository.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public  async Task<bool> ActiveAccount(int id)
+        {
+            try
+            {
+                userRepository.ActiveAccount(id);
+                await userRepository.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<IEnumerable<Users>> GetUsers()
+        {
+            var users = await userRepository.FindAllUsersAsync();
+            if (users == null)
+            {
+                return null;
+            }
+            return users;
         }
     }
 }

@@ -4,8 +4,6 @@ import TestQuestionManager from '../TestQuestionManager/TestQuestionManager.util
 import Loader from "react-loader-spinner";
 import plus from "../img/plus.png"
 import edit from "../img/edit.png"
-import jwt_decode from "jwt-decode";
-import css from '../TestManager/Test.css'
 export default function AllTests(){
 const {data,isLoading,userRole,redirectToEditTest,AllTests,deleteTest} = TestManager();
 const{redirectToTestModify,redirectToStartTest}=TestQuestionManager();
@@ -37,14 +35,16 @@ function Change(info,name,id,typeOfTest){
          width={100}
        ></Loader>
       </div>
-    ):(data&&userRole==="Admin"?
+    ):(data&&userRole==="Admin"||userRole==="Teacher"?
     <div class="grid-container-subjects">
     {data.map( item => (
       <div class="item">
-                  <a class="icon" onClick={()=>redirectToEditTest(item.id,item.name,item.typeOfTest)}>
+                  <a class="icon" onClick={()=>redirectToEditTest(item.id,item.name,item.typeOfTest
+                    ,item.additionalInfo,item.timeOfTest)}>
            <img class="edit"src={edit}  ></img>
            </a>
       <p class="SubjectTitle" key={item.id}>  {item.name}</p>
+      <p style={{fontSize:25+'px'}}>{item.timeOfTest}min.</p>
       <a  role="button" class="btn btn-info" onClick={()=>redirectToTestModify(item.id,item.typeOfTest)} >Go ahead</a>
       <br></br>
       <br></br>
@@ -74,9 +74,10 @@ function Change(info,name,id,typeOfTest){
       <div className={style}>
       <h1 class="title_test">About Test</h1>
        <p class="test_info" >{info}</p>
-      <h1 class="title_test">How to count score</h1>
-      <p class="text_score">You will get 1 point for each correct answer. At the end of the Quiz,
-         your total score will be displayed. Maximum score is 10 points.</p> 
+      <h1 class="title_test">How we score the result</h1>
+      <p class="text_score">Every question has the different level of complexity. Easy, Medium and High.
+Each of them is being evaluated differently depending on levels of complexity and threshold counted automaticaly
+ to the each of test but should be <strong>61%</strong></p> 
          <div class="box">
             <h3 class="title_test">{name}</h3>
             <p class="title_test">Good Luck</p>

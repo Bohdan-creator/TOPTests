@@ -7,7 +7,7 @@ import Css from '../Home/Home.css'
 import sql from '../img/sql.png'
 import react from '../img/react.png'
 import slideLog from '../img/slide-log.png'
-
+import phone from '../img/phone.png'
 export default class Home extends Component{
 
   constructor(props){
@@ -21,6 +21,7 @@ export default class Home extends Component{
                 <Carousel>
                 <Carousel.Item class="carousel-item active"  data-interval="0.01">         
                         <Carousel.Caption class={this.styles} style={{top:50 + '%'}}>
+           
                                  <div class ="grid-container">
                               <div>
                                 <img class="slider-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/C_Sharp_logo.svg/1200px-C_Sharp_logo.svg.png"></img>
@@ -40,26 +41,30 @@ export default class Home extends Component{
                               <div>
                                 <img class="slider-image" src={react}></img>
                               </div>
+
                               </div>        
                                  <div class="text">      
                                 <h2 class="title">Best tests from <br></br> professional programmers</h2>
                                 <h4>Over 100 different tests to check your skills</h4>
-                                <a class="button-text"style={{color:'#1867eb'}}><button type="button" class="slide-button">Start your trip</button></a>
-                              </div>    
+                                <p class="slide-button">Start your trip with us:)</p> 
+                              </div>  
                         </Carousel.Caption>
                 </Carousel.Item >
                     <Carousel.Item class="carousel-item"  data-interval="0.5">
-                         <Carousel.Caption class={this.styles} style={{top:50 + '%'}}>
+                         <Carousel.Caption class={this.styles} >
                            <img class="slide-logo" src={slideLog}></img>
                          <div class="text">      
                                 <h2 class="title">You can learn anything</h2>
-                                <h4>Build a deep,<br></br>solid understanding in the anything else<br></br> programming language</h4>
-                                <button type="button" class="slide-button"><a class="button-text"style={{color:'#1867eb'}}></a>Start your trip</button> 
+                                <h4>Build a deep,<br></br>solid understanding in the myriad<br></br>of the programming languages</h4>
                         </div> 
                          </Carousel.Caption>
                     </Carousel.Item>
+        
         </Carousel>
+        
         </div>
+
+
         <h1 style={{color:"whitesmoke"}}>We offer</h1>
         <div class="grid-container-home">
           <div class="item-home">
@@ -81,7 +86,6 @@ export default class Home extends Component{
              <h2>Kotlin</h2>
           </div>
         </div>
-         
         </div>
         )
         }

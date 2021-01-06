@@ -9,5 +9,8 @@ namespace TopTests.Services.Models.Testy
         public string Id { get; set; }
         public string Name { get; set; }
         public string TypeOfTest { get; set; }
+        public string TimeOfTest { get; set; }
+        public string AdditionalInfo { get; set; }
+        public bool AutomaticCountTime { get; set; }
     }
 }

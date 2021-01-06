@@ -22,7 +22,7 @@ export default function SubjectManager(){
          width={100}
        ></Loader>
       </div>
-    ) :data&&userRole==="Admin" ?
+    ) :data&&userRole==="Admin"||userRole==="Teacher" ?
 
        <div class="grid-container-subjects">
        {data.map( item => (

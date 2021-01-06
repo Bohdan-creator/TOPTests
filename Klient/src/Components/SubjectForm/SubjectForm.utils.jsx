@@ -10,7 +10,7 @@ export default function SubjectManager() {
         const validationSchema = Yup.object().shape({
           Name: Yup.string()
                   .min(1, "Too short!")
-                  .max(20, "Too long!")
+                  .max(17, "Too long!")
                   .required("Required"),
               });
               

@@ -28,7 +28,7 @@ namespace TopTests.Services.Services
                              <br>
                              Please confirm registration and follow this link </p>                         
                               <div style='text-align:center'><a href='http://localhost:3000/confirm/" + registerUserDto.CodeOfVerification + @"' style='font-size:30px'>Change Password</a></div>
-                              <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Car Rental Service</p>
+                              <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Testex Education Platform</p>
                             <img src=""cid:WinLogo"" />
                                     </body>
                                          </html>";
@@ -61,10 +61,10 @@ namespace TopTests.Services.Services
                         <html lang=""en"">    
                          <body style='width:720px'>  
                            <p style='font-family: Arial,sans-serif'>We heard that you lost your Account password. Sorry about that!
-                               =But don’t worry! You can use the following link to reset your password.
+                               But don’t worry! You can use the following link to reset your password.
                              <br></p>                         
                               <div style='text-align:center'><a href='http://localhost:3000/forgotPassword/" + code + @"' style='font-size:30px'>Change Password</a></div>
-                              <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Car Rental Service</p>
+                              <p style='font-family: Arial,sans-serif'>We appreciate that you are with us and using service<br>Have a nice day,<br>Testex Education Platform</p>
                             <img src=""cid:WinLogo"" />
                                     </body>
                                          </html>";

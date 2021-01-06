@@ -52,11 +52,28 @@ export default function AddTestQuestionSingleTest(){
                  text:'Please set a true answer'});
                   
               }
+              async function alertChooseOne(){
+                Swal.fire({icon: 'warning',
+                title:'Warning',
+                 text:'Please set the one true answer'});
+                  
+              }
               async function createTest(fields) {
                 try {
                   if(fields.isCorrectOptionA==false&&fields.isCorrectOptionB==false
                     &&fields.isCorrectOptionC==false){
-                  alert()
+                   alert();
+                  }else if(fields.isCorrectOptionA==true&&fields.isCorrectOptionB==true
+                    &&fields.isCorrectOptionC==true||fields.isCorrectOptionA==false&&
+                    fields.isCorrectOptionB==true
+                    &&fields.isCorrectOptionC==true
+                    ||fields.isCorrectOptionA==true&&
+                    fields.isCorrectOptionB==false
+                    &&fields.isCorrectOptionC==true
+                    ||fields.isCorrectOptionA==true&&
+                    fields.isCorrectOptionB==true
+                    &&fields.isCorrectOptionC==false){
+                      alertChooseOne();
                   }
                   else{
                   let api = new Api();

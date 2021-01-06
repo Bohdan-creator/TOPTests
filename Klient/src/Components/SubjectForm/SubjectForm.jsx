@@ -32,6 +32,7 @@ export default class Subject extends Component{
                           <label>Title</label>
                           <Field
                             name="Name"
+                            maxlenght="6"
                             className={
                               "form-control" +
                               (errors.Name && touched.Name ? " is-invalid" : "")

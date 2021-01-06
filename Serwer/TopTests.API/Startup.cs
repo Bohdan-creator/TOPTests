@@ -70,7 +70,6 @@ namespace TopTests.API
             //  .WithExposedHeaders("Content-Disposition")
             //  );
             app.UseCors("CorsPolicy");
-            app.UseMiddleware<WebSocketsMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();

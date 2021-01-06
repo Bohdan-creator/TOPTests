@@ -9,6 +9,7 @@ export default function RegisterFormUser() {
           Surname: "",
           Email: "",
           Password: "",
+          RoleOfUser:"0",
         };
 
         const validationSchema = Yup.object().shape({

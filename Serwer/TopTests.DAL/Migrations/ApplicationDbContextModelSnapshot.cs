@@ -71,6 +71,18 @@ namespace TopTests.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PostTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TestName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -78,6 +90,8 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TestId");
 
                     b.HasIndex("UsersId");
 
@@ -242,6 +256,9 @@ namespace TopTests.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("isDelete")
                         .HasColumnType("bit");
 
@@ -260,6 +277,9 @@ namespace TopTests.DAL.Migrations
                     b.Property<string>("AdditionalInfo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("AutomaticTime")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -267,6 +287,9 @@ namespace TopTests.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<int>("TimeOfTest")
@@ -396,6 +419,12 @@ namespace TopTests.DAL.Migrations
 
             modelBuilder.Entity("TopTests.DAL.Entities.FeedBacks", b =>
                 {
+                    b.HasOne("TopTests.DAL.Entities.Test", null)
+                        .WithMany("FeedBacks")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TopTests.DAL.Entities.Users", "Users")
                         .WithMany()
                         .HasForeignKey("UsersId");

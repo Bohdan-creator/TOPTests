@@ -18,7 +18,7 @@ import EditTest from './Components/TestManager/EditTest'
 import AddTestQuestions from './Components/TestQuestionManager/AddTestQuestions'
 import ShowTestToModify from './Components/TestQuestionManager/ShowTestModify'
 import EditTestQuestionAnswer from './Components/TestQuestionManager/EditTestQuestionAnswer'
-import EditTestQuestionAnswerSingleTest from './Components/TestQuestionManager/AddTestQuestionSingleTest'
+import EditTestQuestionAnswerSingleTest from './Components/TestQuestionManager/EditTestQuestionsSingleTest'
 import DeletedQuestions from './Components/TestQuestionManager/DeletedQuestions'
 import AddTestQuestion from './Components/TestQuestionManager/AddTestQuestion'
 import AddTestQuestionSingleTest from './Components/TestQuestionManager/AddTestQuestionSingleTest'
@@ -28,6 +28,10 @@ import Result from './Components/Results/ResultOfTest'
 import MyProfile from './Components/UserProfile/Profile'
 import AllFiles from './Components/FileManager/AllFiles'
 import Timer from './Components/Timer/TimerRemaining'
+import SerwerError from './Components/Errors/SerwerError'
+import TeacherProfile from './Components/TeacherProfile/Profile'
+import Footer from './Components/Footer/Footer'
+import AdminProfile from './Components/AdminProfile/Profile'
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,7 +48,7 @@ role =  decoded[
 }
   let userRole = role;
   let isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
+console.log(userRole);
 function App() {
   return (
     <Router>
@@ -56,14 +60,19 @@ function App() {
         <Route path="/registerSubject">
         <UserHeader></UserHeader>
             <Subject style="upsertformsShow"></Subject>
+            <Footer></Footer>
+
         </Route>
         <Route path="/myProfile">
         <UserHeader></UserHeader>
             <MyProfile></MyProfile>
+            <Footer></Footer>
+
         </Route>
         <Route path="/result">
         <UserHeader></UserHeader>
         <Result style="upsertResultShow"></Result>
+        <Footer></Footer>
         </Route>
         <Route path="/rewiewTest">
         <UserHeader></UserHeader>
@@ -72,19 +81,23 @@ function App() {
         <Route path="/test/:id">
         <UserHeader></UserHeader>
        <StartTest ></StartTest>
+       <Footer></Footer>
         </Route>
         <Route path="/timer">
         <UserHeader ></UserHeader>
         <Timer ></Timer>
+        <Footer></Footer>
         </Route>
         <Route path="/home">
         <UserHeader ></UserHeader>
         <Home style="backSlide"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/login">
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/tests/:id">
         <UserHeader></UserHeader>
@@ -93,41 +106,59 @@ function App() {
         <Route path="/reset">
         <UserHeader></UserHeader>
         <EmailToReset style="upsertformsShow"></EmailToReset>
+        <Footer></Footer>
         </Route>
         <Route path="/register">
         <UserHeader></UserHeader>
         <RegisterForm style="upsertformShow"></RegisterForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/forgotPassword/:id">
         <UserHeader></UserHeader>
         <ForgetPassword style="upsertformsShow"></ForgetPassword>
+        <Footer></Footer>
         </Route>
         <Route path="/confirm/:code">
         <UserHeader></UserHeader>
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/subjects">
         <UserHeader></UserHeader>
         <AllSubjects></AllSubjects>
+        <Footer></Footer>
         </Route>
+        <Route path="/errorConnection">
+         <SerwerError></SerwerError>
+        </Route>
+        
              </Switch>
            </div>
-         )|| ( userRole==="Admin"&&
+         )|| ( userRole==="Teacher"&&
            <div>
                          <Switch>
-                         <Route path="/registerSubject">
+        <Route path="/registerSubject">
         <UserHeader></UserHeader>
-            <Subject style="upsertformsShow"></Subject>
+        <Subject style="upsertformsShow"></Subject>
+        <Footer></Footer>
+        </Route>
+        
+        <Route path="/teacherProfile">
+        <UserHeader></UserHeader>
+            <TeacherProfile></TeacherProfile>
+            <Footer></Footer>
         </Route>
         <Route path="/allFiles">
         <UserHeader></UserHeader>
             <AllFiles></AllFiles>
+            <Footer></Footer>
         </Route>
         <Route path="/forgotPassword/:id">
         <UserHeader></UserHeader>
         <ForgetPassword style="upsertformsShow"></ForgetPassword>
+        <Footer></Footer>
         </Route>
         <Route path="/registerTest">
         <UserHeader></UserHeader>
@@ -140,18 +171,22 @@ function App() {
         <Route path="/editTest/:id">
         <UserHeader></UserHeader>
         <EditTest ></EditTest>
+        <Footer></Footer>
         </Route>
         <Route path="/addTestQuestions">
         <UserHeader></UserHeader>
             <AddTestQuestions style="upsertformsShow"></AddTestQuestions>
+            <Footer></Footer>
         </Route>
         <Route path="/addTestQuestionSingleTest">
         <UserHeader></UserHeader>
             <AddTestQuestionSingleTest style="upsertformsShow"></AddTestQuestionSingleTest>
+            <Footer></Footer>
         </Route>
         <Route path="/addTestQuestion">
         <UserHeader></UserHeader>
             <AddTestQuestion style="upsertformsShow"></AddTestQuestion>
+            <Footer></Footer>
         </Route>
         <Route path="/showTestModify/:id">
         <UserHeader></UserHeader>
@@ -164,63 +199,95 @@ function App() {
         <Route path="/editTestQuestions/:id">
         <UserHeader></UserHeader>
             <EditTestQuestionAnswer style="editTestQuestionsforms"></EditTestQuestionAnswer>
+            <Footer></Footer>
         </Route>
         <Route path="/editTestQuestionsSingle/:id">
         <UserHeader></UserHeader>
             <EditTestQuestionAnswerSingleTest style="editTestQuestionsforms"></EditTestQuestionAnswerSingleTest>
+            <Footer></Footer>
         </Route>
              <Route path="/editSubject/:id">
         <UserHeader></UserHeader>
             <EditSubject></EditSubject>
+            <Footer></Footer>
         </Route>
         <Route path="/home">
         <UserHeader></UserHeader>
         <Home style="backSlide"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/login">
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/register">
         <UserHeader></UserHeader>
         <RegisterForm style="upsertformShow"></RegisterForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/confirm/:code">
         <UserHeader></UserHeader>
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/reset">
         <UserHeader></UserHeader>
         <EmailToReset style="upsertformsShow"></EmailToReset>
+        <Footer></Footer>
         </Route>
         <Route path="/subjects">
         <UserHeader></UserHeader>
         <AllSubjects></AllSubjects>
+        <Footer></Footer>
+        </Route>
+        <Route path="/errorConnection">
+         <SerwerError></SerwerError>
         </Route>
         </Switch>
            </div>
-         ) 
+         ) ||(userRole==="Admin"&&
+         <div>
+           <Route path="/home">
+           <UserHeader></UserHeader>
+            <Home style="backSlide"></Home>
+        <Footer style="contentFooterHome"></Footer>
+        </Route>
+           <Route path="/adminProfile">
+           <UserHeader></UserHeader>
+            <AdminProfile></AdminProfile>
+            <Footer></Footer>
+           </Route>
+         </div>
+         )
          ||
             <Switch>
         <Route path="/home">
         <UserHeader></UserHeader>
         <Home style="backSlide"></Home>
+        <Footer style="contentFooterHome"></Footer>
+        </Route>
+        <Route path="/errorConnection">
+         <SerwerError></SerwerError>
         </Route>
         <Route path="/reset">
         <UserHeader></UserHeader>
         <EmailToReset style="upsertformsShow"></EmailToReset>
+        <Footer></Footer>
         </Route>
         <Route path="/forgotPassword/:id">
         <UserHeader></UserHeader>
         <ForgetPassword style="upsertformsShow"></ForgetPassword>
+        <Footer></Footer>
         </Route>
         <Route path="/login">
         <UserHeader></UserHeader>
         <LoginForm style="upsertformsShow"></LoginForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/tests/:id">
         <UserHeader></UserHeader>
@@ -230,18 +297,22 @@ function App() {
         <UserHeader></UserHeader>
         <RegisterForm style="upsertformShow"></RegisterForm>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/confirm/:code">
         <UserHeader></UserHeader>
         <ConfirmRegistration style="upsertformShow"></ConfirmRegistration>
         <Home style="blur"></Home>
+        <Footer style="contentFooterHome"></Footer>
         </Route>
         <Route path="/subjects">
         <UserHeader></UserHeader>
         <AllSubjects></AllSubjects>
+        <Footer></Footer>
         </Route>
         </Switch>
 }
+      
     </Router>
        
   );

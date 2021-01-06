@@ -12,6 +12,7 @@ namespace TopTests.Services.Mapper
         public AuthorizeProfile()
         {
             CreateMap<Users, RegisterUserDto>();
+            CreateMap<Users, UsersDto>();
         }
     }
 }

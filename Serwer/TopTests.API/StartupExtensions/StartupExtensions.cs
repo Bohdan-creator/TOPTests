@@ -50,6 +50,7 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<ICheckTestService, CheckTestService>();
             services.AddScoped<ITestQuestionsService, TestQuestionsService>();
             services.AddScoped<ITimeRemainingService, TimeRemainingService>();
+            services.AddScoped<IFeedBackService, FeedBackService>();
             return services;
         }
         public static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -63,6 +64,7 @@ namespace TopTests.API.StartupExtensions
             services.AddScoped<IAnswersRepository, AnswersRepository>();
             services.AddScoped<IResultsRepository, ResultsRepository>();
             services.AddScoped<ITimeRemainingRepository, TimeRemainingRepository>();
+            services.AddScoped<IFeedBackRepository, FeedBacksRepository>();
             return services;
         }
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
@@ -85,23 +87,6 @@ namespace TopTests.API.StartupExtensions
                     IssuerSigningKey = TokenOptions.GetSymmetricSecurityKey(),
                     ValidateIssuerSigningKey = true
                 };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            var accessToken = context.Request.Query["access_token"];
-
-                        // If the request is for our hub...
-                        var path = context.HttpContext.Request.Path;
-                            if (!string.IsNullOrEmpty(accessToken) &&
-                            (path.StartsWithSegments("/timer")))
-                            {
-                            // Read the token out of the query string
-                            context.Token = accessToken;
-                            }
-                            return Task.CompletedTask;
-                        }
-                    };
                 });
 
             return services;
