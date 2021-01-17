@@ -13,6 +13,8 @@ namespace TopTests.DAL.Entities
         public string Option { get; set; }
         public bool isCorrect { get; set; }
         public bool isDelete { get; set; }
+        public Subjects Subjects { get; set; }
+        public Test Test { get; set; }
         public Answers() { }
         public Answers(int subjectId,int testId, string numberOfidentification, string option, bool iscorrect)
         {

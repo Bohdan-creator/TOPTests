@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace TopTests.API.Controllers
            // this.testQuestionsService = testQuestionsService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPost("register/{id}")]
         public async Task<IActionResult> Register(int id,RegisterTestDto registerTestDto)
         {
@@ -38,6 +40,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(test);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTest(int id)
         {
@@ -47,6 +50,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPatch("editTest")]
         public async Task<IActionResult> EditTest(EditTestDto editTestDto)
         {
@@ -66,6 +70,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(tests);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("teachersTests/{id}")]
         public async Task<IActionResult> GetTeachersTests(string id)
         {
@@ -76,6 +81,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(tests);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet]
         public async Task<IActionResult> GetAllDeletedQuestions()
         {
@@ -86,6 +92,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(questions);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("restore/{id}")]
         public async Task<IActionResult> RestoreQuestion(int id)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TopTests.API.Resources;
 using TopTests.Services.Interfaces;
@@ -31,6 +32,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFeedBacks(int id)
         {

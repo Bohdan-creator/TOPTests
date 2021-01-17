@@ -58,7 +58,7 @@
   
   async EditSubject(fields) {
     try {
-       const res = await axios.patch('https://localhost:44323/api/subject/editSubject/'+fields.Code,fields)  
+       const res = await this.baseAxios.patch('https://localhost:44323/api/subject/editSubject/'+fields.Code,fields)  
        Swal.fire({icon: 'success',
                 title: 'You have edit subject',
                 title:'You have edit subject'});
@@ -71,7 +71,7 @@
   }
   delete = async (id) => {
     let api = new Api();
-    await axios.delete('https://localhost:44323/api/subject/delete/'+id) ;
+    await this.baseAxios.delete('https://localhost:44323/api/subject/delete/'+id) ;
   }    
   async DeleteSubject(id){
       Swal.fire({

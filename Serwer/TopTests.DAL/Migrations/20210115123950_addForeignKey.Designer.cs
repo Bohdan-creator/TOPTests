@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopTests.DAL;
 
 namespace TopTests.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210115123950_addForeignKey")]
+    partial class addForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -429,21 +431,6 @@ namespace TopTests.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateCreated = new DateTime(2021, 1, 17, 15, 32, 37, 690, DateTimeKind.Local).AddTicks(864),
-                            DateModified = new DateTime(2021, 1, 17, 15, 32, 37, 694, DateTimeKind.Local).AddTicks(8),
-                            Email = "admin@admin.com",
-                            FirstName = "Admin",
-                            HashPassword = "yy+OiucDVuyxoqAAerlTgLrwvvim0wsd0duyRI0K6nw+Wq6GHNRjegMIHDdjzofx7oC8aLAmc+HvIVwJHT3tOAzuxY2kyl08HhH4u7smM75sjcMJ/hkQ+FSjfOb6hqESQVMFTughKfspr/K73XLaOsjW/HYBJORjI/9pGCMaR95Sju+Jw6WaFYdK9zex/xs07WrR/+ils8jP902eTmv4CyA6bsPnbmVYDREy0A5hoBaDkgwBwu3xrm37rD1Tg/uk0cWmSxTX7h8KywE1wWuAF/9oW18WM9Leia/ihtTQdBRoCCGsX/AcDqoMzdnkXTvzdPbqjBpVo12CnxZMz0YUkg==",
-                            IsDeleted = false,
-                            LastName = "",
-                            RoleOfUser = 2,
-                            StatusOfVerification = "Active"
-                        });
                 });
 
             modelBuilder.Entity("TopTests.DAL.Entities.Answers", b =>

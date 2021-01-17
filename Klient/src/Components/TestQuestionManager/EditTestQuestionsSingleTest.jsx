@@ -45,7 +45,6 @@ export default function EditTestQuestionSingleTest() {
                         <label>Question</label>
                         <Field
                         name="Question"
-                        maxLength = "9"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -57,7 +56,6 @@ export default function EditTestQuestionSingleTest() {
                         <label>First Answer</label>
                             <Field
                         name="optionA"
-                        maxLength = "9"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -82,7 +80,6 @@ export default function EditTestQuestionSingleTest() {
                           <label>Second Answer</label>
                             <Field
                         name="optionB"
-                        maxLength = "9"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -106,7 +103,6 @@ export default function EditTestQuestionSingleTest() {
                           <label>Third Answer</label>
                             <Field
                         name="optionC"
-                        maxLength = "9"
                         class="form-control"
                           />
                            <ErrorMessage

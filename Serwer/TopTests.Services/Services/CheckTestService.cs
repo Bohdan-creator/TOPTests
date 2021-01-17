@@ -83,7 +83,7 @@ namespace TopTests.Services.Services
                             }
 
                         }
-                        if (listOfTestQuestions[i].isCorrectA == answers[0].isCorrect == true ||
+                       else if (listOfTestQuestions[i].isCorrectA == answers[0].isCorrect == true ||
                            listOfTestQuestions[i].isCorrectB == answers[1].isCorrect == true ||
                            listOfTestQuestions[i].isCorrectC == answers[2].isCorrect == true)
                         {

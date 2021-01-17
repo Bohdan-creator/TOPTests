@@ -64,7 +64,7 @@ export default class TestApi extends Api{
               }
               delete = async (id) => {
                 let api = new Api();
-                await axios.delete('https://localhost:44323/api/test/'+id)  
+                await this.basAxios.delete('https://localhost:44323/api/test/'+id)  
               }   
               async DeleteTest(id){
                 try {

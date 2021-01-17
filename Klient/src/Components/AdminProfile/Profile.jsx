@@ -16,7 +16,6 @@ export default class AdminProfile extends Component{
         GetUsers = async () => {
                 let api  = new Api();
                 const result =  await api.fetchUsers();
-                console.log(result); 
                 this.setState({users:result})
         }
         BlockUser(id){

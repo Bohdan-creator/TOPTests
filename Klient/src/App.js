@@ -265,6 +265,12 @@ function App() {
          )
          ||
             <Switch>
+              
+              <Route exact path="/">
+        <UserHeader></UserHeader>
+        <Home style="backSlide"></Home>
+        <Footer style="contentFooterHome"></Footer>
+        </Route>
         <Route path="/home">
         <UserHeader></UserHeader>
         <Home style="backSlide"></Home>

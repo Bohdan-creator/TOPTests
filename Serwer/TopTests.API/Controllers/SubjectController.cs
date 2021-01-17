@@ -20,7 +20,7 @@ namespace TopTests.API.Controllers
             this.subjectService = subjectService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         [HttpPost("registerSubject/{id}")]
         public async Task<IActionResult> RegisterSubject(int id,RegisterSubjectDto registerSubjectDto)
         {
@@ -31,6 +31,7 @@ namespace TopTests.API.Controllers
             var subject = await subjectService.RegisterSubject(registerSubjectDto,id);
             return Ok(subject);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPatch,Route("editSubject/{Code}")]
         public async Task<IActionResult> EditSubject(string Code,EditSubjectDto editSubjectDto)
         {
@@ -45,6 +46,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteSubject(int id)
         {
@@ -73,6 +75,8 @@ namespace TopTests.API.Controllers
         /// For Teacher
         /// </summary>
         /// <returns>All subjects created by teacher</returns>
+        
+        [Authorize(Roles = "Teacher")]
         [HttpGet("getTeacherSubjects/{id}")]
         public async Task<IActionResult> GetAllTeachersSubjects(int id)
         {
@@ -94,6 +98,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(subjects);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("getAllDeleted")]
         public async Task<IActionResult> GetAllDeletedSubjects()
         {
@@ -104,6 +109,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(subjects);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPatch("restore/{id}")]
         public async Task<IActionResult> RestoreSubject(int id)
         {

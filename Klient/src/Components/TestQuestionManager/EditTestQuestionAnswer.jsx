@@ -40,7 +40,7 @@ export default function EditTestQuestion() {
                         <label>Question</label>
                         <Field
                         name="Question"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -52,7 +52,7 @@ export default function EditTestQuestion() {
                         <label>First Answer</label>
                             <Field
                         name="optionA"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -63,7 +63,7 @@ export default function EditTestQuestion() {
                               <Field
                         type="checkbox"
                         name="isCorrectA"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="info"
                           />
                            <ErrorMessage
@@ -76,7 +76,7 @@ export default function EditTestQuestion() {
                           <label>Second Answer</label>
                             <Field
                         name="optionB"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -87,7 +87,7 @@ export default function EditTestQuestion() {
                               <Field
                         type="checkbox"
                         name="isCorrectB"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="info"
                           />
                           </div>
@@ -99,7 +99,7 @@ export default function EditTestQuestion() {
                           <label>Third Answer</label>
                             <Field
                         name="optionC"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="form-control"
                           />
                            <ErrorMessage
@@ -110,7 +110,7 @@ export default function EditTestQuestion() {
                               <Field
                               type="checkbox"
                         name="isCorrectC"
-                        maxLength = "9"
+                        maxLength = "15"
                         class="info"
                           />
                            <ErrorMessage

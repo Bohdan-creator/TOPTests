@@ -11,6 +11,8 @@ namespace TopTests.DAL.Entities
         public int TestId { get; set; }
         public DateTime StartTest { get; set; }
         public DateTime EndTest { get; set; }
+        public Users Users { get; set; }
+        public Test Test { get; set; }
         public TimeRemainingOfTest() { }
         public TimeRemainingOfTest(int userId,int testId , int timeOfTest)
         {

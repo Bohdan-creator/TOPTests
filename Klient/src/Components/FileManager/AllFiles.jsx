@@ -52,14 +52,14 @@ export default class AllFiles extends Component{
                    <div class="item-file">
                            <img class="excel" src={excel}></img>
                            <p style={{color:"#007bff",fontSize:30+"px"}}>{item.fileName.split(/(?=[A-Z])/).join(" ")}</p>
-                           <p class="info_download">This is an example of multiple choices test. You can dowload this file
-                              and field them. If you don't know how to field you just need to click the button 
-                              <strong> " How to field "</strong> and find out.</p>
+                           <p class="info_download">This is an example of multiple choices test. You can download this file
+                              and fill it out. If you don't know how to fill it you just need to click the button 
+                              <strong> " How to fill "</strong> and find out.</p>
                            <button type="button" class="btn btn-info" href="" onClick={()=>this.DownloadFile(item.id)}>Download</button>
                            
                            <button style={{marginLeft:20+'px'}}type="button" href="" class="btn btn-warning"
                             onClick={()=>this.setState({height:100})}>
-                                   How to field??</button>                   
+                                   How to fill??</button>                   
                                </div>
                            )}})}
                     </div>

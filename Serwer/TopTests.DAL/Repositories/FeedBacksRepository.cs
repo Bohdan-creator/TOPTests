@@ -28,7 +28,7 @@ namespace TopTests.DAL.Repositories
                                       (
                                           pd.Id,
                                           pd.Name,
-                                          context.FeedBacks.Where(e=>e.TeacherId==id) as List<FeedBacks>
+                                          context.FeedBacks.Where(e=>e.TestId==pd.Id) as List<FeedBacks>
                                       )
                               ).Distinct().ToListAsync();
             return tests;

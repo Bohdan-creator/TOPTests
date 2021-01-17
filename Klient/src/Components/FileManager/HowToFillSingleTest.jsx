@@ -9,12 +9,12 @@ export default function HowToFieldMultipleTest(){
                 <div style={{marginLeft:300+'px', marginTop:40+'px'}}>
                 <ul style={{fontSize:20+'px',color:"black" ,background:"white",width:70+'%'}}>
                    <ol>
-                           <strong>Number of question</strong> : this field doesn't can empty
+                           <strong>Number of question</strong> : this field can't be empty
                    </ol>
                    <ol>
-                           <strong>Question</strong> : this you write a question also this field doesn't be empty
+                           <strong>Question</strong> : Please write your question here, this field can't be empty
                    </ol>
-                   <p><strong>All of this options must contain asnwers</strong></p>
+                   <p><strong>All of this options must have asnwers</strong></p>
                    <ol>
                           Option A
                    </ol>
@@ -25,11 +25,11 @@ export default function HowToFieldMultipleTest(){
                     Option C
                    </ol>
                    <ol>
-                           <strong>Answer</strong> : In this field you write one of option(OptionA,OptionB,OptionC)
+                           <strong>Answer</strong> : Only one option needed (OptionA,OptionB,OptionC)
                    </ol>
                    <ol>
-                           <strong>Complexicy</strong>  : this type complicity of question.
-                                                        Scale of complicity from 1..3<br></br>
+                           <strong>Complexity</strong>  : The levels of questions' complexity.
+                                                        Scale of complexity from 1..3<br></br>
                                                         1 - Easy
                                                         2 - Medium
                                                         3 - Hard 
@@ -37,7 +37,7 @@ export default function HowToFieldMultipleTest(){
                 </ul>
                 </div>
                 <div>
-                        <p style={{color:"whitesmoke",fontSize:30+"px"}}>Table filling example</p>
+                        <p style={{color:"whitesmoke",fontSize:30+"px"}}>The example of table's filling</p>
                 <table class="table table-dark">
                 <thead>
                 <tr>

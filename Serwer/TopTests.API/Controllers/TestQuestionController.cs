@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TopTests.API.Resources;
 using TopTests.Services.Interfaces;
@@ -22,6 +23,7 @@ namespace TopTests.API.Controllers
             this.testQuestionService = testService;
             resourceManager = new ResourceManager("TopTests.API.Resources.ResourceFile", typeof(ResourceFile).Assembly);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPost("{id}")]
         public async Task<IActionResult> ReadTestQuestions(string id,[FromForm]UploadFile uploadFile)
         {
@@ -36,6 +38,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPost("addTestQuestion")]
         public async Task<IActionResult> AddTestQuestion(RegisterTestQuestionDto registerTestQuestionDto)
         {
@@ -46,6 +49,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
         { 
@@ -56,6 +60,7 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
+        [Authorize(Roles = "Teacher")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> EditQuestion(string id,EditQuestionDto editQuestionDto)
         {
@@ -66,7 +71,6 @@ namespace TopTests.API.Controllers
             }
             return Ok();
         }
-        
         [HttpGet("{id}")]
         public async Task<IActionResult> ShowTest(int id)
         {
@@ -77,6 +81,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(test);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("deletedQuestions/{id}")]
         public async Task<IActionResult> GetAllDeletedQuestions(int id)
         {
@@ -87,6 +92,7 @@ namespace TopTests.API.Controllers
             }
             return Ok(questions);
         }
+        [Authorize(Roles = "Teacher")]
         [HttpGet("restore/{id}")]
         public async Task<IActionResult> RestoreQuestion(int id)
         {
