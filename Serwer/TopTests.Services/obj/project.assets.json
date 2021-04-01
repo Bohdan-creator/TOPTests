@@ -7553,6 +7553,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
             "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj": {
               "projectPath": "C:\\Users\\kuche\\Desktop\\TopTests\\Serwer\\TopTests.DAL\\TopTests.DAL.csproj"
@@ -7568,6 +7569,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -7601,7 +7603,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

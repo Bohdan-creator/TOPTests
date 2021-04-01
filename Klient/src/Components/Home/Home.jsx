@@ -24,7 +24,7 @@ export default class Home extends Component{
            
                                  <div class ="grid-container">
                               <div>
-                                <img class="slider-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/C_Sharp_logo.svg/1200px-C_Sharp_logo.svg.png"></img>
+                                <img class="slider-image" src="https://cdn.worldvectorlogo.com/logos/c--4.svg"></img>
                               </div>
                               <div>
                                 <img class="slider-image" src={html}></img>

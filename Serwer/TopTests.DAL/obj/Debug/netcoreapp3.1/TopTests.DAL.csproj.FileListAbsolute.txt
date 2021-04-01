@@ -28,3 +28,5 @@ C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopT
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopTests.DAL.AssemblyInfo.cs
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopTests.DAL.dll
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopTests.DAL.pdb
+C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopTests.DAL.csproj.CoreCompileInputs.cache
+C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.DAL\obj\Debug\netcoreapp3.1\TopTests.DAL.genruntimeconfig.cache

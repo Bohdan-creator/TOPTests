@@ -31,3 +31,4 @@ C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.Services\obj\Debug\netcoreapp3.1
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.Services\obj\Debug\netcoreapp3.1\TopTests.Services.csproj.CopyComplete
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.Services\obj\Debug\netcoreapp3.1\TopTests.Services.dll
 C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.Services\obj\Debug\netcoreapp3.1\TopTests.Services.pdb
+C:\Users\kuche\Desktop\TopTests\Serwer\TopTests.Services\obj\Debug\netcoreapp3.1\TopTests.Services.csproj.CoreCompileInputs.cache
