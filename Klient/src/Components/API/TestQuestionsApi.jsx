@@ -9,7 +9,7 @@ export default class TestQuestionApi extends Api{
   }
   async SendTestQuestions(formData){
         try {
-                const res = await axios.post("https://localhost:44323/api/testQuestion/"+sessionStorage.getItem("TestId"), formData);
+                const res = await this.baseAxios.post("https://localhost:44323/api/testQuestion/"+sessionStorage.getItem("TestId"), formData);
                 console.log(res);
                 Swal.fire({icon: 'success',
                           title: 'You have added test questions',
@@ -56,7 +56,7 @@ export default class TestQuestionApi extends Api{
   }
   delete = async (id) => {
     let api = new Api();
-    await axios.delete('https://localhost:44323/api/testQuestion/'+id)  
+    await this.baseAxios.delete('https://localhost:44323/api/testQuestion/'+id)  
   }    
   async DeleteTestQuestion(id){
     try {
